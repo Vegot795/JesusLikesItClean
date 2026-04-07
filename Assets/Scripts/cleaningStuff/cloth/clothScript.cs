@@ -7,6 +7,7 @@ public class clothScript : MonoBehaviour
     private bool holdingCloth = false;
     private Vector3 offset;
     [SerializeField] private int spedd;
+    public int efficience = 10;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class clothScript : MonoBehaviour
             {
                 returning = false;
                 transform.position = GameObject.Find("clothSlot").transform.position;
+                GetComponent<Rigidbody2D>().simulated = true;
             }
         }
     }
@@ -36,11 +38,13 @@ public class clothScript : MonoBehaviour
     private void OnMouseDown()
     {
         holdingCloth = true;
+        
     }
 
     private void OnMouseUp()
     {
         holdingCloth = false;
         returning = true;
+        GetComponent<Rigidbody2D>().simulated = false;
     }
 }

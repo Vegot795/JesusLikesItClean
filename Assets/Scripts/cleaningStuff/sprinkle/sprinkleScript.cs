@@ -8,6 +8,8 @@ public class sprinkleScript : MonoBehaviour
     private Vector3 offset;
     [SerializeField] private int spedd;
 
+    [SerializeField] private GameObject waterPrefab;
+
     private void Start()
     {
         transform.position = GameObject.Find("sprinkleSlot").transform.position;
@@ -16,6 +18,12 @@ public class sprinkleScript : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Instantiate(waterPrefab, transform.position, Quaternion.identity);
+        }
+
+
         if (holdingSprinkle)
         {
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) - offset;

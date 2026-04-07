@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0c3522e601e97429fa54a3472853e5, type: 3}
   m_Name: DirtMud
   m_EditorClassIdentifier: 
-  dirtName: 
+  dirtName: DirtMud
   lvl: 0
-  alpha: 0
+  alpha: 1
   dirtPrefab: {fileID: 881323477199706393, guid: efece196d70405b4fbacc8a4067cfa57, type: 3}
-  durability: 0
+  durability: 25
