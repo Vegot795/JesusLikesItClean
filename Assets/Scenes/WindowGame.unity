@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spedd: 15
+  waterPrefab: {fileID: 2458082824443080465, guid: 592cf5fa8d9b0fb409e7dc9cae4bf418, type: 3}
 --- !u!61 &109317850
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -748,8 +749,8 @@ Transform:
   m_GameObject: {fileID: 877239775}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 9, y: 12, z: 1}
+  m_LocalPosition: {x: -0.3886, y: -1.8986, z: 0}
+  m_LocalScale: {x: 6.465606, y: 9.161266, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2097890029}
@@ -766,13 +767,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d492be4a61dc64ca9095ddbf992d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showGizmos: 0
   WindowLvl: 5
   dirtTypes:
   - {fileID: 11400000, guid: 182577d3c2ee4cb43815e0365657ec78, type: 2}
   - {fileID: 11400000, guid: 49e440784c426084c86369e6ed645fa9, type: 2}
   - {fileID: 11400000, guid: f4cac1dcc18469f43bfc65c4857dc6c8, type: 2}
-  columns: 90
-  rows: 120
+  columns: 60
+  rows: 60
 --- !u!212 &877239778
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1227,6 +1229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1430665615}
+  - component: {fileID: 1430665616}
   m_Layer: 0
   m_Name: SceneControl
   m_TagString: Untagged
@@ -1249,6 +1252,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1430665616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430665614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b9c6112bbd54424da00441cdb0a8404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 0
+  clotchEfficience: 0
+  clotchSize: 0
+  sprinkleEfficience: 0
+  sprinkleSize: 0
 --- !u!1 &1682856562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,13 +1336,13 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 931985356}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.92, y: -6.76}
+  m_AnchoredPosition: {x: -1.49, y: -2.8}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!58 &2051028040
@@ -1429,7 +1449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spedd: 15
-  efficience: 10
+  efficience: 100
 --- !u!50 &2051028043
 Rigidbody2D:
   serializedVersion: 5
