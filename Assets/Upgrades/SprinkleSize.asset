@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b0c3522e601e97429fa54a3472853e5, type: 3}
-  m_Name: DirtMud
+  m_Script: {fileID: 11500000, guid: 573c0453a245209458278850a988ef7d, type: 3}
+  m_Name: SprinkleSize
   m_EditorClassIdentifier: 
-  dirtName: DirtMud
-  minAlpha: 0.91
-  maxAlpha: 1
-  dirtPrefab: {fileID: 881323477199706393, guid: efece196d70405b4fbacc8a4067cfa57, type: 3}
-  durability: 25
-  points: 0.5
+  upgradeName: 
+  upgradeValue: 
+  upgradeCost: 

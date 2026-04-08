@@ -13,6 +13,10 @@ public class WindowScript : MonoBehaviour
     private List<GameObject> stainedCells = new List<GameObject>();
     private GameObject stainedCell;
 
+    private GameObject glassObject;
+
+    [SerializeField] bool showGizmos = false;
+    [UnityEngine.Range(1, 5)]
     public int WindowLvl = 1;
     public DirtData[] dirtTypes;
     public int columns = 180;
@@ -27,6 +31,8 @@ public class WindowScript : MonoBehaviour
 
     private void Start()
     {
+        glassObject = GameObject.Find("Glass");
+
         bounds = GetComponent<SpriteRenderer>().bounds;
         cellWidth = bounds.size.x / columns;
         cellHeight = bounds.size.y / rows;
@@ -44,24 +50,27 @@ public class WindowScript : MonoBehaviour
     
     void OnDrawGizmos()
     {
-        Bounds b = GetComponent<SpriteRenderer>().bounds;
-        float cw = b.size.x / columns;
-        float ch = b.size.y / rows;
-
-        Gizmos.color = Color.red;
-
-        for (int x = 0; x <= columns; x++)
+        if (showGizmos)
         {
-            Vector3 start = new Vector3(b.min.x + x * cw, b.min.y, 0);
-            Vector3 end = new Vector3(b.min.x + x * cw, b.max.y, 0);
-            Gizmos.DrawLine(start, end);
-        }
+            Bounds b = GetComponent<SpriteRenderer>().bounds;
+            float cw = b.size.x / columns;
+            float ch = b.size.y / rows;
 
-        for (int y = 0; y <= rows; y++ )
-        {
-            Vector3 start = new Vector3(b.min.x, b.min.y + y * ch, 0);
-            Vector3 end = new Vector3(b.max.x, b.min.y + y * ch, 0);
-            Gizmos.DrawLine(start, end);
+            Gizmos.color = Color.red;
+
+            for (int x = 0; x <= columns; x++)
+            {
+                Vector3 start = new Vector3(b.min.x + x * cw, b.min.y, 0);
+                Vector3 end = new Vector3(b.min.x + x * cw, b.max.y, 0);
+                Gizmos.DrawLine(start, end);
+            }
+
+            for (int y = 0; y <= rows; y++)
+            {
+                Vector3 start = new Vector3(b.min.x, b.min.y + y * ch, 0);
+                Vector3 end = new Vector3(b.max.x, b.min.y + y * ch, 0);
+                Gizmos.DrawLine(start, end);
+            }
         }
     }
 
@@ -70,7 +79,6 @@ public class WindowScript : MonoBehaviour
         List<DirtCell> cells = new List<DirtCell>();
         cells = GetAllWindowCells();
         int maxStainLvl = WindowLvl;
-        int targetStainLvl = Random.Range(0, maxStainLvl);
 
         GameObject smogPrefab = dirtTypes[2].dirtPrefab;
 
@@ -86,6 +94,9 @@ public class WindowScript : MonoBehaviour
             {
                 stainedCell = Instantiate(smogPrefab, spawnPosition, Quaternion.identity);
                 stainedCells.Add(stainedCell);
+                stainedCell.transform.SetParent(glassObject.transform);
+
+                float targetStainLvl = Random.Range(dirtTypes[2].minAlpha * (WindowLvl * .1f + 1), (dirtTypes[2].maxAlpha / 5) * WindowLvl);
 
                 // Skalowanie prefabów do rozmiaru komórki i ustawienie przezroczystości na podstawie poziomu plamy
                 SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
@@ -96,7 +107,7 @@ public class WindowScript : MonoBehaviour
                     newScale.x = cellWidth / spriteSize.x * newScale.x;
                     newScale.y = cellHeight / spriteSize.y * newScale.y;
                     stainedCell.transform.localScale = newScale;
-                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.3f * targetStainLvl);
+                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetStainLvl);
                 }
             }
         }
@@ -171,6 +182,9 @@ public class WindowScript : MonoBehaviour
             {
                 stainedCell = Instantiate(birdPrefab, spawnPosition, Quaternion.identity);
                 stainedCells.Add(stainedCell);
+                stainedCell.transform.SetParent(glassObject.transform);
+
+                float targetStainLvl = Random.Range(dirtTypes[0].minAlpha, dirtTypes[0].maxAlpha);
 
                 // Skalowanie prefabów do rozmiaru komórki
                 SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
@@ -181,6 +195,8 @@ public class WindowScript : MonoBehaviour
                     newScale.x = cellWidth / spriteSize.x * newScale.x;
                     newScale.y = cellHeight / spriteSize.y * newScale.y;
                     stainedCell.transform.localScale = newScale;
+
+                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetStainLvl);
                 }
             }
         }
@@ -227,6 +243,10 @@ public class WindowScript : MonoBehaviour
             {
                 stainedCell = Instantiate(mudPrefab, spawnPosition, Quaternion.identity);
                 stainedCells.Add(stainedCell);
+                stainedCell.transform.SetParent(glassObject.transform);
+
+                float targetStainLvl = Random.Range(dirtTypes[1].minAlpha, dirtTypes[1].maxAlpha);
+
                 // Skalowanie prefabów do rozmiaru komórki
                 SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
                 if (sr != null && sr.sprite != null)
@@ -236,6 +256,7 @@ public class WindowScript : MonoBehaviour
                     newScale.x = cellWidth / spriteSize.x * newScale.x;
                     newScale.y = cellHeight / spriteSize.y * newScale.y;
                     stainedCell.transform.localScale = newScale;
+                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetStainLvl);
                 }
             }
         }

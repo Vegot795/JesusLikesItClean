@@ -148,3 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dirtType: {fileID: 11400000, guid: 49e440784c426084c86369e6ed645fa9, type: 2}
+  sr: {fileID: 4951705581206380515}
+  dur: 0

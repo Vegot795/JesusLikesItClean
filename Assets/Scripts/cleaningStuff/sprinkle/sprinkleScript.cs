@@ -18,15 +18,16 @@ public class sprinkleScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Instantiate(waterPrefab, transform.position, Quaternion.identity);
-        }
 
 
         if (holdingSprinkle)
         {
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) - offset;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Instantiate(waterPrefab, transform.position, Quaternion.identity);
+            }
         }
 
         if (returning)
@@ -43,12 +44,26 @@ public class sprinkleScript : MonoBehaviour
 
     private void OnMouseDown()
     {
-        holdingSprinkle = true;
+        if (holdingSprinkle)
+        {
+            Instantiate(waterPrefab, transform.position, Quaternion.identity);
+        }
     }
 
-    private void OnMouseUp()
+    private void OnMouseOver()
     {
-        holdingSprinkle = false;
-        returning = true;
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (holdingSprinkle)
+            {
+                holdingSprinkle = false;
+                returning = true;
+            }
+            else
+            {
+                holdingSprinkle = true;
+                returning = false;
+            }
+        }
     }
 }

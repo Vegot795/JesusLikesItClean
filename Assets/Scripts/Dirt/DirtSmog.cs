@@ -4,8 +4,9 @@ public class DirtSmog : MonoBehaviour
 {
 
     [SerializeField] DirtData dirtType;
-
+    [SerializeField] SpriteRenderer sr;
     [SerializeField] private float dur;
+    private float maxDur;
     private float alpha;
 
     private bool cleared = false;
@@ -14,43 +15,40 @@ public class DirtSmog : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Collider2D col = GetComponent<Collider2D>();
-        dur = dirtType.durability;
-        alpha = Random.Range(0.1f, 0.7f);
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        Color c = sr.color;
-        c.a = alpha;
-        sr.color = c;
+        int lvl = GameObject.Find("Glass").GetComponent<WindowScript>().WindowLvl;
+        dur = dirtType.durability * lvl;
+        maxDur = dur;
+    }
+
+    public void AddPoints()
+    {
+        GameObject.Find("SceneControl").GetComponent<playerEQ>().points += dirtType.points;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == ("cloth") && !cleared)
+        if (collision.gameObject.name == ("cloth"))
         {
             dur -= collision.gameObject.GetComponent<clothScript>().efficience;
             if (dur <= 0)
             {
-                cleared = true;
-                dur = 0;
+                AddPoints();
+                Destroy(gameObject);
             }
-            SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            Color c = sr.color;
-            c.a = c.a * (float)(dur / dirtType.durability);
-            sr.color = c;
+            alpha = (float)(dur / maxDur);
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a*alpha);
         }
 
-        if (collision.gameObject.name == ("Water(Clone)") && !cleared && !watered)
+        if (collision.gameObject.name == ("Water(Clone)") && !watered)
         {
             dur -= dirtType.durability * collision.gameObject.GetComponent<sprinkleWater>().efficience;
             if (dur <= 0)
             {
-                cleared = true;
-                dur = 0;
+                AddPoints();
+                Destroy(gameObject);
             }
-            SpriteRenderer sr = GetComponent<SpriteRenderer>();
-            Color c = sr.color;
-            c.a = c.a * (float)(dur / dirtType.durability);
-            sr.color = c;
+            alpha = (float)(dur / maxDur);
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a * alpha);
             watered = true;
         }
     }
