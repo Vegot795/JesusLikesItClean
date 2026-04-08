@@ -48,7 +48,7 @@ public class WindowScript : MonoBehaviour
     }
 
     
-    void OnDrawGizmos()
+    /*void OnDrawGizmos()
     {
         if (showGizmos)
         {
@@ -72,50 +72,53 @@ public class WindowScript : MonoBehaviour
                 Gizmos.DrawLine(start, end);
             }
         }
-    }
+    }*/
 
     private void SpawnSmogOnWindow(int WindowLvl)
     {
-        List<DirtCell> cells = new List<DirtCell>();
-        cells = GetAllWindowCells();
-        int maxStainLvl = WindowLvl;
-
+        List<DirtCell> cells = GetAllWindowCells();
         GameObject smogPrefab = dirtTypes[2].dirtPrefab;
 
         // Stworzenie prefabów dla wszystkich komórek
         foreach (DirtCell cell in cells)
         {
+            int ix = (int)cell.cellX;
+            int iy = (int)cell.cellY;
+            if (ix < 0 || ix >= columns || iy < 0 || iy >= rows) continue;
+            if (grid[ix, iy].hasDirt) continue;
+
             Vector3 spawnPosition = new Vector3(
                 bounds.min.x + cell.cellX * cellWidth + cellWidth / 2,
                 bounds.min.y + cell.cellY * cellHeight + cellHeight / 2,
                 0);
 
-            if (!cell.hasDirt)
+            stainedCell = Instantiate(smogPrefab, spawnPosition, Quaternion.identity);
+            stainedCells.Add(stainedCell);
+            stainedCell.transform.SetParent(glassObject.transform);
+
+            float targetStainLvl = Random.Range(dirtTypes[2].minAlpha * (WindowLvl * .1f + 1), (dirtTypes[2].maxAlpha / 5) * WindowLvl);
+
+            // Skalowanie prefabów do rozmiaru komórki i ustawienie przezroczystości na podstawie poziomu plamy
+            SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
+            if (sr != null && sr.sprite != null)
             {
-                stainedCell = Instantiate(smogPrefab, spawnPosition, Quaternion.identity);
-                stainedCells.Add(stainedCell);
-                stainedCell.transform.SetParent(glassObject.transform);
-
-                float targetStainLvl = Random.Range(dirtTypes[2].minAlpha * (WindowLvl * .1f + 1), (dirtTypes[2].maxAlpha / 5) * WindowLvl);
-
-                // Skalowanie prefabów do rozmiaru komórki i ustawienie przezroczystości na podstawie poziomu plamy
-                SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
-                if (sr != null && sr.sprite != null)
-                {
-                    Vector2 spriteSize = sr.sprite.bounds.size;
-                    Vector3 newScale = stainedCell.transform.localScale;
-                    newScale.x = cellWidth / spriteSize.x * newScale.x;
-                    newScale.y = cellHeight / spriteSize.y * newScale.y;
-                    stainedCell.transform.localScale = newScale;
-                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetStainLvl);
-                }
+                Vector2 spriteSize = sr.sprite.bounds.size;
+                Vector3 newScale = stainedCell.transform.localScale;
+                newScale.x = cellWidth / spriteSize.x * newScale.x;
+                newScale.y = cellHeight / spriteSize.y * newScale.y;
+                stainedCell.transform.localScale = newScale;
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetStainLvl);
             }
+
+            DirtCell updated = grid[ix, iy];
+            updated.hasDirt = true;
+            grid[ix, iy] = updated;
         }
     }
 
     private void SpawnBirdsDirtOnWindow(int WindowLvl)
     {
-        int stainCount = WindowLvl*2;
+        int stainCount = WindowLvl * 2;
 
         List<DirtCell> randomCenters = new List<DirtCell>();
         List<DirtCell> cellsToBeStained = new List<DirtCell>();
@@ -168,37 +171,43 @@ public class WindowScript : MonoBehaviour
         }
 
         // Stworzenie prefabów dla komórek, które mają być poplamione
-        for (int x = 0; x < cellsToBeStained.Count; x++)
+        foreach (DirtCell cell in cellsToBeStained)
         {
+            int ix = (int)cell.cellX;
+            int iy = (int)cell.cellY;
+            if (ix < 0 || ix >= columns || iy < 0 || iy >= rows) continue;
+
+            if (grid[ix, iy].hasDirt) continue;
+
             Vector3 spawnPosition = new Vector3(
-                bounds.min.x + cellsToBeStained[x].cellX * cellWidth + cellWidth / 2,
-                bounds.min.y + cellsToBeStained[x].cellY * cellHeight + cellHeight / 2,
+                bounds.min.x + cell.cellX * cellWidth + cellWidth / 2,
+                bounds.min.y + cell.cellY * cellHeight + cellHeight / 2,
                 0);
 
             GameObject birdPrefab = dirtTypes[0].dirtPrefab;
 
-            // Sprawdzenie, czy komórka nie jest już zabrudzona (np. przez smog)
-            if (!cellsToBeStained[x].hasDirt)
+            stainedCell = Instantiate(birdPrefab, spawnPosition, Quaternion.identity);
+            stainedCells.Add(stainedCell);
+            stainedCell.transform.SetParent(glassObject.transform);
+
+            float targetStainLvl = Random.Range(dirtTypes[0].minAlpha, dirtTypes[0].maxAlpha);
+
+            // Skalowanie prefabów do rozmiaru komórki
+            SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
+            if (sr != null && sr.sprite != null)
             {
-                stainedCell = Instantiate(birdPrefab, spawnPosition, Quaternion.identity);
-                stainedCells.Add(stainedCell);
-                stainedCell.transform.SetParent(glassObject.transform);
+                Vector2 spriteSize = sr.sprite.bounds.size;
+                Vector3 newScale = stainedCell.transform.localScale;
+                newScale.x = cellWidth / spriteSize.x * newScale.x;
+                newScale.y = cellHeight / spriteSize.y * newScale.y;
+                stainedCell.transform.localScale = newScale;
 
-                float targetStainLvl = Random.Range(dirtTypes[0].minAlpha, dirtTypes[0].maxAlpha);
-
-                // Skalowanie prefabów do rozmiaru komórki
-                SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
-                if (sr != null && sr.sprite != null)
-                {
-                    Vector2 spriteSize = sr.sprite.bounds.size;
-                    Vector3 newScale = stainedCell.transform.localScale;
-                    newScale.x = cellWidth / spriteSize.x * newScale.x;
-                    newScale.y = cellHeight / spriteSize.y * newScale.y;
-                    stainedCell.transform.localScale = newScale;
-
-                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetStainLvl);
-                }
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetStainLvl);
             }
+
+            DirtCell updated = grid[ix, iy];
+            updated.hasDirt = true;
+            grid[ix, iy] = updated;
         }
     }
     private void SpawnMudOnWindow(int WindowLvl)
@@ -233,32 +242,39 @@ public class WindowScript : MonoBehaviour
 
         foreach (DirtCell cell in cellsToBeStained)
         {
+            int ix = (int)cell.cellX;
+            int iy = (int)cell.cellY;
+            if (ix < 0 || ix >= columns || iy < 0 || iy >= rows) continue;
+
+            if (grid[ix, iy].hasDirt) continue;
+
             Vector3 spawnPosition = new Vector3(
                 bounds.min.x + cell.cellX * cellWidth + cellWidth / 2,
                 bounds.min.y + cell.cellY * cellHeight + cellHeight / 2,
                 0);
             GameObject mudPrefab = dirtTypes[1].dirtPrefab;
-            // Sprawdzenie, czy komórka nie jest już zabrudzona (np. przez smog)
-            if (!cell.hasDirt)
+
+            stainedCell = Instantiate(mudPrefab, spawnPosition, Quaternion.identity);
+            stainedCells.Add(stainedCell);
+            stainedCell.transform.SetParent(glassObject.transform);
+
+            float targetStainLvl = Random.Range(dirtTypes[1].minAlpha, dirtTypes[1].maxAlpha);
+
+            // Skalowanie prefabów do rozmiaru komórki
+            SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
+            if (sr != null && sr.sprite != null)
             {
-                stainedCell = Instantiate(mudPrefab, spawnPosition, Quaternion.identity);
-                stainedCells.Add(stainedCell);
-                stainedCell.transform.SetParent(glassObject.transform);
-
-                float targetStainLvl = Random.Range(dirtTypes[1].minAlpha, dirtTypes[1].maxAlpha);
-
-                // Skalowanie prefabów do rozmiaru komórki
-                SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
-                if (sr != null && sr.sprite != null)
-                {
-                    Vector2 spriteSize = sr.sprite.bounds.size;
-                    Vector3 newScale = stainedCell.transform.localScale;
-                    newScale.x = cellWidth / spriteSize.x * newScale.x;
-                    newScale.y = cellHeight / spriteSize.y * newScale.y;
-                    stainedCell.transform.localScale = newScale;
-                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetStainLvl);
-                }
+                Vector2 spriteSize = sr.sprite.bounds.size;
+                Vector3 newScale = stainedCell.transform.localScale;
+                newScale.x = cellWidth / spriteSize.x * newScale.x;
+                newScale.y = cellHeight / spriteSize.y * newScale.y;
+                stainedCell.transform.localScale = newScale;
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, targetStainLvl);
             }
+
+            DirtCell updated = grid[ix, iy];
+            updated.hasDirt = true;
+            grid[ix, iy] = updated;
         }
     }
 
@@ -279,7 +295,18 @@ public class WindowScript : MonoBehaviour
         return cells;
     }
 
-
-
-
+    private void TagTakenCells(List<DirtCell> list)
+    {
+        foreach (DirtCell cell in list)
+        {
+            int ix = (int)cell.cellX;
+            int iy = (int)cell.cellY;
+            if (ix >= 0 && ix < columns && iy >= 0 && iy < rows)
+            {
+                DirtCell updated = grid[ix, iy];
+                updated.hasDirt = true;
+                grid[ix, iy] = updated;
+            }
+        }
+    }
 }
