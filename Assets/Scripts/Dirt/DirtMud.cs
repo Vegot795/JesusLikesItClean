@@ -10,7 +10,7 @@ public class DirtMud : MonoBehaviour
     private float alpha;
     private int lvl;
 
-    private bool cleared = false;
+    //private bool cleared = false;
     private bool watered = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

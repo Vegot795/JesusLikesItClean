@@ -9,7 +9,7 @@ public class DirtSmog : MonoBehaviour
     private float maxDur;
     private float alpha;
 
-    private bool cleared = false;
+    //private bool cleared = false;
     private bool watered = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

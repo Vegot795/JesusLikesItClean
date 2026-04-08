@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class shopScript : MonoBehaviour
 {
+
+    [SerializeField] private ShopData[] shopUPG;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

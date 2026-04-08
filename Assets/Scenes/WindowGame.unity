@@ -683,7 +683,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 799517339}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1430665617}
+        m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &799517339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1230,6 +1242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1430665615}
   - component: {fileID: 1430665616}
+  - component: {fileID: 1430665617}
   m_Layer: 0
   m_Name: SceneControl
   m_TagString: Untagged
@@ -1265,10 +1278,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 0
-  clotchEfficience: 0
-  clotchSize: 0
-  sprinkleEfficience: 0
-  sprinkleSize: 0
+  clotchEfficience: 10
+  clotchSize: 1
+  sprinkleEfficience: 0.15
+  sprinkleSize: 1
+  sprinkWater: {fileID: 2458082824443080465, guid: 592cf5fa8d9b0fb409e7dc9cae4bf418, type: 3}
+--- !u!114 &1430665617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430665614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d78962dd62ce9e4593fb5f6fdbaa469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1682856562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.49, y: -2.8}
+  m_AnchoredPosition: {x: -1.07, y: -6.58}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!58 &2051028040
