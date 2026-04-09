@@ -5,37 +5,43 @@ using UnityEngine;
 
 public class WindowScript : MonoBehaviour
 {
-    private SpriteRenderer glass;
+    private float cellWidth = 0.1f;
+    private float cellHeight = 0.1f;
     private Bounds bounds;
-    private float cellWidth;
-    private float cellHeight;
     private DirtCell[,] grid;
-    private List<GameObject> stainedCells = new List<GameObject>();
     private GameObject stainedCell;
-
     private GameObject glassObject;
+    private SpriteRenderer glass;
 
     [SerializeField] bool showGizmos = false;
     [UnityEngine.Range(1, 5)]
-    public int WindowLvl = 1;
+    public int WindowLvl;
+    public int rows;
+    public int columns;
+    public string windowName;
+    public bool isCleaned = false;
+    public Sprite windowSprite;
     public DirtData[] dirtTypes;
-    public int columns = 180;
-    public int rows = 240;
+    public List<GameObject> stainedCells = new List<GameObject>();
+
     public struct DirtCell
     {
         public bool hasDirt;
         public DirtData dirtType;
-        public float cellX;
+        public float cellX ;
         public float cellY;
     }
 
     private void Start()
     {
-        glassObject = GameObject.Find("Glass");
+        glassObject = gameObject;
+        glassObject.GetComponent<SpriteRenderer>().sprite = windowSprite;
+        windowName = glassObject.name;
 
         bounds = GetComponent<SpriteRenderer>().bounds;
-        cellWidth = bounds.size.x / columns;
-        cellHeight = bounds.size.y / rows;
+
+        columns = Mathf.RoundToInt(bounds.size.x / cellWidth);
+        rows = Mathf.RoundToInt(bounds.size.y / cellHeight);
 
         Debug.Log($"Rozmiar okna: {bounds.size.x} x {bounds.size.y}");
         Debug.Log($"Rozmiar komórki: {cellWidth} x {cellHeight}");
@@ -47,8 +53,19 @@ public class WindowScript : MonoBehaviour
         SpawnSmogOnWindow(WindowLvl);
     }
 
-    
-    /*void OnDrawGizmos()
+    private void Update()
+    {
+        stainedCells.RemoveAll(go => go == null);
+
+        if (stainedCells.Count <= 0)
+        {
+            isCleaned = true;
+
+            if(window)
+        }
+    }
+
+    void OnDrawGizmos()
     {
         if (showGizmos)
         {
@@ -72,7 +89,7 @@ public class WindowScript : MonoBehaviour
                 Gizmos.DrawLine(start, end);
             }
         }
-    }*/
+    }
 
     private void SpawnSmogOnWindow(int WindowLvl)
     {
@@ -84,8 +101,15 @@ public class WindowScript : MonoBehaviour
         {
             int ix = (int)cell.cellX;
             int iy = (int)cell.cellY;
-            if (ix < 0 || ix >= columns || iy < 0 || iy >= rows) continue;
-            if (grid[ix, iy].hasDirt) continue;
+            if (ix < 0 || ix >= columns || iy < 0 || iy >= rows) 
+            { 
+                continue; 
+            }
+
+            if (grid[ix, iy].hasDirt)
+            {
+                continue;
+            }
 
             Vector3 spawnPosition = new Vector3(
                 bounds.min.x + cell.cellX * cellWidth + cellWidth / 2,
@@ -175,9 +199,15 @@ public class WindowScript : MonoBehaviour
         {
             int ix = (int)cell.cellX;
             int iy = (int)cell.cellY;
-            if (ix < 0 || ix >= columns || iy < 0 || iy >= rows) continue;
+            if (ix < 0 || ix >= columns || iy < 0 || iy >= rows)
+            {
+                continue;
+            }
 
-            if (grid[ix, iy].hasDirt) continue;
+            if (grid[ix, iy].hasDirt)
+            {
+                continue;
+            }
 
             Vector3 spawnPosition = new Vector3(
                 bounds.min.x + cell.cellX * cellWidth + cellWidth / 2,
@@ -244,9 +274,15 @@ public class WindowScript : MonoBehaviour
         {
             int ix = (int)cell.cellX;
             int iy = (int)cell.cellY;
-            if (ix < 0 || ix >= columns || iy < 0 || iy >= rows) continue;
+            if (ix < 0 || ix >= columns || iy < 0 || iy >= rows)
+            {
+                continue;
+            }
 
-            if (grid[ix, iy].hasDirt) continue;
+            if (grid[ix, iy].hasDirt)
+            {
+                continue;
+            }
 
             Vector3 spawnPosition = new Vector3(
                 bounds.min.x + cell.cellX * cellWidth + cellWidth / 2,
@@ -293,20 +329,5 @@ public class WindowScript : MonoBehaviour
             }
         }
         return cells;
-    }
-
-    private void TagTakenCells(List<DirtCell> list)
-    {
-        foreach (DirtCell cell in list)
-        {
-            int ix = (int)cell.cellX;
-            int iy = (int)cell.cellY;
-            if (ix >= 0 && ix < columns && iy >= 0 && iy < rows)
-            {
-                DirtCell updated = grid[ix, iy];
-                updated.hasDirt = true;
-                grid[ix, iy] = updated;
-            }
-        }
     }
 }

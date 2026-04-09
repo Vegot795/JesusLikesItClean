@@ -9,6 +9,7 @@ public class DirtMud : MonoBehaviour
     private float maxDur;
     private float alpha;
     private int lvl;
+    private WindowScript windowScript;
 
     //private bool cleared = false;
     private bool watered = false;
@@ -16,9 +17,10 @@ public class DirtMud : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        lvl = GameObject.Find("Glass").GetComponent<WindowScript>().WindowLvl;
+        lvl = GetComponentInParent<WindowScript>().WindowLvl;
         dur = dirtType.durability * lvl;
         maxDur = dur;
+        windowScript = GetComponentInParent<WindowScript>();
     }
 
     public void AddPoints()
@@ -35,8 +37,9 @@ public class DirtMud : MonoBehaviour
             {
                 AddPoints();
                 Destroy(gameObject);
+                windowScript.stainedCells.Remove(gameObject);
             }
-            alpha = (float)(dur / maxDur);
+            alpha = (float)(dur / maxDur) + 0.1f;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a * alpha);
         }
 
@@ -47,6 +50,7 @@ public class DirtMud : MonoBehaviour
             {
                 AddPoints();
                 Destroy(gameObject);
+                windowScript.stainedCells.Remove(gameObject);
             }
             alpha = (float)(dur / maxDur);
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a * alpha);

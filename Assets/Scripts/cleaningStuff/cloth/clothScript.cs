@@ -7,7 +7,7 @@ public class clothScript : MonoBehaviour
     private bool holdingCloth = false;
     private Vector3 offset;
     [SerializeField] private int spedd;
-    public int efficience = 10;
+    public int efficience = 50;
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class clothScript : MonoBehaviour
         if (returning)
         {
             transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("clothSlot").transform.position, spedd * Time.deltaTime);
-            if (Vector3.Distance(transform.position, GameObject.Find("clothSlot").transform.position) < 0.1f)
+            if (Vector3.Distance(transform.position, GameObject.Find("clothSlot").transform.position) < 0.5f)
             {
                 returning = false;
                 transform.position = GameObject.Find("clothSlot").transform.position;

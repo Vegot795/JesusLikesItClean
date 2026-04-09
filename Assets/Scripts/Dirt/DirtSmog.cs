@@ -8,6 +8,7 @@ public class DirtSmog : MonoBehaviour
     [SerializeField] private float dur;
     private float maxDur;
     private float alpha;
+    private WindowScript windowScript;
 
     //private bool cleared = false;
     private bool watered = false;
@@ -15,9 +16,10 @@ public class DirtSmog : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        int lvl = GameObject.Find("Glass").GetComponent<WindowScript>().WindowLvl;
+        int lvl = GetComponentInParent<WindowScript>().WindowLvl;
         dur = dirtType.durability * lvl;
         maxDur = dur;
+        windowScript =  GetComponentInParent<WindowScript>();
     }
 
     public void AddPoints()
@@ -34,8 +36,9 @@ public class DirtSmog : MonoBehaviour
             {
                 AddPoints();
                 Destroy(gameObject);
+                windowScript.stainedCells.Remove(gameObject);       
             }
-            alpha = (float)(dur / maxDur);
+            alpha = (float)(dur / maxDur) + 0.1f;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a*alpha);
         }
 
@@ -46,6 +49,7 @@ public class DirtSmog : MonoBehaviour
             {
                 AddPoints();
                 Destroy(gameObject);
+                windowScript.stainedCells.Remove(gameObject);
             }
             alpha = (float)(dur / maxDur);
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a * alpha);
