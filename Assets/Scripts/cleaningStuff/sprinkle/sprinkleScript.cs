@@ -6,12 +6,14 @@ public class sprinkleScript : MonoBehaviour
     private bool returning = false;
     private bool holdingSprinkle = false;
     private Vector3 offset;
+    private GameUI gameUI;
     [SerializeField] private int spedd;
 
     [SerializeField] private GameObject waterPrefab;
 
     private void Start()
     {
+        gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         transform.position = GameObject.Find("sprinkleSlot").transform.position;
         offset.z = -10f;
     }
@@ -28,6 +30,20 @@ public class sprinkleScript : MonoBehaviour
             {
                 Instantiate(waterPrefab, transform.position, Quaternion.identity);
             }
+        }
+
+        if (gameUI.isCameraMoving)
+        {
+            returning = true;
+            holdingSprinkle = false;
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else
+        {
+            GetComponent<Collider2D>().enabled = true;
+            GetComponent<SpriteRenderer>().enabled = true;
+
         }
 
         if (returning)
