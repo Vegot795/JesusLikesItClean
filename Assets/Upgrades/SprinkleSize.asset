@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573c0453a245209458278850a988ef7d, type: 3}
   m_Name: SprinkleSize
   m_EditorClassIdentifier: 
-  upgradeName: 
-  upgradeValue: 
-  upgradeCost: 
+  upgradeName: SprinkleSize
+  upgradeValue:
+  - 1
+  - 1.1
+  - 1.2
+  - 1.3
+  - 1.4
+  - 1.5
+  - 1.6
+  upgradeCost: 0a000000140000001e00000028000000320000003c00000046000000

@@ -29,7 +29,12 @@ public class WindowScript : MonoBehaviour
         public float cellY;
     }
 
-    private void Start()
+    //private void Start()
+    //{
+    //    OnStart();
+    //}
+
+    public void OnStart()
     {
         glassObject = GameObject.Find("Glass");
 
@@ -39,7 +44,7 @@ public class WindowScript : MonoBehaviour
 
         Debug.Log($"Rozmiar okna: {bounds.size.x} x {bounds.size.y}");
         Debug.Log($"Rozmiar komórki: {cellWidth} x {cellHeight}");
-        
+
         grid = new DirtCell[columns, rows];
 
         SpawnBirdsDirtOnWindow(WindowLvl);
@@ -47,7 +52,6 @@ public class WindowScript : MonoBehaviour
         SpawnSmogOnWindow(WindowLvl);
     }
 
-    
     void OnDrawGizmos()
     {
         if (showGizmos)
