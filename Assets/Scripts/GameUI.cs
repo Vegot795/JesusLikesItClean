@@ -84,12 +84,30 @@ public class GameUI : MonoBehaviour
         {
             if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
             {
-                currentWindow.firstTry = false;
                 currentWindow.JumpScare();
+                float timer = 1f;
+                while (timer > 0f)
+                {
+                    timer -= Time.deltaTime;
+                }
                 Debug.Log("JumpScare");
+                MoveToNextLvl();
+                timer = 5f;
+                while (timer > 0f)
+                {
+                    timer -= Time.deltaTime;
+                }
+                Windows[3].WindowLvl = 4;
+                Windows[3].SpawnDirtOnWindows();
             }
         }
+
+        if (currentWindow.clearingProgress == 1f)
+        {
+            currentWindow.isCleaned = true;
+        }
     }
+
     public void LoadScene(int scena) // #0 menu startowe, #1 gra, #2 sklep
     {
         SceneManager.LoadScene(scena);
@@ -102,11 +120,6 @@ public class GameUI : MonoBehaviour
             if (currentWindow.isCleaned)
             {
                 NextLvlBut.SetActive(true);
-
-                if (currentWindow.isCleaned)
-                {
-                    currentWindow.isCleaned = false;
-                }
             }
             else
             {
@@ -128,6 +141,9 @@ public class GameUI : MonoBehaviour
             isCameraMoving = false;
             cameraVelocity = Vector3.zero;
         }
+
+        Tools.SetActive(true);
+        Inventory.SetActive(true);
     }
 
     public void MoveToNextLvl()
@@ -135,13 +151,20 @@ public class GameUI : MonoBehaviour
         Tools.SetActive(false);
         Inventory.SetActive(false);
 
-        if (windowNumber == 5 && currentWindow.firstTry)
+        if (windowNumber >= 3 && currentWindow.firstTry)
         {
-            //To be continued - WŁĄCZ CUTSCENE, DALEJ PRZENIEŚ GRACZAN NA NAJNIŻSZE OKNO
+            windowNumber = 0;
+            currentWindow.firstTry = false;
+        }
+        else if (windowNumber == 3 && !currentWindow.firstTry)
+        {
             return;
         }
+        else
+        {
+            windowNumber++;
+        }
 
-        windowNumber++;
         currentWindow = Windows[windowNumber];
 
         if (MainCam != null && currentWindow != null)
@@ -149,9 +172,6 @@ public class GameUI : MonoBehaviour
             targetCamPos = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y, MainCam.transform.position.z);
             isCameraMoving = true;
         }
-
-        Tools.SetActive(true);
-        Inventory.SetActive(true);
     }
 
     private void CharacterDeath()

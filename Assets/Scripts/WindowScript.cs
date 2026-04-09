@@ -10,7 +10,6 @@ public class WindowScript : MonoBehaviour
     private float cellHeight = 0.1f;
     private int totalCells;
     private int dirtyCells;
-    private bool washedFirstTime = false;
     private Bounds bounds;
     private DirtCell[,] grid;
     private GameObject stainedCell;
@@ -58,11 +57,7 @@ public class WindowScript : MonoBehaviour
         
         grid = new DirtCell[columns, rows];
 
-        //StainedCells tworzą się w SpawnDirtOnWindow
-        SpawnBirdsDirtOnWindow(WindowLvl);
-        SpawnMudOnWindow(WindowLvl);
-        SpawnSmogOnWindow(WindowLvl);
-        totalCells = stainedCells.Count;
+        SpawnDirtOnWindows();
         JesusScareOffset = new Vector2(JesusScare.GetComponent<SpriteRenderer>().bounds.size.x / 2, 0f);
     }
 
@@ -363,5 +358,14 @@ public class WindowScript : MonoBehaviour
 
         float cellsLeft = (float)stainedCells.Count / (float)totalCells;
         clearingProgress = Mathf.Clamp01(1f - cellsLeft);
+    }
+
+    public void SpawnDirtOnWindows()
+    {
+        //StainedCells tworzą się w SpawnDirtOnWindow
+        SpawnBirdsDirtOnWindow(WindowLvl);
+        SpawnMudOnWindow(WindowLvl);
+        SpawnSmogOnWindow(WindowLvl);
+        totalCells = stainedCells.Count;
     }
 }
