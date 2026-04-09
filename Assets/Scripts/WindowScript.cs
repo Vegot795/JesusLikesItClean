@@ -32,6 +32,7 @@ public class WindowScript : MonoBehaviour
     public List<GameObject> stainedCells = new List<GameObject>();
     public GameObject JesusScare;
     public Vector2 JesusScareOffset;
+    public GameObject Jessy;
     public struct DirtCell
     {
         public bool hasDirt;
@@ -340,7 +341,7 @@ public class WindowScript : MonoBehaviour
         if (JesusScare != null)
         {
             JesusScare.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
-            Instantiate(JesusScare, spawnPosition, Quaternion.identity);
+            Jessy = Instantiate(JesusScare, spawnPosition, Quaternion.identity);
         }
         else
         {
@@ -367,5 +368,29 @@ public class WindowScript : MonoBehaviour
         SpawnMudOnWindow(WindowLvl);
         SpawnSmogOnWindow(WindowLvl);
         totalCells = stainedCells.Count;
+    }
+
+    public void ResetGrid()
+    {
+        foreach (var cell in stainedCells)
+        {
+            if (cell != null)
+                Destroy(cell);
+        }
+        stainedCells.Clear();
+
+        for (int x = 0; x < columns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                DirtCell reset = grid[x, y];
+                reset.hasDirt = false;
+                reset.dirtType = null;
+                grid[x, y] = reset;
+            }
+        }
+
+        clearingProgress = 0f;
+        isCleaned = false;
     }
 }

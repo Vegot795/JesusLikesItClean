@@ -6,11 +6,14 @@ public class clothScript : MonoBehaviour
     private bool returning = false;
     private bool holdingCloth = false;
     private Vector3 offset;
+    private GameUI gameUI;
+
     [SerializeField] private int spedd;
     public int efficience = 50;
 
     private void Start()
     {
+        gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         transform.position = GameObject.Find("clothSlot").transform.position;
         offset.z = -10f; 
     }
@@ -20,6 +23,21 @@ public class clothScript : MonoBehaviour
         if (holdingCloth)
         {
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) - offset ;
+        }
+
+        if(gameUI.isCameraMoving)
+        {
+            returning = true;
+            holdingCloth = false;
+            GetComponent<Rigidbody2D>().simulated = false;
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else
+        {
+            GetComponent<Collider2D>().enabled = true;
+            GetComponent<SpriteRenderer>().enabled = true;
+
         }
 
         if (returning)

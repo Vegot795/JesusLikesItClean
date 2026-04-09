@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -18,6 +19,7 @@ public class GameUI : MonoBehaviour
     public GameObject sprinkleSlot;
     public GameObject Tools;
     public GameObject Inventory;
+    public bool isCameraMoving = false;
 
     private int windowNumber = 3;
     private Vector3 CurrentCamPos;
@@ -26,7 +28,6 @@ public class GameUI : MonoBehaviour
     public float cameraSmoothTime = 0.35f;
     private Vector3 cameraVelocity = Vector3.zero;
     private Vector3 targetCamPos;
-    private bool isCameraMoving = false;
     private const float arriveThresholdSqr = 0.0009f;
 
 
@@ -85,20 +86,9 @@ public class GameUI : MonoBehaviour
             if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
             {
                 currentWindow.JumpScare();
-                float timer = 1f;
-                while (timer > 0f)
-                {
-                    timer -= Time.deltaTime;
-                }
                 Debug.Log("JumpScare");
                 MoveToNextLvl();
-                timer = 5f;
-                while (timer > 0f)
-                {
-                    timer -= Time.deltaTime;
-                }
-                Windows[3].WindowLvl = 4;
-                Windows[3].SpawnDirtOnWindows();
+                StartCoroutine(DelayedCleanupAfterJumpscare(3f));
             }
         }
 
@@ -176,6 +166,24 @@ public class GameUI : MonoBehaviour
 
     private void CharacterDeath()
     {
+
+    }
+
+    private IEnumerator DelayedCleanupAfterJumpscare(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        CleanupAfterJumpscare();
+    }
+
+    private void CleanupAfterJumpscare()
+    {
+        WindowScript window = Windows[3];
+
+        window.ResetGrid();
+        Destroy(window.Jessy);
+        window.WindowLvl = 4;
+        window.SpawnDirtOnWindows();
+        Debug.Log("Cleanup after jumpscare completed.");
 
     }
 
