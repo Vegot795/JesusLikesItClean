@@ -166,9 +166,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: b46400ae6d08e494b907be932033f44f, type: 3}
+  - {fileID: 6890317391655332655, guid: 50714e82ffd3c8c44a738ec2dd90e75b, type: 3}
+  - {fileID: -930098413709132036, guid: 8afe30b7e61177e4f9e265c1fb6b12fd, type: 3}
   spedd: 15
   waterPrefab: {fileID: 2458082824443080465, guid: 592cf5fa8d9b0fb409e7dc9cae4bf418, type: 3}
 --- !u!61 &109317850
@@ -950,6 +950,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &723275205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8256431535953805892, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+  m_PrefabInstance: {fileID: 90284523657996289}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &723275209
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723275205}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: bcc517b7e9219f240af30432524e0f48, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &799517336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,6 +1389,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3498421453267225718, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
   m_PrefabInstance: {fileID: 272123368}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1093049445 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8256431535953805892, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+  m_PrefabInstance: {fileID: 1311477167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &1093049449
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093049445}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: bea9641b42be6bc4bbabb3bedf1b47c8, type: 2}
+  - {fileID: 7400000, guid: bcc517b7e9219f240af30432524e0f48, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &1173184801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1818,6 +1862,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5581455051885920983, guid: df5cf90c6bf884146895698aa0a1e227, type: 3}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      propertyPath: JesusScare
+      value: 
+      objectReference: {fileID: 182533894502468427, guid: aa7721e0af5f58843b7fa91f97ed53c2, type: 3}
+    - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowSprite
       value: 
       objectReference: {fileID: -5581455051885920983, guid: df5cf90c6bf884146895698aa0a1e227, type: 3}
@@ -1840,6 +1888,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5233407607330383596, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1921213392}
+    - targetCorrespondingSourceObject: {fileID: 8256431535953805892, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1093049449}
   m_SourcePrefab: {fileID: 100100000, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
 --- !u!1 &1430665614
 GameObject:
@@ -2772,6 +2823,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5233407607330383596, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2097890030}
+    - targetCorrespondingSourceObject: {fileID: 8256431535953805892, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 723275209}
   m_SourcePrefab: {fileID: 100100000, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

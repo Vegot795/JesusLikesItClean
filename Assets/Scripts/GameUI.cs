@@ -70,7 +70,6 @@ public class GameUI : MonoBehaviour
         }
         sprinkle.transform.position = sprinkleSlot.transform.position;
 
-        Windows[3].JumpScare();
         currentWindow.SpawnDirtOnWindows();
     }
 

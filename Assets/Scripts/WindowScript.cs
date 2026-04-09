@@ -113,14 +113,21 @@ public class WindowScript : MonoBehaviour
                 continue;
             }
 
-            Vector3 spawnPosition = new Vector3(
+            if (!cell.hasDirt)
+            {
+                Vector3 spawnPosition = new Vector3(
                 bounds.min.x + cell.cellX * cellWidth + cellWidth / 2,
                 bounds.min.y + cell.cellY * cellHeight + cellHeight / 2,
                 0);
 
-            stainedCell = Instantiate(smogPrefab, spawnPosition, Quaternion.identity);
-            stainedCells.Add(stainedCell);
-            stainedCell.transform.SetParent(glassObject.transform);
+                stainedCell = Instantiate(smogPrefab, spawnPosition, Quaternion.identity);
+                stainedCells.Add(stainedCell);
+                stainedCell.transform.SetParent(glassObject.transform);
+            }else
+            {
+                continue;
+            }
+            
 
             float targetStainLvl = Random.Range(dirtTypes[2].minAlpha * (WindowLvl * .1f + 1), (dirtTypes[2].maxAlpha / 5) * WindowLvl);
 
@@ -365,7 +372,7 @@ public class WindowScript : MonoBehaviour
         //StainedCells tworzą się w SpawnDirtOnWindow
         SpawnBirdsDirtOnWindow(WindowLvl);
         SpawnMudOnWindow(WindowLvl);
-        SpawnSmogOnWindow(WindowLvl);
+        //SpawnSmogOnWindow(WindowLvl);
         totalCells = stainedCells.Count;
     }
 
