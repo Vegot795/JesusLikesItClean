@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573c0453a245209458278850a988ef7d, type: 3}
   m_Name: SprinkleEff
   m_EditorClassIdentifier: 
-  upgradeName: SprinkleEff
-  upgradeValue:
-  - 0.15
-  - 0.3
-  - 0.5
-  upgradeCost: 0a000000140000001e000000
+  upgradeName: 
+  upgradeValue: 
+  upgradeCost: 

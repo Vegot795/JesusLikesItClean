@@ -6,32 +6,15 @@ public class playerEQ : MonoBehaviour
     public float points = 0;
 
     [Header("Equipment")]
-    [Header("Cloth")]
-    public int clothLvlEf;
     public int clotchEfficience;
-    public int clothLvlSi;
     public float clotchSize;
-    [Header("Sprinkle")]
-    public int sprinkleLvlEf;
     public float sprinkleEfficience;
-    public int sprinkleLvlSi;
     public float sprinkleSize;
-
     [SerializeField] private GameObject sprinkWater;
-
-    public static playerEQ instance;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
