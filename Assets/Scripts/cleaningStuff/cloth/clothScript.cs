@@ -4,7 +4,7 @@ public class clothScript : MonoBehaviour
 {
 
     private bool returning = false;
-    private bool holdingCloth = false;
+    public bool holdingCloth = false;
     private Vector3 offset;
     private GameUI gameUI;
 

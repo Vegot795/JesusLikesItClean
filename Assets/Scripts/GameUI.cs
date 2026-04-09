@@ -70,6 +70,10 @@ public class GameUI : MonoBehaviour
         }
         sprinkle.transform.position = sprinkleSlot.transform.position;
 
+        if (currentWindow.name == "Glass4")
+        {
+            currentWindow.GetComponent<WindowScript>().OnStart();
+        }
     }
 
     public void Update()
@@ -89,6 +93,8 @@ public class GameUI : MonoBehaviour
                 Debug.Log("JumpScare");
                 MoveToNextLvl();
                 StartCoroutine(DelayedCleanupAfterJumpscare(3f));
+                GameObject.Find("Glass1").GetComponent<WindowScript>().OnStart();
+                GameObject.Find("cloth").GetComponent<clothScript>().holdingCloth = false;
             }
         }
 
@@ -182,7 +188,6 @@ public class GameUI : MonoBehaviour
         window.ResetGrid();
         Destroy(window.Jessy);
         window.WindowLvl = 4;
-        window.SpawnDirtOnWindows();
         Debug.Log("Cleanup after jumpscare completed.");
 
     }

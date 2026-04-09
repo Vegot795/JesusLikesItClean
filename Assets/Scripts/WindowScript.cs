@@ -26,6 +26,7 @@ public class WindowScript : MonoBehaviour
     public float cutsceneTriggerProgress;
     public string windowName;
     public bool isCleaned = false;
+    public GameObject nextWindow;
     public bool firstTry = true;
     public Sprite windowSprite;
     public DirtData[] dirtTypes;
@@ -33,6 +34,8 @@ public class WindowScript : MonoBehaviour
     public GameObject JesusScare;
     public Vector2 JesusScareOffset;
     public GameObject Jessy;
+    private int yes;
+
     public struct DirtCell
     {
         public bool hasDirt;
@@ -48,6 +51,7 @@ public class WindowScript : MonoBehaviour
 
     public void OnStart()
     {
+
         GameUI gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         glassObject = gameObject;
         glassObject.GetComponent<SpriteRenderer>().sprite = windowSprite;
@@ -71,6 +75,13 @@ public class WindowScript : MonoBehaviour
     {
         stainedCells.RemoveAll(go => go == null);
         CountProgress();
+        if(isCleaned && yes == 0)
+        {
+            GameObject.Find("cloth").GetComponent<clothScript>().holdingCloth = false;
+            yes++;
+            Debug.Log(yes);
+            nextWindow.GetComponent<WindowScript>().OnStart();
+        }
     }
 
     void OnDrawGizmos()
