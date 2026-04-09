@@ -749,6 +749,7 @@ GameObject:
   - component: {fileID: 799517340}
   - component: {fileID: 799517339}
   - component: {fileID: 799517338}
+  - component: {fileID: 799517341}
   m_Layer: 5
   m_Name: OpenMenu
   m_TagString: Untagged
@@ -820,7 +821,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1430665617}
+      - m_Target: {fileID: 799517341}
         m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 3
@@ -870,6 +871,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799517336}
   m_CullTransparentMesh: 1
+--- !u!114 &799517341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799517336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d78962dd62ce9e4593fb5f6fdbaa469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &877239775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1750,6 +1763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spedd: 15
   efficience: 100
+  size: 1
 --- !u!50 &2051028043
 Rigidbody2D:
   serializedVersion: 5
