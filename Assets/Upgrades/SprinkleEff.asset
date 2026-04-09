@@ -16,6 +16,5 @@ MonoBehaviour:
   upgradeValue:
   - 0.15
   - 0.3
-  - 0.4
   - 0.5
-  upgradeCost: 0a000000140000001e00000028000000
+  upgradeCost: 0a000000140000001e000000
