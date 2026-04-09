@@ -44,10 +44,10 @@ public class WindowScript : MonoBehaviour
         public float cellY;
     }
 
-    //private void Start()
-    //{
-    //    OnStart();
-    //}
+    private void Start()
+    {
+        OnStart();
+    }
 
     public void OnStart()
     {
