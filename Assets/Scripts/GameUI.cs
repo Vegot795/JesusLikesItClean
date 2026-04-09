@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,8 +12,14 @@ public class GameUI : MonoBehaviour
     public GameObject NextLvlBut;
     public WindowScript currentWindow;
     public Camera MainCam;
+    public GameObject cloth;
+    public GameObject sprinkle;
+    public GameObject clothSlot;
+    public GameObject sprinkleSlot;
+    public GameObject Tools;
+    public GameObject Inventory;
 
-    private int windowNumber = 0;
+    private int windowNumber = 3;
     private Vector3 CurrentCamPos;
 
     [Tooltip("Wygładzanie ruchu kamery. Mniej = szybszciej.")]
@@ -22,17 +29,34 @@ public class GameUI : MonoBehaviour
     private bool isCameraMoving = false;
     private const float arriveThresholdSqr = 0.0009f;
 
+
     void Start()
     {
-        foreach (var window in GameObject.FindObjectsByType<WindowScript>(FindObjectsSortMode.None))
-        {
-            if (!Windows.Contains(window))
-            {
-                Windows.Add(window);
-            }
-        }
+        windowNumber = 3;
+        Tools = GameObject.Find("Object");
+        cloth = GameObject.Find("cloth");
+        sprinkle = GameObject.Find("sprinkle");
+        clothSlot = GameObject.Find("clothSlot");
+        sprinkleSlot = GameObject.Find("sprinkleSlot");
+        Inventory = GameObject.Find("Inventory");
 
-        MainCam = Camera.FindAnyObjectByType<Camera>();
+        Windows.Clear();
+        WindowScript[] found = GameObject.FindObjectsByType<WindowScript>(FindObjectsSortMode.InstanceID);
+        int ExtractTrailingNumber(string s)
+        {
+            int i = s.Length - 1;
+            while (i >= 0 && char.IsDigit(s[i])) i--;
+            string num = s.Substring(i + 1);
+            if (int.TryParse(num, out int n)) return n;
+            return int.MaxValue;
+        }
+        var ordered = found
+            .OrderBy(w => ExtractTrailingNumber(w.gameObject.name))
+            .ThenBy(w => w.gameObject.name)
+            .ToList();
+        Windows.AddRange(ordered);
+
+        MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
         if (MainCam != null && MainCam.CompareTag("MainCamera"))
         {
             NextLvlBut.SetActive(false);
@@ -43,12 +67,28 @@ public class GameUI : MonoBehaviour
                 targetCamPos = new Vector3(CurrentCamPos.x, CurrentCamPos.y, MainCam.transform.position.z);
             }
         }
+        sprinkle.transform.position = sprinkleSlot.transform.position;
+
     }
 
     public void Update()
     {
+        Inventory.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y -8f);
+        Tools.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y -3f);
+        cloth.transform.position = clothSlot.transform.position;
+
         CurrentLevelController();
         HandleCameraMovement();
+
+        if (currentWindow.name == "Glass4")
+        {
+            if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
+            {
+                currentWindow.firstTry = false;
+                currentWindow.JumpScare();
+                Debug.Log("JumpScare");
+            }
+        }
     }
     public void LoadScene(int scena) // #0 menu startowe, #1 gra, #2 sklep
     {
@@ -92,8 +132,12 @@ public class GameUI : MonoBehaviour
 
     public void MoveToNextLvl()
     {
-        if (windowNumber + 1 >= Windows.Count)
+        Tools.SetActive(false);
+        Inventory.SetActive(false);
+
+        if (windowNumber == 5 && currentWindow.firstTry)
         {
+            //To be continued - WŁĄCZ CUTSCENE, DALEJ PRZENIEŚ GRACZAN NA NAJNIŻSZE OKNO
             return;
         }
 
@@ -105,6 +149,14 @@ public class GameUI : MonoBehaviour
             targetCamPos = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y, MainCam.transform.position.z);
             isCameraMoving = true;
         }
+
+        Tools.SetActive(true);
+        Inventory.SetActive(true);
+    }
+
+    private void CharacterDeath()
+    {
+
     }
 
 }

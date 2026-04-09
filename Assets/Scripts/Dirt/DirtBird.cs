@@ -40,7 +40,7 @@ public class DirtBird : MonoBehaviour
                 windowScript.stainedCells.Remove(gameObject);
 
             }
-            alpha = (float)(dur / maxDur) + 0.1f;
+            alpha = (float)(dur / maxDur) + 0.5f;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, sr.color.a * alpha);
         }
 

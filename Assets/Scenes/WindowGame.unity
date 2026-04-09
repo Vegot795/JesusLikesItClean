@@ -369,7 +369,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2.5, y: -1}
+  m_AnchoredPosition: {x: 3.5, y: -1}
   m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &272123368
@@ -477,13 +477,17 @@ PrefabInstance:
       value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      propertyPath: WindowLvl
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowName
       value: Window2
       objectReference: {fileID: 0}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowSprite
       value: 
-      objectReference: {fileID: -1402431880138586962, guid: 71a60e8a0f1dceb41bc001cc0739cee2, type: 3}
+      objectReference: {fileID: 95221360930636525, guid: 21e40ec56b575e5429b3c2b810b47b2e, type: 3}
     - target: {fileID: 5233407607330383596, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_Name
       value: Window2
@@ -635,7 +639,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 54.1, z: -10}
   m_LocalScale: {x: 4.1875, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -673,7 +677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 4.69, y: -1}
+  m_AnchoredPosition: {x: 5.97, y: -1}
   m_SizeDelta: {x: 2, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &608094937
@@ -704,12 +708,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 931985356}
   - {fileID: 1682856563}
   - {fileID: 2097890029}
   - {fileID: 1059049527}
   - {fileID: 134666901}
   - {fileID: 1921213391}
+  - {fileID: 931985356}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1050,9 +1054,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Windows: []
-  NextLvlBut: {fileID: 0}
+  NextLvlBut: {fileID: 1173184801}
   currentWindow: {fileID: 0}
-  MainCam: {fileID: 0}
+  MainCam: {fileID: 519420031}
+  cloth: {fileID: 0}
+  sprinkle: {fileID: 0}
+  clothSlot: {fileID: 0}
+  sprinkleSlot: {fileID: 0}
+  Tools: {fileID: 0}
+  Inventory: {fileID: 0}
+  cameraSmoothTime: 0.35
 --- !u!1 &931985355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,7 +1364,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1173184804}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 886115916}
+        m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
+        m_MethodName: MoveToNextLvl
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1173184804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1625,13 +1648,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      propertyPath: WindowLvl
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowName
       value: Window4
       objectReference: {fileID: 0}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowSprite
       value: 
-      objectReference: {fileID: -1402431880138586962, guid: 71a60e8a0f1dceb41bc001cc0739cee2, type: 3}
+      objectReference: {fileID: -3993936569796751336, guid: 73552922085ea60418d79fd307be4f3d, type: 3}
     - target: {fileID: 5233407607330383596, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_Name
       value: Window4
@@ -1736,7 +1763,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 8.04, y: 2.73}
+  m_AnchoredPosition: {x: 0, y: 2.73}
   m_SizeDelta: {x: 9, y: 2.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1889214073
@@ -1836,13 +1863,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      propertyPath: WindowLvl
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowName
       value: Window3
       objectReference: {fileID: 0}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowSprite
       value: 
-      objectReference: {fileID: -1402431880138586962, guid: 71a60e8a0f1dceb41bc001cc0739cee2, type: 3}
+      objectReference: {fileID: -1866080797035141227, guid: 91353b02a2138cf4c8d675c7528edf58, type: 3}
     - target: {fileID: 5233407607330383596, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_Name
       value: Window3
@@ -2394,7 +2425,7 @@ PrefabInstance:
       objectReference: {fileID: -1402431880138586962, guid: 71a60e8a0f1dceb41bc001cc0739cee2, type: 3}
     - target: {fileID: 4229864600860984385, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4229864600860984385, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_SortingOrder
@@ -2407,6 +2438,10 @@ PrefabInstance:
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: columns
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      propertyPath: WindowLvl
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowName

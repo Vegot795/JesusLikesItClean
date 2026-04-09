@@ -2,28 +2,37 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class WindowScript : MonoBehaviour
 {
     private float cellWidth = 0.1f;
     private float cellHeight = 0.1f;
+    private int totalCells;
+    private int dirtyCells;
+    private bool washedFirstTime = false;
     private Bounds bounds;
     private DirtCell[,] grid;
     private GameObject stainedCell;
     private GameObject glassObject;
     private SpriteRenderer glass;
+    private GameUI gameUI;
 
     [SerializeField] bool showGizmos = false;
     [UnityEngine.Range(1, 5)]
     public int WindowLvl;
     public int rows;
     public int columns;
+    public float clearingProgress = 0;
+    public float cutsceneTriggerProgress;
     public string windowName;
     public bool isCleaned = false;
+    public bool firstTry = true;
     public Sprite windowSprite;
     public DirtData[] dirtTypes;
     public List<GameObject> stainedCells = new List<GameObject>();
-
+    public GameObject JesusScare;
+    public Vector2 JesusScareOffset;
     public struct DirtCell
     {
         public bool hasDirt;
@@ -34,6 +43,7 @@ public class WindowScript : MonoBehaviour
 
     private void Start()
     {
+        GameUI gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         glassObject = gameObject;
         glassObject.GetComponent<SpriteRenderer>().sprite = windowSprite;
         windowName = glassObject.name;
@@ -48,21 +58,18 @@ public class WindowScript : MonoBehaviour
         
         grid = new DirtCell[columns, rows];
 
+        //StainedCells tworzą się w SpawnDirtOnWindow
         SpawnBirdsDirtOnWindow(WindowLvl);
         SpawnMudOnWindow(WindowLvl);
         SpawnSmogOnWindow(WindowLvl);
+        totalCells = stainedCells.Count;
+        JesusScareOffset = new Vector2(JesusScare.GetComponent<SpriteRenderer>().bounds.size.x / 2, 0f);
     }
 
     private void Update()
     {
         stainedCells.RemoveAll(go => go == null);
-
-        if (stainedCells.Count <= 0)
-        {
-            isCleaned = true;
-
-            if(window)
-        }
+        CountProgress();
     }
 
     void OnDrawGizmos()
@@ -329,5 +336,32 @@ public class WindowScript : MonoBehaviour
             }
         }
         return cells;
+    }
+
+    public void JumpScare()
+    {
+        Vector3 leftEdgeCenter = new Vector3(bounds.min.x, bounds.center.y, 0f);
+        Vector3 spawnPosition = leftEdgeCenter + new Vector3(JesusScareOffset.x, JesusScareOffset.y, 0f);
+        if (JesusScare != null)
+        {
+            JesusScare.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
+            Instantiate(JesusScare, spawnPosition, Quaternion.identity);
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public void CountProgress()
+    {
+        if (totalCells <= 0)
+        {
+            clearingProgress = (stainedCells.Count == 0) ? 1f : 0f;
+            return;
+        }
+
+        float cellsLeft = (float)stainedCells.Count / (float)totalCells;
+        clearingProgress = Mathf.Clamp01(1f - cellsLeft);
     }
 }
