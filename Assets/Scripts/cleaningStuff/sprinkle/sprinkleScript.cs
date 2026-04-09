@@ -1,12 +1,14 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class sprinkleScript : MonoBehaviour
 {
-
+    public Sprite[] sprites;
     private bool returning = false;
     private bool holdingSprinkle = false;
     private Vector3 offset;
     private GameUI gameUI;
+
     [SerializeField] private int spedd;
 
     [SerializeField] private GameObject waterPrefab;

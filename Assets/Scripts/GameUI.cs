@@ -70,6 +70,8 @@ public class GameUI : MonoBehaviour
         }
         sprinkle.transform.position = sprinkleSlot.transform.position;
 
+        Windows[3].JumpScare();
+        currentWindow.SpawnDirtOnWindows();
     }
 
     public void Update()
@@ -156,6 +158,7 @@ public class GameUI : MonoBehaviour
         }
 
         currentWindow = Windows[windowNumber];
+        currentWindow.SpawnDirtOnWindows();
 
         if (MainCam != null && currentWindow != null)
         {

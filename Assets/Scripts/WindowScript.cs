@@ -58,7 +58,6 @@ public class WindowScript : MonoBehaviour
         
         grid = new DirtCell[columns, rows];
 
-        SpawnDirtOnWindows();
         JesusScareOffset = new Vector2(JesusScare.GetComponent<SpriteRenderer>().bounds.size.x / 2, 0f);
     }
 
@@ -186,6 +185,15 @@ public class WindowScript : MonoBehaviour
                         int cellY = centerY + y;
                         if (cellX >= 0 && cellX < columns && cellY >= 0 && cellY < rows)
                         {
+                            // Skip if grid already marked as dirt
+                            if (grid[cellX, cellY].hasDirt)
+                                continue;
+
+                            // Skip duplicates in the candidates list
+                            bool alreadyAdded = cellsToBeStained.Exists(c => (int)c.cellX == cellX && (int)c.cellY == cellY);
+                            if (alreadyAdded)
+                                continue;
+
                             DirtCell cellInsideStain = grid[cellX, cellY];
                             cellInsideStain.cellX = cellX;
                             cellInsideStain.cellY = cellY;
