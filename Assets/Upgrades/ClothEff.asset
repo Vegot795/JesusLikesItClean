@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573c0453a245209458278850a988ef7d, type: 3}
   m_Name: ClothEff
   m_EditorClassIdentifier: 
-  upgradeName: 
-  upgradeValue: 
-  upgradeCost: 
+  upgradeName: ClothEff
+  upgradeValue:
+  - 10
+  - 20
+  - 30
+  - 50
+  - 100
+  - 150
+  upgradeCost: 0a000000140000001e00000028000000320000003c000000

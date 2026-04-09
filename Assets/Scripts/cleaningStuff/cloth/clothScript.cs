@@ -4,18 +4,25 @@ public class clothScript : MonoBehaviour
 {
 
     private bool returning = false;
-    private bool holdingCloth = false;
+    public bool holdingCloth = false;
     private Vector3 offset;
     private GameUI gameUI;
 
     [SerializeField] private int spedd;
-    public int efficience = 50;
+    public int efficience = 10;
+    public float size = 1f;
+    private Vector3 originalScale;
 
     private void Start()
     {
         gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         transform.position = GameObject.Find("clothSlot").transform.position;
         offset.z = -10f; 
+        efficience = GameObject.Find("SceneControl").GetComponent<playerEQ>().clotchEfficience;
+        size = GameObject.Find("SceneControl").GetComponent<playerEQ>().clotchSize;
+        
+        originalScale = transform.localScale;
+        transform.localScale = new Vector3(originalScale.x * size, originalScale.y * size, originalScale.z * size);
     }
 
     private void Update()
