@@ -74,6 +74,8 @@ public class GameUI : MonoBehaviour
         {
             currentWindow.GetComponent<WindowScript>().OnStart();
         }
+        Vector3 startWindowPos = Windows[3].transform.position;
+        MainCam.transform.position = new Vector3(startWindowPos.x, startWindowPos.y - 0.5f, 0f);
     }
 
     public void Update()
