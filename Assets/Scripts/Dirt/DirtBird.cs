@@ -14,6 +14,7 @@ public class DirtBird : MonoBehaviour
     //private bool cleared = false;
     private bool watered = false;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,11 +27,13 @@ public class DirtBird : MonoBehaviour
     public void AddPoints()
     {
         GameObject.Find("SceneControl").GetComponent<playerEQ>().points += dirtType.points*lvl;
+
+        GameObject.Find("HolyPower").GetComponent<HolyPower>().AddHolyPower(dirtType.points);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name==("cloth") )//&& watered
+        if (collision.gameObject.name==("cloth") && watered)//
         {
             dur -= collision.gameObject.GetComponent<clothScript>().efficience;
             if (dur <= 0)

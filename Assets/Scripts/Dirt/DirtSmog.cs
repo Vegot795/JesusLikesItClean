@@ -11,6 +11,7 @@ public class DirtSmog : MonoBehaviour
     private WindowScript windowScript;
     private bool watered = false;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +32,7 @@ public class DirtSmog : MonoBehaviour
         if (eq == null) return;
         if (dirtType == null) return;
         eq.points += dirtType.points;
+        GameObject.Find("HolyPower").GetComponent<HolyPower>().AddHolyPower(dirtType.points);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

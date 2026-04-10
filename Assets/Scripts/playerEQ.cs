@@ -16,8 +16,11 @@ public class playerEQ : MonoBehaviour
     public float sprinkleEfficience;
     public int sprinkleLvlSi;
     public float sprinkleSize;
-
     [SerializeField] private GameObject sprinkWater;
+
+    [Header("Level First Try")]
+    public bool firstTry = true;
+
 
     public static playerEQ instance;
 

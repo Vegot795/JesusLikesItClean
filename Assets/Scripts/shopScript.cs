@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class shopScript : MonoBehaviour
@@ -11,6 +12,15 @@ public class shopScript : MonoBehaviour
 
     [SerializeField] private ShopData[] shopUPG;
 
+    private TextMeshProUGUI costClothEF;
+    private TextMeshProUGUI costClotchSI;
+    private TextMeshProUGUI costSprinkleEF;
+    private TextMeshProUGUI costSprinkleSI;
+    private TextMeshProUGUI lvlClothEF;
+    private TextMeshProUGUI lvlClotchSI;
+    private TextMeshProUGUI lvlSprinkleEF;
+    private TextMeshProUGUI lvlSprinkleSI;
+
 
 
     private void Start()
@@ -20,6 +30,26 @@ public class shopScript : MonoBehaviour
         clothSizeLvl = pEqLvl.clothLvlSi;
         sprinkleEffLvl = pEqLvl.sprinkleLvlEf;
         sprinkleSizeLvl = pEqLvl.sprinkleLvlSi;
+
+        lvlClothEF = GameObject.Find("Text1").GetComponent<TextMeshProUGUI>();
+        costClothEF = GameObject.Find("Text2").GetComponent<TextMeshProUGUI>();
+        lvlClotchSI = GameObject.Find("Text3").GetComponent<TextMeshProUGUI>();
+        costClotchSI = GameObject.Find("Text4").GetComponent<TextMeshProUGUI>();
+        lvlSprinkleEF = GameObject.Find("Text5").GetComponent<TextMeshProUGUI>();
+        costSprinkleEF = GameObject.Find("Text6").GetComponent<TextMeshProUGUI>();
+        lvlSprinkleSI = GameObject.Find("Text7").GetComponent<TextMeshProUGUI>();
+        costSprinkleSI = GameObject.Find("Text8").GetComponent<TextMeshProUGUI>();
+
+        lvlClothEF.text = "Level: " + (clothEffLvl+1);
+        costClothEF.text = "Cost: " + (shopUPG[0].upgradeCost[clothEffLvl]);
+        lvlClotchSI.text = "Level: " + (clothSizeLvl+1);
+        costClotchSI.text = "Cost: " + (shopUPG[1].upgradeCost[clothSizeLvl]);
+        lvlSprinkleEF.text = "Level: " + (sprinkleEffLvl+1);
+        costSprinkleEF.text = "Cost: " + (shopUPG[2].upgradeCost[sprinkleEffLvl]);
+        lvlSprinkleSI.text = "Level: " + (sprinkleSizeLvl + 1);
+        costSprinkleSI.text = "Cost: " + (shopUPG[3].upgradeCost[sprinkleSizeLvl]);
+
+
     }
 
     private void OnMouseUp()
@@ -42,7 +72,7 @@ public class shopScript : MonoBehaviour
         }
     }
 
-    private void BuyUpgrade(int opcja)
+    public void BuyUpgrade(int opcja)
     {
         playerEQ pEqLvl = GameObject.Find("SceneControl").GetComponent<playerEQ>();
 
@@ -54,6 +84,8 @@ public class shopScript : MonoBehaviour
                 pEqLvl.clothLvlEf++;
                 pEqLvl.clotchEfficience = (int)shopUPG[opcja].upgradeValue[pEqLvl.clothLvlEf];
                 clothEffLvl = pEqLvl.clothLvlEf;
+                lvlClothEF.text = "Level: " + (clothEffLvl + 1);
+                costClothEF.text = "Cost: " + (shopUPG[0].upgradeCost[clothEffLvl]);
             }
         }
         else if (opcja == 1)
@@ -64,6 +96,8 @@ public class shopScript : MonoBehaviour
                 pEqLvl.clothLvlSi++;
                 pEqLvl.clotchSize = (float)shopUPG[opcja].upgradeValue[pEqLvl.clothLvlSi];
                 clothSizeLvl = pEqLvl.clothLvlSi;
+                lvlClotchSI.text = "Level: " + (clothSizeLvl + 1);
+                costClotchSI.text = "Cost: " + (shopUPG[1].upgradeCost[clothSizeLvl]);
             }
         }
         else if (opcja == 2)
@@ -74,6 +108,8 @@ public class shopScript : MonoBehaviour
                 pEqLvl.sprinkleLvlEf++;
                 pEqLvl.sprinkleEfficience = (float)shopUPG[opcja].upgradeValue[pEqLvl.sprinkleLvlEf];
                 sprinkleEffLvl = pEqLvl.sprinkleLvlEf;
+                lvlSprinkleEF.text = "Level: " + (sprinkleEffLvl + 1);
+                costSprinkleEF.text = "Cost: " + (shopUPG[2].upgradeCost[sprinkleEffLvl]);
             }
         }
         else if (opcja == 3)
@@ -84,6 +120,8 @@ public class shopScript : MonoBehaviour
                 pEqLvl.sprinkleLvlSi++;
                 pEqLvl.sprinkleSize = (float)shopUPG[opcja].upgradeValue[pEqLvl.sprinkleLvlSi];
                 sprinkleSizeLvl = pEqLvl.sprinkleLvlSi;
+                lvlSprinkleSI.text = "Level: " + (sprinkleSizeLvl + 1);
+                costSprinkleSI.text = "Cost: " + (shopUPG[3].upgradeCost[sprinkleSizeLvl]);
             }
         }
     }

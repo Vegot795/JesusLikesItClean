@@ -47,7 +47,9 @@ public class WindowScript : MonoBehaviour
 
     private void Start()
     {
-        OnStart();
+        firstTry = GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry;
+        StartCoroutine(DelayStart());
+        //OnStart();
     }
 
     public void OnStart()
