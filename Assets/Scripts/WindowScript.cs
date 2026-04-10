@@ -376,7 +376,7 @@ public class WindowScript : MonoBehaviour
         //StainedCells tworzą się w SpawnDirtOnWindow
         SpawnBirdsDirtOnWindow(WindowLvl);
         SpawnMudOnWindow(WindowLvl);
-        SpawnSmogOnWindow(WindowLvl);
+        //SpawnSmogOnWindow(WindowLvl);
         totalCells = stainedCells.Count;
     }
 

@@ -92,9 +92,10 @@ public class GameUI : MonoBehaviour
                 currentWindow.JumpScare();
                 Debug.Log("JumpScare");
                 MoveToNextLvl();
-                StartCoroutine(DelayedCleanupAfterJumpscare(3f));
                 Windows[0].GetComponent<WindowScript>().OnStart();
-                GameObject.Find("cloth").GetComponent<clothScript>().holdingCloth = false;
+                cloth.GetComponent<clothScript>().holdingCloth = false;
+                Debug.Log("Bouta start coroutine");
+                StartCoroutine(DelayedCleanupAfterJumpscare(3f));
             }
         }
 
@@ -149,25 +150,39 @@ public class GameUI : MonoBehaviour
 
         if (windowNumber >= 3 && currentWindow.firstTry)
         {
-            windowNumber = 0;
             currentWindow.firstTry = false;
+            windowNumber = 0;
+            Debug.Log($"First try, moving to next level. windowNumber: {windowNumber}");
         }
         else if (windowNumber == 3 && !currentWindow.firstTry)
         {
+            Debug.Log("returning");
             return;
         }
         else
         {
             windowNumber++;
+            Debug.Log($"Moving to next level. windowNumber: {windowNumber}");
         }
 
         currentWindow = Windows[windowNumber];
-        currentWindow.OnStart();
+
+        if(windowNumber >= 3 && !currentWindow.firstTry)
+        {
+            currentWindow.SpawnDirtOnWindows();
+        }
+        else
+        {
+            currentWindow.OnStart();
+        }
+        Debug.Log($"Current window: {currentWindow.gameObject.name}, current camera: {MainCam.name}");
+
 
         if (MainCam != null && currentWindow != null)
         {
             targetCamPos = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y, MainCam.transform.position.z);
             isCameraMoving = true;
+            Debug.Log($"Moving camera to {currentWindow.gameObject.name} at position {targetCamPos}");
         }
     }
 
@@ -185,7 +200,6 @@ public class GameUI : MonoBehaviour
     private void CleanupAfterJumpscare()
     {
         WindowScript window = Windows[3];
-        window.OnStart();
         window.ResetGrid();
         Destroy(window.Jessy);
         window.WindowLvl = 4;

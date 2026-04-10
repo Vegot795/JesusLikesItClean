@@ -548,6 +548,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      propertyPath: JesusScare
+      value: 
+      objectReference: {fileID: 182533894502468427, guid: aa7721e0af5f58843b7fa91f97ed53c2, type: 3}
     - target: {fileID: 5233407607330383596, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_Name
       value: Window2
@@ -1937,9 +1941,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 0
+  clothLvlEf: 0
   clotchEfficience: 10
+  clothLvlSi: 0
   clotchSize: 1
+  sprinkleLvlEf: 0
   sprinkleEfficience: 0.15
+  sprinkleLvlSi: 0
   sprinkleSize: 1
   sprinkWater: {fileID: 2458082824443080465, guid: 592cf5fa8d9b0fb409e7dc9cae4bf418, type: 3}
 --- !u!1 &1651533332
@@ -2248,6 +2256,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7933041013213779216, guid: 0d433d032a5f06a45a01b151dc634a02, type: 3}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      propertyPath: JesusScare
+      value: 
+      objectReference: {fileID: 182533894502468427, guid: aa7721e0af5f58843b7fa91f97ed53c2, type: 3}
+    - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowSprite
       value: 
       objectReference: {fileID: 7933041013213779216, guid: 0d433d032a5f06a45a01b151dc634a02, type: 3}
@@ -2336,6 +2348,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2019292043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2019292044}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2019292044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019292043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 29.14305, y: 40.39667, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2051028038
 GameObject:
   m_ObjectHideFlags: 0
@@ -2478,8 +2521,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f39c4e81efa8c648bf7d09b41fcc65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdingCloth: 0
   spedd: 15
   efficience: 100
+  size: 1
 --- !u!50 &2051028043
 Rigidbody2D:
   serializedVersion: 5
@@ -2801,6 +2846,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 823816866859856203, guid: 240d2f05c60e6bc46bebd1deac119a56, type: 3}
     - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      propertyPath: JesusScare
+      value: 
+      objectReference: {fileID: 182533894502468427, guid: aa7721e0af5f58843b7fa91f97ed53c2, type: 3}
+    - target: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: windowSprite
       value: 
       objectReference: {fileID: 823816866859856203, guid: 240d2f05c60e6bc46bebd1deac119a56, type: 3}
@@ -2837,3 +2886,4 @@ SceneRoots:
   - {fileID: 608094938}
   - {fileID: 967144772}
   - {fileID: 1430665615}
+  - {fileID: 2019292044}
