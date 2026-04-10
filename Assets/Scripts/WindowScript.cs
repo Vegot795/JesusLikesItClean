@@ -26,6 +26,7 @@ public class WindowScript : MonoBehaviour
     public float cutsceneTriggerProgress;
     public string windowName;
     public bool isCleaned = false;
+    public GameObject nextWindow;
     public bool firstTry = true;
     public Sprite windowSprite;
     public DirtData[] dirtTypes;
@@ -33,6 +34,8 @@ public class WindowScript : MonoBehaviour
     public GameObject JesusScare;
     public Vector2 JesusScareOffset;
     public GameObject Jessy;
+    private int yes;
+
     public struct DirtCell
     {
         public bool hasDirt;
@@ -41,8 +44,14 @@ public class WindowScript : MonoBehaviour
         public float cellY;
     }
 
-    private void Start()
+    //private void Start()
+    //{
+    //    OnStart();
+    //}
+
+    public void OnStart()
     {
+
         GameUI gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         glassObject = gameObject;
         glassObject.GetComponent<SpriteRenderer>().sprite = windowSprite;
@@ -55,7 +64,7 @@ public class WindowScript : MonoBehaviour
 
         Debug.Log($"Rozmiar okna: {bounds.size.x} x {bounds.size.y}");
         Debug.Log($"Rozmiar komórki: {cellWidth} x {cellHeight}");
-        
+
         grid = new DirtCell[columns, rows];
 
         JesusScareOffset = new Vector2(JesusScare.GetComponent<SpriteRenderer>().bounds.size.x / 2, 0f);
@@ -65,6 +74,13 @@ public class WindowScript : MonoBehaviour
     {
         stainedCells.RemoveAll(go => go == null);
         CountProgress();
+        if(isCleaned && yes == 0)
+        {
+            GameObject.Find("cloth").GetComponent<clothScript>().holdingCloth = false;
+            yes++;
+            Debug.Log(yes);
+            nextWindow.GetComponent<WindowScript>().OnStart();
+        }
     }
 
     void OnDrawGizmos()
