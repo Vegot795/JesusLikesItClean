@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Unity.VisualScripting;
@@ -71,6 +72,12 @@ public class WindowScript : MonoBehaviour
         JesusScareOffset = new Vector2(JesusScare.GetComponent<SpriteRenderer>().bounds.size.x / 2, 0f);
     }
 
+    private IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(1.5f);
+        OnStart();
+    }
+
     private void Update()
     {
         stainedCells.RemoveAll(go => go == null);
@@ -80,7 +87,6 @@ public class WindowScript : MonoBehaviour
             GameObject.Find("cloth").GetComponent<clothScript>().holdingCloth = false;
             yes++;
             Debug.Log(yes);
-            nextWindow.GetComponent<WindowScript>().OnStart();
         }
     }
 

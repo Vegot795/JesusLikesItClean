@@ -30,6 +30,7 @@ public class GameUI : MonoBehaviour
     private Vector3 targetCamPos;
     private const float arriveThresholdSqr = 0.0009f;
 
+    private GameObject glass1;
 
     void Start()
     {
@@ -74,31 +75,33 @@ public class GameUI : MonoBehaviour
         //{
         //    currentWindow.GetComponent<WindowScript>().OnStart();
         //}
+        glass1 = GameObject.Find("Glass1");
     }
 
     public void Update()
     {
         Inventory.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y -8f);
         Tools.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y -3f);
-        cloth.transform.position = clothSlot.transform.position;
+        //cloth.transform.position = clothSlot.transform.position;
 
         CurrentLevelController();
         HandleCameraMovement();
 
-        if (currentWindow.name == "Glass4")
+        
+            
+        if (currentWindow.name == "Glass4" && GameObject.Find("Game").GetComponent<GameLoad>().loaded)
         {
             if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
             {
+                glass1.SetActive(true);
                 currentWindow.JumpScare();
                 Debug.Log("JumpScare");
                 MoveToNextLvl();
                 StartCoroutine(DelayedCleanupAfterJumpscare(3f));
-                //GameObject.Find("Glass1").GetComponent<WindowScript>().OnStart();
-                GameObject.Find("cloth").GetComponent<clothScript>().holdingCloth = false;
             }
         }
-
-        if (currentWindow.clearingProgress == 1f)
+        
+        if ( GameObject.Find("Game").GetComponent<GameLoad>().loaded && currentWindow.clearingProgress == 1f)
         {
             currentWindow.isCleaned = true;
         }
@@ -189,6 +192,7 @@ public class GameUI : MonoBehaviour
         Destroy(window.Jessy);
         window.WindowLvl = 4;
         window.SpawnDirtOnWindows();
+        GameObject.Find("Glass4").SetActive(false);
         Debug.Log("Cleanup after jumpscare completed.");
 
     }
