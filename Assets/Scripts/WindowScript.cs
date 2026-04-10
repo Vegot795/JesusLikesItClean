@@ -51,7 +51,7 @@ public class WindowScript : MonoBehaviour
         glassObject = gameObject;
         glassObject.GetComponent<SpriteRenderer>().sprite = windowSprite;
         windowName = glassObject.name;
-
+        isCleaned = false;
         bounds = GetComponent<SpriteRenderer>().bounds;
 
         columns = Mathf.RoundToInt(bounds.size.x / cellWidth);

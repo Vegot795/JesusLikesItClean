@@ -4,17 +4,18 @@ public class whereDirt : MonoBehaviour
 {
     private GameObject magicEye;
 
+    //Czemu nie array/list? Można zrobić coś w stylu List<WindowScript> Windows = gameUI.Windows
     private GameObject glass1;
     private GameObject glass2;
     private GameObject glass3;
     private GameObject glass4;
-    
+
+    //Rozumiem że to odpowiada aktualnemu oknu które czyści gracz. Nie lepie będzie pobrać to z gameUI.currentWindow?
     private bool isActive1 = false;
     private bool isActive2 = false;
     private bool isActive3 = false;
     private bool isActive4 = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         glass1 = GameObject.Find("Glass1");
@@ -25,7 +26,23 @@ public class whereDirt : MonoBehaviour
         magicEye.SetActive(false);
     }
 
-    // Update is called once per frame
+    //Poniżej mega duże if/else, które można by było zastąpić arrayem/listą. Solution będzie miał mniej do myślenia
+
+    /*  Dla przykładu:
+     if (currentWindow.GetComponent<WindowScript>().isCleaned == false)
+        {
+            if (currentWindow.transform.childCount <= 50)
+            {
+                magicEye.SetActive(true);
+            }
+            else if (currentWindow.transform.childCount > 50)
+            {
+                magicEye.SetActive(false);
+            }
+        }
+    Jakbym zapomniał - dodałem gameUI.progress, można tym zastąpić transform.childCount
+     */
+
     void Update()
     {
         if (glass1.GetComponent<WindowScript>().isCleaned == false)

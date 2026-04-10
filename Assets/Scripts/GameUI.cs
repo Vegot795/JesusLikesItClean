@@ -85,6 +85,11 @@ public class GameUI : MonoBehaviour
         CurrentLevelController();
         HandleCameraMovement();
 
+        if (currentWindow.clearingProgress == 1f)
+        {
+            currentWindow.isCleaned = true;
+        }
+
         if (currentWindow.name == "Glass4")
         {
             if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
@@ -97,11 +102,6 @@ public class GameUI : MonoBehaviour
                 Debug.Log("Bouta start coroutine");
                 StartCoroutine(DelayedCleanupAfterJumpscare(3f));
             }
-        }
-
-        if (currentWindow.clearingProgress == 1f)
-        {
-            currentWindow.isCleaned = true;
         }
     }
 
