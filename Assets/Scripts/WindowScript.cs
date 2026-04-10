@@ -26,7 +26,7 @@ public class WindowScript : MonoBehaviour
     public float cutsceneTriggerProgress;
     public string windowName;
     public bool isCleaned = false;
-    public GameObject nextWindow;
+
     public bool firstTry = true;
     public Sprite windowSprite;
     public DirtData[] dirtTypes;
@@ -34,20 +34,15 @@ public class WindowScript : MonoBehaviour
     public GameObject JesusScare;
     public Vector2 JesusScareOffset;
     public GameObject Jessy;
-    private int yes;
+
 
     public struct DirtCell
     {
         public bool hasDirt;
         public DirtData dirtType;
-        public float cellX ;
+        public float cellX;
         public float cellY;
     }
-
-    //private void Start()
-    //{
-    //    OnStart();
-    //}
 
     public void OnStart()
     {
@@ -67,6 +62,7 @@ public class WindowScript : MonoBehaviour
 
         grid = new DirtCell[columns, rows];
 
+        SpawnDirtOnWindows();
         JesusScareOffset = new Vector2(JesusScare.GetComponent<SpriteRenderer>().bounds.size.x / 2, 0f);
     }
 
@@ -74,15 +70,7 @@ public class WindowScript : MonoBehaviour
     {
         stainedCells.RemoveAll(go => go == null);
         CountProgress();
-        if(isCleaned && yes == 0)
-        {
-            GameObject.Find("cloth").GetComponent<clothScript>().holdingCloth = false;
-            yes++;
-            Debug.Log(yes);
-            nextWindow.GetComponent<WindowScript>().OnStart();
-        }
     }
-
     void OnDrawGizmos()
     {
         if (showGizmos)
@@ -388,7 +376,7 @@ public class WindowScript : MonoBehaviour
         //StainedCells tworzą się w SpawnDirtOnWindow
         SpawnBirdsDirtOnWindow(WindowLvl);
         SpawnMudOnWindow(WindowLvl);
-        //SpawnSmogOnWindow(WindowLvl);
+        SpawnSmogOnWindow(WindowLvl);
         totalCells = stainedCells.Count;
     }
 
