@@ -30,49 +30,61 @@ public class GameUI : MonoBehaviour
     private Vector3 targetCamPos;
     private const float arriveThresholdSqr = 0.0009f;
 
+    private GameObject glass1;
+    public bool isShop = false;
+    public GameObject tutorial;
+    public GameObject loading;
+    public GameObject holyBar;
 
     void Start()
     {
-        windowNumber = 3;
-        Tools = GameObject.Find("Object");
-        cloth = GameObject.Find("cloth");
-        sprinkle = GameObject.Find("sprinkle");
-        clothSlot = GameObject.Find("clothSlot");
-        sprinkleSlot = GameObject.Find("sprinkleSlot");
-        Inventory = GameObject.Find("Inventory");
-
-        Windows.Clear();
-        WindowScript[] found = GameObject.FindObjectsByType<WindowScript>(FindObjectsSortMode.InstanceID);
-        int ExtractTrailingNumber(string s)
+        if (!isShop)
         {
-            int i = s.Length - 1;
-            while (i >= 0 && char.IsDigit(s[i])) i--;
-            string num = s.Substring(i + 1);
-            if (int.TryParse(num, out int n)) return n;
-            return int.MaxValue;
-        }
-        var ordered = found
-            .OrderBy(w => ExtractTrailingNumber(w.gameObject.name))
-            .ThenBy(w => w.gameObject.name)
-            .ToList();
-        Windows.AddRange(ordered);
+            windowNumber = 3;
+            loading.SetActive(true);
+            Tools = GameObject.Find("Object");
+            cloth = GameObject.Find("cloth");
+            sprinkle = GameObject.Find("sprinkle");
+            clothSlot = GameObject.Find("clothSlot");
+            sprinkleSlot = GameObject.Find("sprinkleSlot");
+            Inventory = GameObject.Find("Inventory");
 
-        MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        if (MainCam != null && MainCam.CompareTag("MainCamera"))
-        {
-            NextLvlBut.SetActive(false);
-            if (Windows.Count > 0)
+            Windows.Clear();
+            WindowScript[] found = GameObject.FindObjectsByType<WindowScript>(FindObjectsSortMode.InstanceID);
+            int ExtractTrailingNumber(string s)
             {
-                currentWindow = Windows[windowNumber];
-                CurrentCamPos = currentWindow.transform.position;
-                targetCamPos = new Vector3(CurrentCamPos.x, CurrentCamPos.y, MainCam.transform.position.z);
+                int i = s.Length - 1;
+                while (i >= 0 && char.IsDigit(s[i])) i--;
+                string num = s.Substring(i + 1);
+                if (int.TryParse(num, out int n)) return n;
+                return int.MaxValue;
             }
-        }
-        sprinkle.transform.position = sprinkleSlot.transform.position;
+            var ordered = found
+                .OrderBy(w => ExtractTrailingNumber(w.gameObject.name))
+                .ThenBy(w => w.gameObject.name)
+                .ToList();
+            Windows.AddRange(ordered);
 
-        if (currentWindow = Windows[3])
-        {
-            currentWindow.GetComponent<WindowScript>().OnStart();
+            MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+            if (MainCam != null && MainCam.CompareTag("MainCamera"))
+            {
+                NextLvlBut.SetActive(false);
+                if (Windows.Count > 0)
+                {
+                    currentWindow = Windows[windowNumber];
+                    CurrentCamPos = currentWindow.transform.position;
+                    targetCamPos = new Vector3(CurrentCamPos.x, CurrentCamPos.y, MainCam.transform.position.z);
+                }
+            }
+            sprinkle.transform.position = sprinkleSlot.transform.position;
+
+            glass1 = GameObject.Find("Glass1");
+
+            if (GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == false)
+            {
+                windowNumber = -1;
+                MoveToNextLvl();
+            }
         }
         Vector3 startWindowPos = Windows[3].transform.position;
         MainCam.transform.position = new Vector3(startWindowPos.x, startWindowPos.y - 0.5f, 0f);
@@ -80,29 +92,31 @@ public class GameUI : MonoBehaviour
 
     public void Update()
     {
-        Inventory.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y -8f);
-        Tools.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y -3f);
-        cloth.transform.position = clothSlot.transform.position;
-
-        CurrentLevelController();
-        HandleCameraMovement();
-
-        if (currentWindow.clearingProgress == 1f)
+        if (!isShop)
         {
-            currentWindow.isCleaned = true;
-        }
+            Inventory.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y - 8f);
+            Tools.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y - 3f);
+            cloth.transform.position = clothSlot.transform.position;
 
-        if (currentWindow.name == "Glass4")
-        {
-            if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
+            CurrentLevelController();
+            HandleCameraMovement();
+
+            if (currentWindow.name == "Glass4" && GameObject.Find("Game").GetComponent<GameLoad>().loaded && GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == true)
             {
-                currentWindow.JumpScare();
-                Debug.Log("JumpScare");
-                MoveToNextLvl();
-                Windows[0].GetComponent<WindowScript>().OnStart();
-                cloth.GetComponent<clothScript>().holdingCloth = false;
-                Debug.Log("Bouta start coroutine");
-                StartCoroutine(DelayedCleanupAfterJumpscare(3f));
+                if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
+                {
+                    glass1.SetActive(true);
+                    currentWindow.JumpScare();
+                    tutorial.SetActive(true);
+                    Debug.Log("JumpScare");
+                    MoveToNextLvl();
+                    StartCoroutine(DelayedCleanupAfterJumpscare(1.5f));
+                }
+            }
+
+            if (GameObject.Find("Game").GetComponent<GameLoad>().loaded && currentWindow.clearingProgress == 1f)
+            {
+                currentWindow.isCleaned = true;
             }
         }
     }
@@ -112,7 +126,7 @@ public class GameUI : MonoBehaviour
         SceneManager.LoadScene(scena);
     }
 
-    private void CurrentLevelController ()
+    private void CurrentLevelController()
     {
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
@@ -169,7 +183,7 @@ public class GameUI : MonoBehaviour
 
         currentWindow = Windows[windowNumber];
 
-        if(windowNumber >= 3 && !currentWindow.firstTry)
+        if (windowNumber >= 3 && !currentWindow.firstTry)
         {
             currentWindow.SpawnDirtOnWindows();
         }
@@ -202,10 +216,21 @@ public class GameUI : MonoBehaviour
     private void CleanupAfterJumpscare()
     {
         WindowScript window = Windows[3];
+
         window.ResetGrid();
         Destroy(window.Jessy);
         window.WindowLvl = 4;
+        window.SpawnDirtOnWindows();
+        GameObject.Find("Glass4").SetActive(false);
         Debug.Log("Cleanup after jumpscare completed.");
+
+    }
+
+    public void Hide(GameObject obj)
+    {
+        obj.SetActive(false);
+        holyBar.GetComponent<HolyPower>().ShowBar();
+        holyBar.GetComponent<HolyPower>().working = true;
 
     }
 
