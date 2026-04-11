@@ -36,6 +36,8 @@ public class WindowScript : MonoBehaviour
     public Vector2 JesusScareOffset;
     public GameObject Jessy;
 
+    private int yes;
+
 
     public struct DirtCell
     {

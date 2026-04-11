@@ -47,7 +47,7 @@ public class DirtMud : MonoBehaviour
         if (windowScript == null)
             windowScript = GetComponentInParent<WindowScript>();
 
-        if (collision.gameObject.name == "cloth")
+        
         if (collision.gameObject.name == ("cloth")&& watered)//
         {
             clothScript cloth = collision.gameObject.GetComponent<clothScript>();
