@@ -27,7 +27,7 @@ public class WindowScript : MonoBehaviour
     public float cutsceneTriggerProgress;
     public string windowName;
     public bool isCleaned = false;
-    public GameObject nextWindow;
+
     public bool firstTry = true;
     public Sprite windowSprite;
     public DirtData[] dirtTypes;
@@ -35,13 +35,15 @@ public class WindowScript : MonoBehaviour
     public GameObject JesusScare;
     public Vector2 JesusScareOffset;
     public GameObject Jessy;
+
     private int yes;
+
 
     public struct DirtCell
     {
         public bool hasDirt;
         public DirtData dirtType;
-        public float cellX ;
+        public float cellX;
         public float cellY;
     }
 
@@ -59,7 +61,7 @@ public class WindowScript : MonoBehaviour
         glassObject = gameObject;
         glassObject.GetComponent<SpriteRenderer>().sprite = windowSprite;
         windowName = glassObject.name;
-
+        isCleaned = false;
         bounds = GetComponent<SpriteRenderer>().bounds;
 
         columns = Mathf.RoundToInt(bounds.size.x / cellWidth);
@@ -91,7 +93,6 @@ public class WindowScript : MonoBehaviour
             Debug.Log(yes);
         }
     }
-
     void OnDrawGizmos()
     {
         if (showGizmos)
@@ -138,14 +139,21 @@ public class WindowScript : MonoBehaviour
                 continue;
             }
 
-            Vector3 spawnPosition = new Vector3(
+            if (!cell.hasDirt)
+            {
+                Vector3 spawnPosition = new Vector3(
                 bounds.min.x + cell.cellX * cellWidth + cellWidth / 2,
                 bounds.min.y + cell.cellY * cellHeight + cellHeight / 2,
                 0);
 
-            stainedCell = Instantiate(smogPrefab, spawnPosition, Quaternion.identity);
-            stainedCells.Add(stainedCell);
-            stainedCell.transform.SetParent(glassObject.transform);
+                stainedCell = Instantiate(smogPrefab, spawnPosition, Quaternion.identity);
+                stainedCells.Add(stainedCell);
+                stainedCell.transform.SetParent(glassObject.transform);
+            }else
+            {
+                continue;
+            }
+            
 
             float targetStainLvl = Random.Range(dirtTypes[2].minAlpha * (WindowLvl * .1f + 1), (dirtTypes[2].maxAlpha / 5) * WindowLvl);
 
@@ -390,7 +398,7 @@ public class WindowScript : MonoBehaviour
         //StainedCells tworzą się w SpawnDirtOnWindow
         SpawnBirdsDirtOnWindow(WindowLvl);
         SpawnMudOnWindow(WindowLvl);
-        SpawnSmogOnWindow(WindowLvl);
+        //SpawnSmogOnWindow(WindowLvl);
         totalCells = stainedCells.Count;
     }
 

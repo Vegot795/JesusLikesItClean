@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: e4d492be4a61dc64ca9095ddbf992d0b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - windowSprite: {instanceID: 0}
+  - JesusScare: {fileID: 182533894502468427, guid: aa7721e0af5f58843b7fa91f97ed53c2, type: 3}
+  - Jessy: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
