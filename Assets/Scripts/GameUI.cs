@@ -87,8 +87,8 @@ public class GameUI : MonoBehaviour
 
             // Pobierz sprite ściany i przypisz go do okna 4
             GameObject glass4 = Windows[3].gameObject;
-            glass4.GetComponentInParent<Animator>().enabled = false;
-            glass4.GetComponentInParent<SpriteRenderer>().sprite = _wallSprite;
+            glass4.transform.parent.parent.GetComponent<Animator>().enabled = false;
+            glass4.transform.parent.parent.GetComponent<SpriteRenderer>().sprite = _wallSprite;
             glass4.transform.Find("Decorations4Wall").gameObject.SetActive(false);
             glass1 = GameObject.Find("Glass1");
 
@@ -200,7 +200,6 @@ public class GameUI : MonoBehaviour
         }
 
         currentWindow = Windows[windowNumber];
-        //currentWindow.isCleaned = false;
         Debug.Log($"Current window: {currentWindow.gameObject.name}, current camera: {MainCam.name}, firstTry: {currentWindow.firstTry}");
 
         if (MainCam != null && currentWindow != null)
@@ -234,11 +233,13 @@ public class GameUI : MonoBehaviour
         window.ResetGrid();
         Destroy(window.Jessy);
         window.WindowLvl = 4;
+        window.SpawnBloodOnWindow();
         window.SpawnDirtOnWindows();
         GameObject.Find("Glass4").SetActive(false);
-        Windows[3].GetComponent<Animator>().enabled = true;
-        Windows[3].GetComponentInParent<SpriteRenderer>().sprite = _starSprite;
-        Windows[3].transform.Find("Decorations4Wall").gameObject.SetActive(true);
+        window.transform.parent.parent.GetComponent<Animator>().enabled = true;
+        window.transform.parent.parent.GetComponent<Animator>().Play("SkyAnimation");
+        window.transform.parent.parent.GetComponent<SpriteRenderer>().sprite = _starSprite;
+        window.transform.Find("Decorations4Wall").gameObject.SetActive(true);
         Debug.Log("Cleanup after jumpscare completed.");
 
     }

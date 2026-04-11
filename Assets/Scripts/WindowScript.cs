@@ -197,8 +197,8 @@ public class WindowScript : MonoBehaviour
             int centerX = (int)center.cellX;
             int centerY = (int)center.cellY;
 
-            int randomWide = Random.Range(1, WindowLvl);
-            int randomHigh = Random.Range(1, WindowLvl);
+            int randomWide = Random.Range(1, 3*WindowLvl);
+            int randomHigh = Random.Range(1, 3*WindowLvl);
 
             for (int x = -randomWide; x <= randomWide; x++)
             {
@@ -345,6 +345,75 @@ public class WindowScript : MonoBehaviour
         }
     }
 
+    public void SpawnBloodOnWindow()
+    {
+        List<DirtCell> coreCells = new List<DirtCell>();
+
+        // Znajdywanie randowmowego punktu centralnego
+        int centerX = Random.Range(0, columns);
+        int centerY = Random.Range(0, rows);
+        DirtCell centerCell = grid[centerX, centerY];
+        centerCell.cellX = centerX;
+        centerCell.cellY = centerY;
+        coreCells.Add(centerCell);
+
+        // Znajdywanie 2 punktów na krawędzi w określonej odległości od centrum
+        float radius = 5f;
+        for (int i = 0; i < 2; i++)
+        {
+            float angle = Random.Range(0f, 2f * Mathf.PI);
+            int edgeX = Mathf.Clamp(Mathf.RoundToInt(centerX + radius * Mathf.Cos(angle)), 0, columns - 1);
+            int edgeY = Mathf.Clamp(Mathf.RoundToInt(centerY + radius * Mathf.Sin(angle)), 0, rows - 1);
+            DirtCell edgeCell = grid[edgeX, edgeY];
+            edgeCell.cellX = edgeX;
+            edgeCell.cellY = edgeY;
+            coreCells.Add(edgeCell);
+        }
+
+        // Tworzenie prefabów krwi w okręgu o promieniu 5 komórek wokół punktów centralnych
+        GameObject bloodPrefab = dirtTypes[3].dirtPrefab; // Assuming blood is at index 3
+        for (int i = 0; i < coreCells.Count; i++)
+        {
+            int cx = (int)coreCells[i].cellX;
+            int cy = (int)coreCells[i].cellY;
+            for (int x = cx - 5; x <= cx + 5; x++)
+            {
+                for (int y = cy - 5; y <= cy + 5; y++)
+                {
+                    if (x >= 0 && x < columns && y >= 0 && y < rows)
+                    {
+                        float dist = Mathf.Sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
+                        if (dist <= 5f && !grid[x, y].hasDirt)
+                        {
+                            Vector3 spawnPosition = new Vector3(
+                                bounds.min.x + x * cellWidth + cellWidth / 2,
+                                bounds.min.y + y * cellHeight + cellHeight / 2,
+                                0);
+                            GameObject bloodCell = Instantiate(bloodPrefab, spawnPosition, Quaternion.identity);
+                            stainedCells.Add(bloodCell);
+                            bloodCell.transform.SetParent(glassObject.transform);
+
+                            DirtCell updated = grid[x, y];
+                            updated.hasDirt = true;
+                            grid[x, y] = updated;
+                        }
+                    }
+                }
+            }
+        }
+        // Skalowanie prefabów do rozmiaru komórki
+        SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
+        if (sr != null && sr.sprite != null)
+        {
+            Vector2 spriteSize = sr.sprite.bounds.size;
+            Vector3 newScale = stainedCell.transform.localScale;
+            newScale.x = cellWidth / spriteSize.x * newScale.x;
+            newScale.y = cellHeight / spriteSize.y * newScale.y;
+            stainedCell.transform.localScale = newScale;
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 255);
+        }
+    }
+
     private List<DirtCell> GetAllWindowCells()
     {
         List<DirtCell> cells = new List<DirtCell>();
@@ -431,7 +500,7 @@ public class WindowScript : MonoBehaviour
             }
             else
             {
-
+                cleanedWindowAnim.SetActive(false);
             }
         }
     }

@@ -1,7 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class shopScript : MonoBehaviour
 {
 
@@ -9,8 +9,8 @@ public class shopScript : MonoBehaviour
     private int clothSizeLvl;
     private int sprinkleEffLvl;
     private int sprinkleSizeLvl;
-    private GameObject shopSprinkle;
-    private GameObject shopCloth;
+    public GameObject shopSprinkle;
+    public GameObject shopCloth;
 
     [SerializeField] private ShopData[] shopUPG;
 
@@ -33,8 +33,8 @@ public class shopScript : MonoBehaviour
         clothSizeLvl = pEqLvl.clothLvlSi;
         sprinkleEffLvl = pEqLvl.sprinkleLvlEf;
         sprinkleSizeLvl = pEqLvl.sprinkleLvlSi;
-        shopCloth = GameObject.Find("clothSprite");
-        shopSprinkle = GameObject.Find("sprinkleSprite");
+        shopCloth = GameObject.Find("cloth");
+        shopSprinkle = GameObject.Find("sprinkle");
 
         lvlClothEF = GameObject.Find("Text1").GetComponent<TextMeshProUGUI>();
         costClothEF = GameObject.Find("Text2").GetComponent<TextMeshProUGUI>();
@@ -136,12 +136,14 @@ public class shopScript : MonoBehaviour
     private void UpdateClothSpriteWithLvl(int lvl)
     {
         playerEQ pEqLvl = GameObject.Find("SceneControl").GetComponent<playerEQ>();
-        shopCloth.GetComponent<SpriteRenderer>().sprite = pEqLvl.clothSprites[lvl];
+        Image clothSprite = shopCloth.GetComponent<Image>();
+        clothSprite.sprite = pEqLvl.clothSprites[lvl];
     }
 
     private void UpdateSprinkleSpriteWithLvl(int lvl)
     {
         playerEQ pEqLvl = GameObject.Find("SceneControl").GetComponent<playerEQ>();
-        shopSprinkle.GetComponent<SpriteRenderer>().sprite = pEqLvl.sprinkleSprites[lvl];
+        Image sprinkleSprite = shopSprinkle.GetComponent<Image>();
+        sprinkleSprite.sprite = pEqLvl.sprinkleSprites[lvl];
     }
 }
