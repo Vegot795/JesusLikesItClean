@@ -197,8 +197,8 @@ public class WindowScript : MonoBehaviour
             int centerX = (int)center.cellX;
             int centerY = (int)center.cellY;
 
-            int randomWide = Random.Range(1, WindowLvl);
-            int randomHigh = Random.Range(1, WindowLvl);
+            int randomWide = Random.Range(1, 3*WindowLvl);
+            int randomHigh = Random.Range(1, 3*WindowLvl);
 
             for (int x = -randomWide; x <= randomWide; x++)
             {
