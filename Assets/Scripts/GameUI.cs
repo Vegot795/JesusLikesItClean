@@ -71,7 +71,7 @@ public class GameUI : MonoBehaviour
             {
                 currentWindow = Windows[windowNumber];
                 CurrentCamPos = currentWindow.transform.position;
-                targetCamPos = new Vector3(CurrentCamPos.x, CurrentCamPos.y, MainCam.transform.position.z);
+                targetCamPos = new Vector3(CurrentCamPos.x, CurrentCamPos.y - 0.5f, MainCam.transform.position.z);
             }
             sprinkle.transform.position = sprinkleSlot.transform.position;
 
@@ -83,9 +83,6 @@ public class GameUI : MonoBehaviour
                 MoveToNextLvl();
             }
         }
-        Vector3 startWindowPos = Windows[3].transform.position;
-        MainCam.transform.position = new Vector3(startWindowPos.x, startWindowPos.y - 0.5f, 0f);
-        Debug.Log($"Camera moved to start position: {MainCam.transform.position}");
     }
 
     public void Update()
@@ -169,7 +166,7 @@ public class GameUI : MonoBehaviour
 
         if (MainCam != null && currentWindow != null)
         {
-            targetCamPos = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y, MainCam.transform.position.z);
+            targetCamPos = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y - 0.05f, MainCam.transform.position.z);
             isCameraMoving = true;
             Debug.Log($"Moving camera to {currentWindow.gameObject.name} at position {targetCamPos}");
         }
