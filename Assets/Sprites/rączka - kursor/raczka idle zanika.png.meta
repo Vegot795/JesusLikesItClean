@@ -103,12 +103,12 @@ TextureImporter:
       name: raczka idle zanika_0
       rect:
         serializedVersion: 2
-        x: 159
+        x: 139
         y: 65
-        width: 40
-        height: 48
+        width: 60
+        height: 87
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6ec7032bf83680d4f8331d4f14850148
     internalID: 0
     vertices: []
     indices: 

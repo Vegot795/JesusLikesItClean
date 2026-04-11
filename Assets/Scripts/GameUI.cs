@@ -206,6 +206,7 @@ public class GameUI : MonoBehaviour
         window.ResetGrid();
         Destroy(window.Jessy);
         window.WindowLvl = 4;
+        window.SpawnBloodOnWindow();
         window.SpawnDirtOnWindows();
         GameObject.Find("Glass4").SetActive(false);
         window.transform.parent.parent.GetComponent<Animator>().enabled = true;

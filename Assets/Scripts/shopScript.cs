@@ -33,8 +33,8 @@ public class shopScript : MonoBehaviour
         clothSizeLvl = pEqLvl.clothLvlSi;
         sprinkleEffLvl = pEqLvl.sprinkleLvlEf;
         sprinkleSizeLvl = pEqLvl.sprinkleLvlSi;
-        shopCloth = GameObject.Find("clothSprite");
-        shopSprinkle = GameObject.Find("sprinkleSprite");
+        shopCloth = GameObject.Find("cloth");
+        shopSprinkle = GameObject.Find("sprinkle");
 
         lvlClothEF = GameObject.Find("Text1").GetComponent<TextMeshProUGUI>();
         costClothEF = GameObject.Find("Text2").GetComponent<TextMeshProUGUI>();
