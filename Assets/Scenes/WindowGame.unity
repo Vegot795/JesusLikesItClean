@@ -739,7 +739,7 @@ MonoBehaviour:
   lvl: 1
   working: 0
   conversionPoints: 0.035
-  conversionLosePower: 0.005
+  conversionLosePower: 0.025
   holyPowerPoints: 50
 --- !u!1 &370006356
 GameObject:
