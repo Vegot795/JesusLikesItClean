@@ -48,6 +48,7 @@ public class GameUI : MonoBehaviour
             clothSlot = GameObject.Find("clothSlot");
             sprinkleSlot = GameObject.Find("sprinkleSlot");
             Inventory = GameObject.Find("Inventory");
+            isCameraMoving = true;
 
             Windows.Clear();
             WindowScript[] found = GameObject.FindObjectsByType<WindowScript>(FindObjectsSortMode.InstanceID);
@@ -86,6 +87,9 @@ public class GameUI : MonoBehaviour
                 MoveToNextLvl();
             }
         }
+        Vector3 startWindowPos = Windows[3].transform.position;
+        MainCam.transform.position = new Vector3(startWindowPos.x, startWindowPos.y - 0.5f, 0f);
+        Debug.Log($"Camera moved to start position: {MainCam.transform.position}");
     }
 
     public void Update()
@@ -96,18 +100,17 @@ public class GameUI : MonoBehaviour
             Tools.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y - 3f);
             cloth.transform.position = clothSlot.transform.position;
 
-            CurrentLevelController();
             HandleCameraMovement();
 
-            if (currentWindow.name == "Glass4" && GameObject.Find("Game").GetComponent<GameLoad>().loaded && GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == true)
+            if (currentWindow == Windows[3] && GameObject.Find("Game").GetComponent<GameLoad>().loaded && GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == true)
             {
                 if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
                 {
                     glass1.SetActive(true);
                     currentWindow.JumpScare();
+                    MoveToNextLvl();
                     tutorial.SetActive(true);
                     Debug.Log("JumpScare");
-                    MoveToNextLvl();
                     StartCoroutine(DelayedCleanupAfterJumpscare(1.5f));
                 }
             }
@@ -122,21 +125,6 @@ public class GameUI : MonoBehaviour
     public void LoadScene(int scena) // #0 menu startowe, #1 gra, #2 sklep
     {
         SceneManager.LoadScene(scena);
-    }
-
-    private void CurrentLevelController()
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            if (currentWindow.isCleaned)
-            {
-                NextLvlBut.SetActive(true);
-            }
-            else
-            {
-                NextLvlBut.SetActive(false);
-            }
-        }
     }
 
     private void HandleCameraMovement()
@@ -180,23 +168,19 @@ public class GameUI : MonoBehaviour
         }
 
         currentWindow = Windows[windowNumber];
-
-        if (windowNumber >= 3 && !currentWindow.firstTry)
-        {
-            currentWindow.SpawnDirtOnWindows();
-        }
-        else
-        {
-            currentWindow.OnStart();
-        }
-        Debug.Log($"Current window: {currentWindow.gameObject.name}, current camera: {MainCam.name}");
-
+        //currentWindow.isCleaned = false;
+        Debug.Log($"Current window: {currentWindow.gameObject.name}, current camera: {MainCam.name}, firstTry: {currentWindow.firstTry}");
 
         if (MainCam != null && currentWindow != null)
         {
             targetCamPos = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y, MainCam.transform.position.z);
             isCameraMoving = true;
             Debug.Log($"Moving camera to {currentWindow.gameObject.name} at position {targetCamPos}");
+        }
+        else
+        {
+            Debug.LogError("MainCam or currentWindow is null. Cannot move camera.");
+            return;
         }
     }
 
