@@ -69,13 +69,9 @@ public class GameUI : MonoBehaviour
             MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
             if (MainCam != null && MainCam.CompareTag("MainCamera"))
             {
-                NextLvlBut.SetActive(false);
-                if (Windows.Count > 0)
-                {
-                    currentWindow = Windows[windowNumber];
-                    CurrentCamPos = currentWindow.transform.position;
-                    targetCamPos = new Vector3(CurrentCamPos.x, CurrentCamPos.y, MainCam.transform.position.z);
-                }
+                currentWindow = Windows[windowNumber];
+                CurrentCamPos = currentWindow.transform.position;
+                targetCamPos = new Vector3(CurrentCamPos.x, CurrentCamPos.y, MainCam.transform.position.z);
             }
             sprinkle.transform.position = sprinkleSlot.transform.position;
 
