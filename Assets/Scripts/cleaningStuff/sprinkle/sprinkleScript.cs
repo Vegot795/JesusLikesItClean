@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class sprinkleScript : MonoBehaviour
 {
-    public Sprite[] sprites;
     private bool returning = false;
     private bool holdingSprinkle = false;
     private Vector3 offset;
     private GameUI gameUI;
+    private playerEQ playerEQ;
 
     [SerializeField] private int spedd;
 
@@ -17,9 +17,11 @@ public class sprinkleScript : MonoBehaviour
 
     private void Start()
     {
+        playerEQ = GameObject.Find("SceneControl").GetComponent<playerEQ>();
         gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         transform.position = GameObject.Find("sprinkleSlot").transform.position;
         offset.z = -10f;
+        gameObject.GetComponent<SpriteRenderer>().sprite = playerEQ.sprinkleSprites[playerEQ.sprinkleLvlEf];
     }
 
     private void Update()
