@@ -27,7 +27,7 @@ public class GameLoad : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (glass4.transform.childCount == 1 && glass4.GetComponent<WindowScript>().isCleaned == true && licznik == 3)
+        if (glass4.transform.childCount == 2 && glass4.GetComponent<WindowScript>().isCleaned == true && licznik == 3)
         {
             glass4.SetActive(false);
             licznik++;
@@ -35,21 +35,21 @@ public class GameLoad : MonoBehaviour
         else if (glass1.transform.childCount == 1 && glass1.GetComponent<WindowScript>().isCleaned == true && licznik == 0)
         {
             glass2.SetActive(true);
-            StartCoroutine(NextWindow(0, 1.5f));
+            StartCoroutine(NextWindow(0, 3f));
             Debug.Log("Glass 1 cleaned");
             licznik++;
         }
         else if (glass2.transform.childCount == 1 && glass2.GetComponent<WindowScript>().isCleaned == true && licznik == 1)
         {
             glass3.SetActive(true); 
-            StartCoroutine(NextWindow(1, 1.5f));
+            StartCoroutine(NextWindow(1, 3f));
             Debug.Log("Glass 2 cleaned");
             licznik++;
         }
-        else if (glass3.transform.childCount == 1 && glass3.GetComponent<WindowScript>().isCleaned == true && licznik == 2)
+        else if (glass3.transform.childCount == 2 && glass3.GetComponent<WindowScript>().isCleaned == true && licznik == 2)
         {
             glass4.SetActive(true); 
-            StartCoroutine(NextWindow(2, 1.5f));
+            StartCoroutine(NextWindow(2, 3f));
             Debug.Log("Glass 3 cleaned");
             licznik++;
         }

@@ -19,6 +19,8 @@ public class GameUI : MonoBehaviour
     public GameObject sprinkleSlot;
     public GameObject Tools;
     public GameObject Inventory;
+    public Sprite _wallSprite;
+    public Sprite _starSprite;
     public bool isCameraMoving = false;
 
     private int windowNumber = 3;
@@ -40,6 +42,7 @@ public class GameUI : MonoBehaviour
     {
         if (!isShop)
         {
+
             windowNumber = 3;
             loading.SetActive(true);
             Tools = GameObject.Find("Object");
@@ -50,6 +53,7 @@ public class GameUI : MonoBehaviour
             Inventory = GameObject.Find("Inventory");
             isCameraMoving = true;
 
+            // Znajdź wszystkie obiekty WindowScript i posortuj je według numeru na końcu nazwy
             Windows.Clear();
             WindowScript[] found = GameObject.FindObjectsByType<WindowScript>(FindObjectsSortMode.InstanceID);
             int ExtractTrailingNumber(string s)
@@ -66,6 +70,8 @@ public class GameUI : MonoBehaviour
                 .ToList();
             Windows.AddRange(ordered);
 
+            
+            // Znajdź kamerę główną
             MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
             if (MainCam != null && MainCam.CompareTag("MainCamera"))
             {
@@ -75,8 +81,14 @@ public class GameUI : MonoBehaviour
             }
             sprinkle.transform.position = sprinkleSlot.transform.position;
 
+            // Pobierz sprite ściany i przypisz go do okna 4
+            GameObject glass4 = Windows[3].gameObject;
+            glass4.GetComponentInParent<Animator>().enabled = false;
+            glass4.GetComponentInParent<SpriteRenderer>().sprite = _wallSprite;
+            glass4.transform.Find("Decorations4Wall").gameObject.SetActive(false);
             glass1 = GameObject.Find("Glass1");
 
+            // Ustawienie początkowej pozycji kamery na aktualne okno
             if (GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == false)
             {
                 windowNumber = -1;
@@ -197,6 +209,9 @@ public class GameUI : MonoBehaviour
         window.WindowLvl = 4;
         window.SpawnDirtOnWindows();
         GameObject.Find("Glass4").SetActive(false);
+        Windows[3].GetComponent<Animator>().enabled = true;
+        Windows[3].GetComponentInParent<SpriteRenderer>().sprite = _starSprite;
+        Windows[3].transform.Find("Decorations4Wall").gameObject.SetActive(true);
         Debug.Log("Cleanup after jumpscare completed.");
 
     }
