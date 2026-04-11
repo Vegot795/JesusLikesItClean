@@ -17,6 +17,7 @@ public class WindowScript : MonoBehaviour
     private GameObject glassObject;
     private SpriteRenderer glass;
     private GameUI gameUI;
+    GameObject cleanedWindowAnim;
 
     [SerializeField] bool showGizmos = false;
     [UnityEngine.Range(1, 5)]
@@ -51,18 +52,18 @@ public class WindowScript : MonoBehaviour
     {
         firstTry = GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry;
         StartCoroutine(DelayStart());
-        //OnStart();
     }
 
     public void OnStart()
     {
 
-        GameUI gameUI = GameObject.Find("UI").GetComponent<GameUI>();
+        gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         glassObject = gameObject;
         glassObject.GetComponent<SpriteRenderer>().sprite = windowSprite;
         windowName = glassObject.name;
         isCleaned = false;
         bounds = GetComponent<SpriteRenderer>().bounds;
+        cleanedWindowAnim = transform.Find("CleanWindow").gameObject;
 
         columns = Mathf.RoundToInt(bounds.size.x / cellWidth);
         rows = Mathf.RoundToInt(bounds.size.y / cellHeight);
@@ -86,12 +87,6 @@ public class WindowScript : MonoBehaviour
     {
         stainedCells.RemoveAll(go => go == null);
         CountProgress();
-        if(isCleaned && yes == 0)
-        {
-            GameObject.Find("cloth").GetComponent<clothScript>().holdingCloth = false;
-            yes++;
-            Debug.Log(yes);
-        }
     }
     void OnDrawGizmos()
     {
@@ -424,5 +419,19 @@ public class WindowScript : MonoBehaviour
 
         clearingProgress = 0f;
         isCleaned = false;
+    }
+    private void ControlCleanedAnimation()
+    {
+        if(isCleaned && clearingProgress == 1f)
+        {
+            if (cleanedWindowAnim != null)
+            {
+                cleanedWindowAnim.SetActive(true);
+            }
+            else
+            {
+
+            }
+        }
     }
 }
