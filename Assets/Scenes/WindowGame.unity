@@ -1312,7 +1312,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 37.02, z: -10}
+  m_LocalPosition: {x: 0, y: -0, z: -10}
   m_LocalScale: {x: 4.1875, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1561,8 +1561,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8424642992146229833, guid: 5693843291e58414f9b0e2100550d267, type: 3}
+      propertyPath: holyPowerPoints
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424642992146229833, guid: 5693843291e58414f9b0e2100550d267, type: 3}
+      propertyPath: conversionPoints
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424642992146229833, guid: 5693843291e58414f9b0e2100550d267, type: 3}
       propertyPath: conversionLosePower
-      value: 0.025
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3422,9 +3430,10 @@ MonoBehaviour:
   sprinkleLvlEf: 0
   sprinkleEfficience: 0.15
   sprinkleLvlSi: 0
-  sprinkleSize: 1
+  sprinkleSize: 2
   sprinkWater: {fileID: 2458082824443080465, guid: 592cf5fa8d9b0fb409e7dc9cae4bf418, type: 3}
   firstTry: 1
+  time: 0
   clothSprites:
   - {fileID: -5516319791273444030, guid: 695d039427b71894abe4907bdbddc343, type: 3}
   - {fileID: 8744786678906643963, guid: 6293c988914d46142bbfc7cecee58c07, type: 3}
@@ -4581,9 +4590,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2051028039}
   - component: {fileID: 2051028041}
-  - component: {fileID: 2051028040}
   - component: {fileID: 2051028042}
   - component: {fileID: 2051028043}
+  - component: {fileID: 2051028044}
   m_Layer: 0
   m_Name: cloth
   m_TagString: Untagged
@@ -4600,48 +4609,12 @@ Transform:
   m_GameObject: {fileID: 2051028038}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.07, y: -6.58, z: 1}
+  m_LocalPosition: {x: -1.36, y: -6.86, z: 1}
   m_LocalScale: {x: 5, y: 5, z: 5}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 931985356}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &2051028040
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051028038}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.2
 --- !u!212 &2051028041
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4712,7 +4685,7 @@ MonoBehaviour:
   holdingCloth: 0
   spedd: 15
   efficience: 100
-  size: 1
+  size: 2
 --- !u!50 &2051028043
 Rigidbody2D:
   serializedVersion: 5
@@ -4740,6 +4713,86 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &2051028044
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051028038}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.43, y: 0.41}
+    newSize: {x: 0.43, y: 0.41}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.0139309345, y: 0.17907405}
+      - {x: -0.025173841, y: 0.18079148}
+      - {x: -0.046728887, y: 0.17949957}
+      - {x: -0.059650794, y: 0.17704082}
+      - {x: -0.08556023, y: 0.1558014}
+      - {x: -0.10932777, y: 0.13090542}
+      - {x: -0.11919793, y: 0.11561865}
+      - {x: -0.124697134, y: 0.099796556}
+      - {x: -0.13016506, y: 0.09033231}
+      - {x: -0.13510233, y: 0.07392402}
+      - {x: -0.13725702, y: 0.06356966}
+      - {x: -0.14157209, y: 0.042848736}
+      - {x: -0.14487831, y: 0.025744965}
+      - {x: -0.14721566, y: 0.0106654195}
+      - {x: -0.14912516, y: -0.008128844}
+      - {x: -0.14924324, y: -0.019966992}
+      - {x: -0.14981262, y: -0.035961486}
+      - {x: -0.13621598, y: -0.04925757}
+      - {x: -0.113852695, y: -0.06904772}
+      - {x: -0.059408948, y: -0.08289516}
+      - {x: 0.004280803, y: -0.08482925}
+      - {x: 0.057146594, y: -0.06802241}
+      - {x: 0.09268057, y: -0.04797731}
+      - {x: 0.11189499, y: -0.025572319}
+      - {x: 0.11983863, y: -0.0048539815}
+      - {x: 0.11978979, y: 0.013373597}
+      - {x: 0.11218498, y: 0.03137198}
+      - {x: 0.09538286, y: 0.0626012}
+      - {x: 0.079619385, y: 0.081548326}
+      - {x: 0.06056653, y: 0.112053186}
+      - {x: 0.041469183, y: 0.13298443}
+      - {x: 0.024999568, y: 0.15347572}
+      - {x: 0.0054976344, y: 0.17054747}
+  m_UseDelaunayMesh: 0
 --- !u!1 &2097890028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5233407607330383596, guid: f2c6642556f1db54aa852199514ebab4, type: 3}

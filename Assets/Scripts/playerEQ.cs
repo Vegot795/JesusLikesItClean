@@ -48,7 +48,6 @@ public class playerEQ : MonoBehaviour
     private void Start()
     {
         GameObject.Find("cloth").GetComponent<clothScript>().efficience = clotchEfficience;
-        GameObject.Find("cloth").GetComponent<Transform>().localScale = new Vector3(5+clotchSize,5+clotchSize,5+clotchSize);
         sprinkWater.GetComponent<sprinkleWater>().efficience = sprinkleEfficience;
         sprinkWater.GetComponent<Transform>().localScale = new Vector3(1 * sprinkleSize, .8f * sprinkleSize, 1 * sprinkleSize);
         cloth = GameObject.Find("cloth");
