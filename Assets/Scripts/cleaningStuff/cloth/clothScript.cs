@@ -47,6 +47,11 @@ public class clothScript : MonoBehaviour
 
         }
 
+        
+    }
+
+    private void FixedUpdate()
+    {
         if (returning)
         {
             transform.position = Vector3.MoveTowards(transform.position, GameObject.Find("clothSlot").transform.position, spedd * Time.deltaTime);

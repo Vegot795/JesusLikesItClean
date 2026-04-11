@@ -14,6 +14,7 @@ public class DirtMud : MonoBehaviour
     //private bool cleared = false;
     private bool watered = false;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +35,9 @@ public class DirtMud : MonoBehaviour
         if (eq == null) return;
         if (dirtType == null) return;
         eq.points += dirtType.points * lvl;
+        GameObject.Find("SceneControl").GetComponent<playerEQ>().points += dirtType.points*lvl;
+
+        GameObject.Find("HolyPower").GetComponent<HolyPower>().AddHolyPower(dirtType.points);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,6 +48,7 @@ public class DirtMud : MonoBehaviour
             windowScript = GetComponentInParent<WindowScript>();
 
         if (collision.gameObject.name == "cloth")
+        if (collision.gameObject.name == ("cloth")&& watered)//
         {
             clothScript cloth = collision.gameObject.GetComponent<clothScript>();
             if (cloth == null) return;
