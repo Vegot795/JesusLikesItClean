@@ -12,6 +12,8 @@ public class sprinkleScript : MonoBehaviour
     [SerializeField] private int spedd;
 
     [SerializeField] private GameObject waterPrefab;
+    
+    private float timer = 0f;
 
     private void Start()
     {
@@ -22,7 +24,7 @@ public class sprinkleScript : MonoBehaviour
 
     private void Update()
     {
-
+        timer += Time.deltaTime;
 
         if (holdingSprinkle)
         {
@@ -31,6 +33,11 @@ public class sprinkleScript : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Instantiate(waterPrefab, transform.position, Quaternion.identity);
+            }
+            if (Input.GetMouseButtonDown(1) && timer > 1.5f)
+            {
+                holdingSprinkle = false;
+                returning = true;
             }
         }
 
@@ -77,15 +84,18 @@ public class sprinkleScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
+            Debug.Log("Right Clicked on Sprinkle");
             if (holdingSprinkle)
             {
                 holdingSprinkle = false;
                 returning = true;
+                
             }
             else
             {
                 holdingSprinkle = true;
                 returning = false;
+                timer = 0f; // Reset timer when starting to hold the sprinkle
             }
         }
     }

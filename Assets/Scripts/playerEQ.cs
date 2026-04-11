@@ -21,6 +21,7 @@ public class playerEQ : MonoBehaviour
     [Header("Level First Try")]
     public bool firstTry = true;
 
+    public float time = 0;
 
     public static playerEQ instance;
 

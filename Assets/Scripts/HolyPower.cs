@@ -13,7 +13,7 @@ public class HolyPower : MonoBehaviour
     [SerializeField] float conversionPoints = 0.035f;
     [SerializeField] float conversionLosePower = 0.005f;
 
-    [SerializeField] private float holyPowerPoints = 50f;
+    public float holyPowerPoints = 50f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +28,7 @@ public class HolyPower : MonoBehaviour
         holyPower.GetComponent<RectTransform>().sizeDelta = new Vector2(30, holyPowerPoints);
         if (working)
         {
-            holyPowerPoints -= lvl * conversionLosePower;
+            holyPowerPoints -=lvl * conversionLosePower;
         }
         if (holyPowerPoints <= 0)
         {
@@ -49,6 +49,6 @@ public class HolyPower : MonoBehaviour
 
     public void AddHolyPower(float points)
     {
-        holyPowerPoints += points * conversionPoints;
+        holyPowerPoints += points * (conversionPoints * lvl);
     }
 }

@@ -15,9 +15,6 @@ MonoBehaviour:
   upgradeName: ClothEff
   upgradeValue:
   - 10
-  - 20
-  - 30
+  - 25
   - 50
-  - 100
-  - 150
-  upgradeCost: 0a000000140000001e00000028000000320000003c000000
+  upgradeCost: 0a000000140000001e000000

@@ -36,6 +36,10 @@ public class GameUI : MonoBehaviour
     public GameObject loading;
     public GameObject holyBar;
 
+    private float timer = -1;
+
+    private bool tak = true;
+
     void Start()
     {
         if (!isShop)
@@ -79,16 +83,35 @@ public class GameUI : MonoBehaviour
 
             if (GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == false)
             {
+                tak = false;
                 windowNumber = -1;
                 MoveToNextLvl();
+
             }
+
+            
         }
     }
 
     public void Update()
     {
+
         if (!isShop)
         {
+            if (timer >= 0)
+            {
+                timer += Time.deltaTime;
+                GameObject.Find("SceneControl").GetComponent<playerEQ>().time = timer;
+            }
+
+            if (GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == false && GameObject.Find("Game").GetComponent<GameLoad>().loaded && !tak && GameObject.Find("SceneControl").GetComponent<playerEQ>().time > 10)
+            {
+                holyBar.GetComponent<HolyPower>().ShowBar();
+                holyBar.GetComponent<HolyPower>().working = true;
+                timer = 0;
+                tak = true;
+            }
+
             Inventory.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y - 8f);
             Tools.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y - 3f);
             cloth.transform.position = clothSlot.transform.position;
@@ -104,6 +127,9 @@ public class GameUI : MonoBehaviour
                     MoveToNextLvl();
                     tutorial.SetActive(true);
                     Debug.Log("JumpScare");
+                    GameObject.Find("SceneControl").GetComponent<playerEQ>().points *=.1f;
+                    GameObject.Find("HolyPower").GetComponent<HolyPower>().holyPowerPoints =100;
+
                     StartCoroutine(DelayedCleanupAfterJumpscare(1.5f));
                 }
             }
@@ -146,6 +172,7 @@ public class GameUI : MonoBehaviour
         if (windowNumber >= 3 && currentWindow.firstTry)
         {
             currentWindow.firstTry = false;
+            GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry = false;
             windowNumber = 0;
             Debug.Log($"First try, moving to next level. windowNumber: {windowNumber}");
         }
@@ -206,7 +233,7 @@ public class GameUI : MonoBehaviour
         obj.SetActive(false);
         holyBar.GetComponent<HolyPower>().ShowBar();
         holyBar.GetComponent<HolyPower>().working = true;
-
+        timer = 0;
     }
 
 }
