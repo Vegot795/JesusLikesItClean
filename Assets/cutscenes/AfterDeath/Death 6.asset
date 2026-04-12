@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097696ad1d36ffb4fb7a6ade1fbd9897, type: 3}
   m_Name: Death 6
   m_EditorClassIdentifier: 
-  Image: {fileID: 21300000, guid: 30f68e48f1a4bae47a09f05b9c6eccfc, type: 3}
-  DialogueText: 
-  DisplayDuration: 10
+  image: {fileID: 21300000, guid: 78bdb02e0914d9b4694f1290eb3e1d27, type: 3}
+  dialogueText: 
+  TextAnchoredPosition: {x: 0, y: 0}
+  displayDuration: 5

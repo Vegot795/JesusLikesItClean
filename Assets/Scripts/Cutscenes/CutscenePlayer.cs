@@ -13,7 +13,7 @@ public class CutscenePlayer : MonoBehaviour
     public CanvasGroup fadeOverlay;
 
     [Header("Settings")]
-    public float fadeDuration = 0.5f;
+    public float fadeDuration = 0.1f;
 
     public event Action OnCutsceneFinished;
 
@@ -27,13 +27,20 @@ public class CutscenePlayer : MonoBehaviour
         currentCutscene = cutscene;
         currentIndex = 0;
         gameObject.SetActive(true);
+        StartCoroutine(PlayIntro());
+    }
+
+    IEnumerator PlayIntro()
+    {
+        fadeOverlay.alpha = 1f;
         ShowSlide(0);
+        yield return StartCoroutine(Fade(1f, 0f));
     }
 
     void Update()
     {
         if (isTransitioning) return;
-        if (Input.anyKeyDown) AdvanceSlide();
+        if (Input.anyKeyDown || Input.GetMouseButtonDown(0)) AdvanceSlide();
     }
 
     void ShowSlide(int index)
@@ -43,6 +50,8 @@ public class CutscenePlayer : MonoBehaviour
         var slide = currentCutscene.slides[index];
         slideImage.sprite = slide.image;
         dialogueText.text = slide.dialogueText;
+        dialogueText.rectTransform.anchoredPosition = slide.TextAnchoredPosition;
+        dialogueText.rectTransform.sizeDelta = slide.TextAnchoredSize;
 
         if (autoAdvanceCoroutine != null) StopCoroutine(autoAdvanceCoroutine);
         autoAdvanceCoroutine = StartCoroutine(AutoAdvance(slide.displayDuration));

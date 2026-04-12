@@ -15,4 +15,5 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 6e6936970e138d549ba3473bdd271897, type: 3}
   dialogueText: "Synek, Wielkanoc si\u0119 zbli\u017Ca.\r\nWiesz co to oznacza.\r\nTrzeba
     umy\u0107 okna dla Jezuska.\r\nBierz si\u0119 do roboty."
-  displayDuration: 10
+  TextAnchoredPosition: {x: 0, y: 0}
+  displayDuration: 5
