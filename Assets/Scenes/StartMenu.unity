@@ -796,8 +796,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 20}
-  m_SizeDelta: {x: 1200, y: 600}
+  m_AnchoredPosition: {x: 0, y: 91.64215}
+  m_SizeDelta: {x: 1440.9434, y: 743.2843}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625370092
 MonoBehaviour:
@@ -852,7 +852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &687784703
 RectTransform:
   m_ObjectHideFlags: 0
@@ -969,7 +969,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ludzie
+  m_text: "Programi\u015Bci: \nJakub \"CwikUU\" \u0106wik\u200B\nDavies \"Vegot\"
+    Ogunruku\nMuzyka: \n\"Scivu\" Micha\u0142 Wichu\u0142a\n\"Werowo\" Weronika Drozdowska"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c3dac4069c27e1947bea20bd36310402, type: 2}
   m_sharedMaterial: {fileID: 8026121911399234025, guid: c3dac4069c27e1947bea20bd36310402, type: 2}
@@ -996,13 +997,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 97.5
+  m_fontSize: 37.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 97.5
-  m_fontStyle: 1
+  m_fontSizeMax: 37.9
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1034,7 +1035,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -390.6118, y: -145.11761, z: 101.14264, w: -68.161316}
+  m_margin: {x: -490.43127, y: -189.69495, z: 101.14264, w: -106.37048}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1463,7 +1464,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: i wiecej ludzi
+  m_text: "Grafika: \nJulia Pietrzak\nAlicja \"Koper\" Marcinkowska\nMicha\u0142
+    Wichu\u0142a\n\"Werowo\" Weronika Drozdowska"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c3dac4069c27e1947bea20bd36310402, type: 2}
   m_sharedMaterial: {fileID: 8026121911399234025, guid: c3dac4069c27e1947bea20bd36310402, type: 2}
@@ -1490,12 +1492,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 97.5
+  m_fontSize: 34.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 97.5
+  m_fontSizeMax: 34.1
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
@@ -1528,7 +1530,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -390.6118, y: -145.11761, z: 101.14264, w: -68.161316}
+  m_margin: {x: -390.6118, y: -186.5108, z: 4.76532, w: -109.554504}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1708,7 +1710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 35}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2091032201
