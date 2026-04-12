@@ -35,21 +35,21 @@ public class GameLoad : MonoBehaviour
         else if (glass1.transform.childCount == 1 && glass1.GetComponent<WindowScript>().isCleaned == true && licznik == 0)
         {
             glass2.SetActive(true);
-            StartCoroutine(NextWindow(0, 3f));
+            StartCoroutine(NextWindow(0, 3f, 2f));
             Debug.Log("Glass 1 cleaned");
             licznik++;
         }
         else if (glass2.transform.childCount == 1 && glass2.GetComponent<WindowScript>().isCleaned == true && licznik == 1)
         {
             glass3.SetActive(true); 
-            StartCoroutine(NextWindow(1, 3f));
+            StartCoroutine(NextWindow(1, 3f, 2f));
             Debug.Log("Glass 2 cleaned");
             licznik++;
         }
         else if (glass3.transform.childCount == 2 && glass3.GetComponent<WindowScript>().isCleaned == true && licznik == 2)
         {
             glass4.SetActive(true); 
-            StartCoroutine(NextWindow(2, 3f));
+            StartCoroutine(NextWindow(2, 3f, 2f));
             Debug.Log("Glass 3 cleaned");
             licznik++;
         }
@@ -83,33 +83,49 @@ public class GameLoad : MonoBehaviour
         }
     }
 
-    private IEnumerator NextWindow(int option, float delay)
+    private IEnumerator NextWindow(int option, float firstDelay, float secDelay)
     {
         if (option == 0)
         {
+            Debug.Log("clean");
+            GameObject.Find("CleanWindow1").GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("CleanWindow1").GetComponent<Animator>().enabled = true;
+            yield return new WaitForSeconds(firstDelay);
             GameObject.Find("UI").GetComponent<GameUI>().MoveToNextLvl();
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(secDelay);
             glass1.SetActive(false);
             GameObject.Find("HolyPower").GetComponent<HolyPower>().lvl = 2;
         }
         else if (option == 1)
         {
+            Debug.Log("clean");
+            GameObject.Find("CleanWindow2").GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("CleanWindow2").GetComponent<Animator>().enabled = true;
+            yield return new WaitForSeconds(firstDelay);
             GameObject.Find("UI").GetComponent<GameUI>().MoveToNextLvl();
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(secDelay);
             glass2.SetActive(false);
             GameObject.Find("HolyPower").GetComponent<HolyPower>().lvl = 3;
         }
         else if (option == 2)
         {
+            Debug.Log("clean");
+            GameObject.Find("CleanWindow3").GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("CleanWindow3").GetComponent<Animator>().enabled = true;
+            yield return new WaitForSeconds(firstDelay);
             GameObject.Find("UI").GetComponent<GameUI>().MoveToNextLvl();
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(secDelay);
             glass3.SetActive(false);
             GameObject.Find("HolyPower").GetComponent<HolyPower>().lvl = 4;
         }
         else if (option == 3)
         {
+            Debug.Log("clean");
+            GameObject.Find("CleanWindow4").GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("CleanWindow4").GetComponent<Animator>().enabled = true;
+            yield return new WaitForSeconds(firstDelay);
             GameObject.Find("UI").GetComponent<GameUI>().MoveToNextLvl();
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(secDelay);
             glass4.SetActive(false);
         }
     }

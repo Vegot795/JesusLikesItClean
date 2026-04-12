@@ -188,7 +188,7 @@ public class GameUI : MonoBehaviour
 
             HandleCameraMovement();
 
-            Debug.Log($"CurrentWindow: {currentWindow != null}, GameRoot: {GameRoot != null}, SceneControl: {SceneControl != null}");
+            //Debug.Log($"CurrentWindow: {currentWindow != null}, GameRoot: {GameRoot != null}, SceneControl: {SceneControl != null}");
             if (currentWindow == Windows[3] && GameRoot.GetComponent<GameLoad>().loaded && SceneControl.GetComponent<playerEQ>().firstTry == true)
             {
                 if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)

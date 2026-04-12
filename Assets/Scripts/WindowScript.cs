@@ -64,7 +64,7 @@ public class WindowScript : MonoBehaviour
         windowName = glassObject.name;
         isCleaned = false;
         bounds = GetComponent<SpriteRenderer>().bounds;
-        cleanedWindowAnim = transform.Find("CleanWindow").gameObject;
+        //cleanedWindowAnim = transform.Find("CleanWindow").gameObject;
 
         columns = Mathf.RoundToInt(bounds.size.x / cellWidth);
         rows = Mathf.RoundToInt(bounds.size.y / cellHeight);
