@@ -1084,6 +1084,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1988720535920795443, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
   m_PrefabInstance: {fileID: 1889214073}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &363098047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+  m_PrefabInstance: {fileID: 1889214073}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d492be4a61dc64ca9095ddbf992d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &370006356
 GameObject:
   m_ObjectHideFlags: 0
@@ -2146,6 +2157,17 @@ Animation:
   m_AnimatePhysics: 0
   m_UpdateMode: 0
   m_CullingType: 0
+--- !u!114 &723275211 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+  m_PrefabInstance: {fileID: 90284523657996289}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723275205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d492be4a61dc64ca9095ddbf992d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &799517336
 GameObject:
   m_ObjectHideFlags: 0
@@ -3055,6 +3077,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1988720535920795443, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
   m_PrefabInstance: {fileID: 1311477167}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1093049451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+  m_PrefabInstance: {fileID: 1311477167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093049445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d492be4a61dc64ca9095ddbf992d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1105992029
 GameObject:
   m_ObjectHideFlags: 0
@@ -3811,7 +3844,7 @@ MonoBehaviour:
   sprinkleLvlEf: 0
   sprinkleEfficience: 0.15
   sprinkleLvlSi: 0
-  sprinkleSize: 1
+  sprinkleSize: 2
   sprinkWater: {fileID: 2458082824443080465, guid: 592cf5fa8d9b0fb409e7dc9cae4bf418, type: 3}
   firstTry: 0
   time: 0
@@ -4343,6 +4376,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 765915277a066ac40999e68c89337e94, type: 3}
+--- !u!114 &1732817521 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5174586818110484550, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+  m_PrefabInstance: {fileID: 272123368}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d492be4a61dc64ca9095ddbf992d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1735562485 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5325667523380917309, guid: 9bd0635c51d631f499da2369adc8bb59, type: 3}
@@ -5351,10 +5395,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windows:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 723275211}
+  - {fileID: 1732817521}
+  - {fileID: 363098047}
+  - {fileID: 1093049451}
   spriteRenderer: {fileID: 2019292047}
 --- !u!58 &2019292046
 CircleCollider2D:
