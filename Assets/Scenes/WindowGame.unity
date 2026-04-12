@@ -1739,6 +1739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loaded: 0
+  licznik: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,6 +2641,8 @@ MonoBehaviour:
   isCameraMoving: 0
   GameRoot: {fileID: 608094937}
   SceneControl: {fileID: 1430665614}
+  Sciana4: {fileID: 1184094071}
+  Decorations4: {fileID: 1626518314}
   cameraSmoothTime: 0.35
   isShop: 0
   tutorial: {fileID: 1735562485}
@@ -5346,6 +5349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c99d3e2222c77f409ab4828dd74a5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  windows: []
+  spriteRenderer: {fileID: 0}
 --- !u!1 &2051028038
 GameObject:
   m_ObjectHideFlags: 0
