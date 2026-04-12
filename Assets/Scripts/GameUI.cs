@@ -60,7 +60,7 @@ public class GameUI : MonoBehaviour
             {
                 cloth = GameObject.Find("cloth");
             }
-            if(GameObject.Find("sprinkle") != null)
+            if (GameObject.Find("sprinkle") != null)
             {
                 sprinkle = GameObject.Find("sprinkle");
             }
@@ -72,7 +72,7 @@ public class GameUI : MonoBehaviour
             {
                 sprinkleSlot = GameObject.Find("sprinkleSlot");
             }
-            if (GameObject.Find("Inventory") != null )
+            if (GameObject.Find("Inventory") != null)
             {
                 Inventory = GameObject.Find("Inventory");
             }
@@ -196,13 +196,13 @@ public class GameUI : MonoBehaviour
                     glass1.SetActive(true);
                     //currentWindow.JumpScare();
                     cutsceneManager.PlayMid();
-                    currentWindow = Windows[0];
-                    MainCam.transform.position = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y - 0.05f, MainCam.transform.position.z);
-                    SceneControl.GetComponent<playerEQ>().firstTry = false;
+                    MoveToNextLvl();
                     tutorial.SetActive(true);
+                    Debug.Log("JumpScare");
                     GameObject.Find("SceneControl").GetComponent<playerEQ>().points *= .1f;
                     GameObject.Find("HolyPower").GetComponent<HolyPower>().holyPowerPoints = 100;
-                    StartCoroutine(DelayedCleanupAfterJumpscare(2f));
+
+                    StartCoroutine(DelayedCleanupAfterJumpscare(1.5f));
                 }
             }
 
@@ -210,9 +210,12 @@ public class GameUI : MonoBehaviour
             {
                 currentWindow.isCleaned = true;
             }
+
+            if (Windows[3].isCleaned && currentWindow == Windows[3] && GameRoot.GetComponent<GameLoad>().loaded)
+            {
+                cutsceneManager.PlayOutro();
+            }
         }
-
-
     }
 
     public void LoadScene(int scena) // #0 menu startowe, #1 gra, #2 sklep
@@ -254,7 +257,8 @@ public class GameUI : MonoBehaviour
         else if (windowNumber == 3 && !currentWindow.firstTry)
         {
             Debug.Log("returning");
-            return;
+
+            return; 
         }
         else
         {
@@ -278,6 +282,11 @@ public class GameUI : MonoBehaviour
         }
     }
 
+    private void CharacterDeath()
+    {
+
+    }
+
     private IEnumerator DelayedCleanupAfterJumpscare(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -293,10 +302,15 @@ public class GameUI : MonoBehaviour
         window.WindowLvl = 4;
         window.SpawnBloodOnWindow();
         window.SpawnDirtOnWindows();
-        window.gameObject.SetActive(false);
+        GameObject.Find("Glass4").SetActive(false);
+        
+        // Set sprite BEFORE enabling animator
+        window.transform.parent.parent.GetComponent<SpriteRenderer>().sprite = _starSprite;
+        
+        // Now enable animator and play animation
         window.transform.parent.parent.GetComponent<Animator>().enabled = true;
         window.transform.parent.parent.GetComponent<Animator>().Play("SkyAnimation");
-        window.transform.parent.parent.GetComponent<SpriteRenderer>().sprite = _starSprite;
+        
         window.transform.Find("Decorations4Wall").gameObject.SetActive(true);
         Debug.Log("Cleanup after jumpscare completed.");
 
@@ -308,15 +322,6 @@ public class GameUI : MonoBehaviour
         holyBar.GetComponent<HolyPower>().ShowBar();
         holyBar.GetComponent<HolyPower>().working = true;
         timer = 0;
-    }
-
-    void EndTheGame()
-    {
-        if(currentWindow == Windows[3] && currentWindow.isCleaned && holyBar.GetComponent<HolyPower>().holyPowerPoints >= 100)
-        {
-            cutsceneManager.PlayOutro();
-            LoadScene(0);
-        }
     }
 
 }

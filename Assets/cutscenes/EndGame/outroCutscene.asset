@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16fceacb000d7f44ac7de8ca89ba2b1, type: 3}
   m_Name: outroCutscene
   m_EditorClassIdentifier: 
-  Slides:
+  slides:
   - {fileID: 11400000, guid: 84245045f410e0948a3205d4a62ac48c, type: 2}
   - {fileID: 11400000, guid: 47da604f776e25244bff2640a722f3b5, type: 2}
   - {fileID: 11400000, guid: c81197491a974e34ab4b011ae539d718, type: 2}
