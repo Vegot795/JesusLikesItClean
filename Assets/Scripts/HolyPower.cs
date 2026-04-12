@@ -7,6 +7,7 @@ public class HolyPower : MonoBehaviour
 
     [SerializeField] GameObject holyBar;
     [SerializeField] GameObject holyPower;
+    [SerializeField] GameObject bg;
 
     public int lvl = 1;
     public bool working = false;
@@ -21,6 +22,7 @@ public class HolyPower : MonoBehaviour
         holyPower.GetComponent<RectTransform>().sizeDelta= new Vector2(30,holyPowerPoints) ;
         holyBar.GetComponent<Image>().enabled = false;
         holyPower.SetActive(false);
+        bg.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -45,6 +47,7 @@ public class HolyPower : MonoBehaviour
     {
         holyBar.GetComponent<Image>().enabled = true;
         holyPower.SetActive(true);
+        bg.SetActive(true);
     }
 
     public void AddHolyPower(float points)

@@ -9,7 +9,7 @@ public class GameLoad : MonoBehaviour
     private GameObject glass3;
     private GameObject glass4;
     public bool loaded = false;
-    private int licznik = 0;
+    public int licznik = 0;
 
     private playerEQ plEQ;
 

@@ -5,26 +5,30 @@ public class whereDirt : MonoBehaviour
     private GameObject magicEye;
     private GameUI gameUI;
 
+    public WindowScript[] windows;
+
+    public SpriteRenderer spriteRenderer;
+
     void Start()
     {
         gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         magicEye = GameObject.Find("whereDirt");
-        magicEye.SetActive(false);
+        spriteRenderer.enabled = false;
     }
 
     void Update()
     {
-        if (gameUI.currentWindow.GetComponent<WindowScript>().isCleaned == false)
+        int lvl = GameObject.Find("Game").GetComponent<GameLoad>().licznik;
+        //Debug.Log(windows[lvl].clearingProgress);
+        if (windows[lvl].clearingProgress >= 0.9f)
         {
-            if (gameUI.currentWindow.clearingProgress >= 0.9f)
-            {
-                magicEye.SetActive(true);
-            }
-            else if (gameUI.currentWindow.clearingProgress < 0.9f)
-            {
-                magicEye.SetActive(false);
-            }
+            spriteRenderer.enabled = true;
         }
+        else if (windows[lvl].clearingProgress < 0.9f)
+        {
+            spriteRenderer.enabled = false;
+        }
+
     }
 
     private void OnMouseDown()
