@@ -5,5 +5,7 @@ public class CutsceneSlideData : ScriptableObject
 {
     public Sprite image;
     [TextArea] public string dialogueText;
-    public float displayDuration = 10f;
+    public Vector2 TextAnchoredPosition;
+    public Vector2 TextAnchoredSize;
+    public float displayDuration = 5f;
 }

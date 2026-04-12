@@ -194,14 +194,15 @@ public class GameUI : MonoBehaviour
                 if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
                 {
                     glass1.SetActive(true);
-                    currentWindow.JumpScare();
-                    MoveToNextLvl();
+                    //currentWindow.JumpScare();
+                    cutsceneManager.PlayMid();
+                    currentWindow = Windows[0];
+                    MainCam.transform.position = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y - 0.05f, MainCam.transform.position.z);
+                    SceneControl.GetComponent<playerEQ>().firstTry = false;
                     tutorial.SetActive(true);
-                    Debug.Log("JumpScare");
-                    GameObject.Find("SceneControl").GetComponent<playerEQ>().points *=.1f;
-                    GameObject.Find("HolyPower").GetComponent<HolyPower>().holyPowerPoints =100;
-
-                    StartCoroutine(DelayedCleanupAfterJumpscare(1.5f));
+                    GameObject.Find("SceneControl").GetComponent<playerEQ>().points *= .1f;
+                    GameObject.Find("HolyPower").GetComponent<HolyPower>().holyPowerPoints = 100;
+                    StartCoroutine(DelayedCleanupAfterJumpscare(2f));
                 }
             }
 
@@ -210,6 +211,8 @@ public class GameUI : MonoBehaviour
                 currentWindow.isCleaned = true;
             }
         }
+
+
     }
 
     public void LoadScene(int scena) // #0 menu startowe, #1 gra, #2 sklep
@@ -275,11 +278,6 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    private void CharacterDeath()
-    {
-
-    }
-
     private IEnumerator DelayedCleanupAfterJumpscare(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -295,7 +293,7 @@ public class GameUI : MonoBehaviour
         window.WindowLvl = 4;
         window.SpawnBloodOnWindow();
         window.SpawnDirtOnWindows();
-        GameObject.Find("Glass4").SetActive(false);
+        window.gameObject.SetActive(false);
         window.transform.parent.parent.GetComponent<Animator>().enabled = true;
         window.transform.parent.parent.GetComponent<Animator>().Play("SkyAnimation");
         window.transform.parent.parent.GetComponent<SpriteRenderer>().sprite = _starSprite;
@@ -310,6 +308,15 @@ public class GameUI : MonoBehaviour
         holyBar.GetComponent<HolyPower>().ShowBar();
         holyBar.GetComponent<HolyPower>().working = true;
         timer = 0;
+    }
+
+    void EndTheGame()
+    {
+        if(currentWindow == Windows[3] && currentWindow.isCleaned && holyBar.GetComponent<HolyPower>().holyPowerPoints >= 100)
+        {
+            cutsceneManager.PlayOutro();
+            LoadScene(0);
+        }
     }
 
 }
