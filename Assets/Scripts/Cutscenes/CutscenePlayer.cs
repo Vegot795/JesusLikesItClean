@@ -102,8 +102,10 @@ public class CutscenePlayer : MonoBehaviour
     IEnumerator FinishCutscene()
     {
         yield return StartCoroutine(Fade(0f, 1f));
-        gameObject.SetActive(false);
         OnCutsceneFinished?.Invoke();
+        gameObject.SetActive(false);
+
+        Debug.Log($"[CutscenePlayer] Finishing cutscene. onFinish={currentCutscene.onFinish}");
 
         switch (currentCutscene.onFinish)
         {
@@ -111,6 +113,7 @@ public class CutscenePlayer : MonoBehaviour
                 SceneManager.LoadScene(currentCutscene.nextSceneName);
                 break;
             case CutsceneSO.OnFinish.EnableGameplay:
+                Debug.Log("[CutscenePlayer] Calling EnableGameplay()");
                 CutsceneManager.Instance.EnableGameplay();
                 yield return StartCoroutine(Fade(1f, 0f));
                 break;

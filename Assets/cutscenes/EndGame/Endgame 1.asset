@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Endgame 1
   m_EditorClassIdentifier: 
   image: {fileID: -467292526874774154, guid: 16fe1d3759febab4eb9df94fbaf40d19, type: 3}
-  dialogueText: 
+  dialogueText: "Witaj drogie dziecko. Moje serce raduje sie kiedy widz\u0119 takie
+    czyste okna. W ich odbiciu widz\u0119 twoja przysz\u0142o\u015B\u0107. W ramach
+    podzi\u0119ki za dobrego ducha \u015Bwi\u0105t. Ofiaruje ci podarunek \u017Cycia.
+    Zmartwychwsta\u0144 i raduj si\u0119 \u015Bwi\u0119tami ze swoj\u0105 rodzin\u0105.\r\r"
+  TextAnchoredPosition: {x: 0, y: -866}
+  TextAnchoredSize: {x: 1767, y: 400}
   displayDuration: 10
