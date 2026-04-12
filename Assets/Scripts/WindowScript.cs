@@ -474,7 +474,6 @@ public class WindowScript : MonoBehaviour
         SpawnBirdsDirtOnWindow(WindowLvl);
         SpawnMudOnWindow(WindowLvl);
         //SpawnSmogOnWindow(WindowLvl);
-        SpawnBloodOnWindow();
         totalCells = stainedCells.Count;
     }
 
