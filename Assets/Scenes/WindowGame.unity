@@ -1676,7 +1676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8424642992146229833, guid: 5693843291e58414f9b0e2100550d267, type: 3}
       propertyPath: conversionLosePower
-      value: 0.025
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

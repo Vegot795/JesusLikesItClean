@@ -23,10 +23,12 @@ public class whereDirt : MonoBehaviour
         if (windows[lvl].clearingProgress >= 0.9f)
         {
             spriteRenderer.enabled = true;
+            gameObject.GetComponent<CircleCollider2D>().enabled = true;
         }
         else if (windows[lvl].clearingProgress < 0.9f)
         {
             spriteRenderer.enabled = false;
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
         }
 
     }
