@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0c3522e601e97429fa54a3472853e5, type: 3}
   m_Name: DirtBlood
   m_EditorClassIdentifier: 
-  dirtName: 
-  minAlpha: 0
-  maxAlpha: 0
-  dirtPrefab: {fileID: 0}
-  durability: 0
-  points: 0
+  dirtName: DirtBlood
+  minAlpha: 0.9
+  maxAlpha: 1
+  dirtPrefab: {fileID: 881323477199706393, guid: 079ca8054381c844091eb167ef846a83, type: 3}
+  durability: 70
+  points: 20

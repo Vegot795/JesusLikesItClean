@@ -11,7 +11,6 @@ public class DirtMud : MonoBehaviour
     private int lvl;
     private WindowScript windowScript;
 
-    //private bool cleared = false;
     private bool watered = false;
 
 

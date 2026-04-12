@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16fceacb000d7f44ac7de8ca89ba2b1, type: 3}
+  m_Name: MidCutscene
+  m_EditorClassIdentifier: 
+  Slides:
+  - {fileID: 11400000, guid: 53ef71fa4d2466c46b686237ad9a549f, type: 2}
+  - {fileID: 11400000, guid: 1b284bacb5bdee244878cd6e3914265e, type: 2}
+  - {fileID: 11400000, guid: 7a8d894f63da77544ba0b29d1037198b, type: 2}
+  - {fileID: 11400000, guid: f58424686d108f24ba8deafe80debd08, type: 2}
+  - {fileID: 11400000, guid: 5aebbd09b64e25f4981dcd42de69cff8, type: 2}
+  - {fileID: 11400000, guid: c782f1004fcc1394facd10e96aa6bf43, type: 2}
+  - {fileID: 11400000, guid: 570278651b8e9b4419d89a0e8f7176c2, type: 2}
+  - {fileID: 11400000, guid: 3383e7db70a9a754683eebb84dfe40d4, type: 2}
+  onFinish: 0
+  nextSceneName: 

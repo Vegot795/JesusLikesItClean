@@ -21,7 +21,10 @@ public class GameUI : MonoBehaviour
     public GameObject Inventory;
     public Sprite _wallSprite;
     public Sprite _starSprite;
+    public CutsceneManager cutsceneManager;
     public bool isCameraMoving = false;
+    public GameObject GameRoot;
+    public GameObject SceneControl;
 
     private int windowNumber = 3;
     private Vector3 CurrentCamPos;
@@ -41,25 +44,51 @@ public class GameUI : MonoBehaviour
     private float timer = -1;
 
     private bool tak = true;
+    private bool introPlayed = false;
 
     void Start()
     {
         if (!isShop)
         {
-
             windowNumber = 3;
             loading.SetActive(true);
-            Tools = GameObject.Find("Object");
-            cloth = GameObject.Find("cloth");
-            sprinkle = GameObject.Find("sprinkle");
-            clothSlot = GameObject.Find("clothSlot");
-            sprinkleSlot = GameObject.Find("sprinkleSlot");
-            Inventory = GameObject.Find("Inventory");
+            if (GameObject.Find("Object") != null)
+            {
+                Tools = GameObject.Find("Object");
+            }
+            if (GameObject.Find("cloth") != null)
+            {
+                cloth = GameObject.Find("cloth");
+            }
+            if(GameObject.Find("sprinkle") != null)
+            {
+                sprinkle = GameObject.Find("sprinkle");
+            }
+            if (GameObject.Find("clothSlot") != null)
+            {
+                clothSlot = GameObject.Find("clothSlot");
+            }
+            if (GameObject.Find("sprinkleSlot") != null)
+            {
+                sprinkleSlot = GameObject.Find("sprinkleSlot");
+            }
+            if (GameObject.Find("Inventory") != null )
+            {
+                Inventory = GameObject.Find("Inventory");
+            }
+            if (GameObject.Find("Game") != null)
+            {
+                GameRoot = GameObject.Find("Game");
+            }
+            if (GameObject.Find("SceneControl") != null)
+            {
+                SceneControl = GameObject.Find("SceneControl");
+            }
             isCameraMoving = true;
 
             // Znajdź wszystkie obiekty WindowScript i posortuj je według numeru na końcu nazwy
             Windows.Clear();
-            WindowScript[] found = GameObject.FindObjectsByType<WindowScript>(FindObjectsSortMode.InstanceID);
+            WindowScript[] found = GameObject.FindObjectsByType<WindowScript>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID);
             int ExtractTrailingNumber(string s)
             {
                 int i = s.Length - 1;
@@ -74,9 +103,12 @@ public class GameUI : MonoBehaviour
                 .ToList();
             Windows.AddRange(ordered);
 
-            
+
             // Znajdź kamerę główną
-            MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+            if (GameObject.Find("Main Camera") != null) ;
+            {
+                MainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+            }
             if (MainCam != null && MainCam.CompareTag("MainCamera"))
             {
                 currentWindow = Windows[windowNumber];
@@ -92,6 +124,7 @@ public class GameUI : MonoBehaviour
             glass4.transform.Find("Decorations4Wall").gameObject.SetActive(false);
             glass1 = GameObject.Find("Glass1");
 
+
             // Ustawienie początkowej pozycji kamery na aktualne okno
             if (GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == false)
             {
@@ -101,10 +134,29 @@ public class GameUI : MonoBehaviour
 
             }
 
-            
+            StartCoroutine(PlayIntroAfterLoad());
         }
     }
 
+    private IEnumerator PlayIntroAfterLoad()
+    {
+        if (GameRoot == null || cutsceneManager == null || SceneControl == null)
+            yield break;
+
+        GameLoad gameLoad = GameRoot.GetComponent<GameLoad>();
+        playerEQ playerEq = SceneControl.GetComponent<playerEQ>();
+
+        while (gameLoad != null && !gameLoad.loaded)
+        {
+            yield return null;
+        }
+
+        if (!introPlayed && playerEq != null && playerEq.firstTry)
+        {
+            introPlayed = true;
+            cutsceneManager.PlayIntro();
+        }
+    }
     public void Update()
     {
 
@@ -124,13 +176,20 @@ public class GameUI : MonoBehaviour
                 tak = true;
             }
 
+            if (MainCam == null || Inventory == null || Tools == null || cloth == null || clothSlot == null)
+            {
+                Debug.LogError($"Missing UI reference. MainCam: {MainCam != null}, Inventory: {Inventory != null}, Tools: {Tools != null}, cloth: {cloth != null}, clothSlot: {clothSlot != null}");
+                return;
+            }
+
             Inventory.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y - 8f);
             Tools.transform.position = new Vector2(MainCam.gameObject.transform.position.x, MainCam.transform.position.y - 3f);
             cloth.transform.position = clothSlot.transform.position;
 
             HandleCameraMovement();
 
-            if (currentWindow == Windows[3] && GameObject.Find("Game").GetComponent<GameLoad>().loaded && GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == true)
+            Debug.Log($"CurrentWindow: {currentWindow != null}, GameRoot: {GameRoot != null}, SceneControl: {SceneControl != null}");
+            if (currentWindow == Windows[3] && GameRoot.GetComponent<GameLoad>().loaded && SceneControl.GetComponent<playerEQ>().firstTry == true)
             {
                 if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
                 {
@@ -146,7 +205,7 @@ public class GameUI : MonoBehaviour
                 }
             }
 
-            if (GameObject.Find("Game").GetComponent<GameLoad>().loaded && currentWindow.clearingProgress == 1f)
+            if (GameRoot.GetComponent<GameLoad>().loaded && currentWindow.clearingProgress == 1f)
             {
                 currentWindow.isCleaned = true;
             }
