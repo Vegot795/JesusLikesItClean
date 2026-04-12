@@ -347,9 +347,14 @@ public class WindowScript : MonoBehaviour
 
     public void SpawnBloodOnWindow()
     {
+        if (dirtTypes[3] == null || dirtTypes[3].dirtPrefab == null)
+        {
+            Debug.LogError("Blood dirt prefab is not assigned in dirtTypes[3].");
+            return;
+        }
+
         List<DirtCell> coreCells = new List<DirtCell>();
 
-        // Znajdywanie randowmowego punktu centralnego
         int centerX = Random.Range(0, columns);
         int centerY = Random.Range(0, rows);
         DirtCell centerCell = grid[centerX, centerY];
@@ -357,7 +362,6 @@ public class WindowScript : MonoBehaviour
         centerCell.cellY = centerY;
         coreCells.Add(centerCell);
 
-        // Znajdywanie 2 punktów na krawędzi w określonej odległości od centrum
         float radius = 5f;
         for (int i = 0; i < 2; i++)
         {
@@ -370,47 +374,53 @@ public class WindowScript : MonoBehaviour
             coreCells.Add(edgeCell);
         }
 
-        // Tworzenie prefabów krwi w okręgu o promieniu 5 komórek wokół punktów centralnych
-        GameObject bloodPrefab = dirtTypes[3].dirtPrefab; // Assuming blood is at index 3
+        GameObject bloodPrefab = dirtTypes[3].dirtPrefab;
+
         for (int i = 0; i < coreCells.Count; i++)
         {
             int cx = (int)coreCells[i].cellX;
             int cy = (int)coreCells[i].cellY;
+
             for (int x = cx - 5; x <= cx + 5; x++)
             {
                 for (int y = cy - 5; y <= cy + 5; y++)
                 {
-                    if (x >= 0 && x < columns && y >= 0 && y < rows)
+                    if (x < 0 || x >= columns || y < 0 || y >= rows)
                     {
-                        float dist = Mathf.Sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
-                        if (dist <= 5f && !grid[x, y].hasDirt)
-                        {
-                            Vector3 spawnPosition = new Vector3(
-                                bounds.min.x + x * cellWidth + cellWidth / 2,
-                                bounds.min.y + y * cellHeight + cellHeight / 2,
-                                0);
-                            GameObject bloodCell = Instantiate(bloodPrefab, spawnPosition, Quaternion.identity);
-                            stainedCells.Add(bloodCell);
-                            bloodCell.transform.SetParent(glassObject.transform);
-
-                            DirtCell updated = grid[x, y];
-                            updated.hasDirt = true;
-                            grid[x, y] = updated;
-                        }
+                        continue;
                     }
+
+                    float dist = Mathf.Sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
+                    if (dist > 5f || grid[x, y].hasDirt)
+                    {
+                        continue;
+                    }
+
+                    Vector3 spawnPosition = new Vector3(
+                        bounds.min.x + x * cellWidth + cellWidth / 2,
+                        bounds.min.y + y * cellHeight + cellHeight / 2,
+                        0);
+
+                    GameObject bloodCell = Instantiate(bloodPrefab, spawnPosition, Quaternion.identity);
+                    stainedCells.Add(bloodCell);
+                    bloodCell.transform.SetParent(glassObject.transform);
+
+                    SpriteRenderer sr = bloodCell.GetComponent<SpriteRenderer>();
+                    if (sr != null && sr.sprite != null)
+                    {
+                        Vector2 spriteSize = sr.sprite.bounds.size;
+                        Vector3 newScale = bloodCell.transform.localScale;
+                        newScale.x = cellWidth / spriteSize.x * newScale.x;
+                        newScale.y = cellHeight / spriteSize.y * newScale.y;
+                        bloodCell.transform.localScale = newScale;
+                        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+                    }
+
+                    DirtCell updated = grid[x, y];
+                    updated.hasDirt = true;
+                    grid[x, y] = updated;
                 }
             }
-        }
-        // Skalowanie prefabów do rozmiaru komórki
-        SpriteRenderer sr = stainedCell.GetComponent<SpriteRenderer>();
-        if (sr != null && sr.sprite != null)
-        {
-            Vector2 spriteSize = sr.sprite.bounds.size;
-            Vector3 newScale = stainedCell.transform.localScale;
-            newScale.x = cellWidth / spriteSize.x * newScale.x;
-            newScale.y = cellHeight / spriteSize.y * newScale.y;
-            stainedCell.transform.localScale = newScale;
-            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 255);
         }
     }
 
@@ -464,6 +474,7 @@ public class WindowScript : MonoBehaviour
         SpawnBirdsDirtOnWindow(WindowLvl);
         SpawnMudOnWindow(WindowLvl);
         //SpawnSmogOnWindow(WindowLvl);
+        SpawnBloodOnWindow();
         totalCells = stainedCells.Count;
     }
 

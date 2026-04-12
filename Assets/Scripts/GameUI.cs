@@ -91,16 +91,16 @@ public class GameUI : MonoBehaviour
             glass4.transform.parent.parent.GetComponent<SpriteRenderer>().sprite = _wallSprite;
             glass4.transform.Find("Decorations4Wall").gameObject.SetActive(false);
             glass1 = GameObject.Find("Glass1");
-            //glass4.GetComponent<WindowScript>().SpawnBloodOnWindow();
+
 
             // Ustawienie początkowej pozycji kamery na aktualne okno
-            /*if (GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == false)
+            if (GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == false)
             {
                 tak = false;
                 windowNumber = -1;
                 MoveToNextLvl();
 
-            }*/
+            }
 
             
         }
