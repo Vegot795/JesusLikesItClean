@@ -25,8 +25,6 @@ public class GameUI : MonoBehaviour
     public bool isCameraMoving = false;
     public GameObject GameRoot;
     public GameObject SceneControl;
-    public GameObject Sciana4;
-    public GameObject Decorations4;
 
     private int windowNumber = 3;
     private Vector3 CurrentCamPos;
@@ -197,11 +195,7 @@ public class GameUI : MonoBehaviour
                 {
                     glass1.SetActive(true);
                     //currentWindow.JumpScare();
-                    
-                    // Subscribe to event before playing cutscene
-                    cutsceneManager.player.OnCutsceneFinished += OnMidCutsceneFinished;
                     cutsceneManager.PlayMid();
-                    
                     MoveToNextLvl();
                     tutorial.SetActive(true);
                     Debug.Log("JumpScare");
@@ -309,7 +303,15 @@ public class GameUI : MonoBehaviour
         window.SpawnBloodOnWindow();
         window.SpawnDirtOnWindows();
         GameObject.Find("Glass4").SetActive(false);
-
+        
+        // Set sprite BEFORE enabling animator
+        window.transform.parent.parent.GetComponent<SpriteRenderer>().sprite = _starSprite;
+        
+        // Now enable animator and play animation
+        window.transform.parent.parent.GetComponent<Animator>().enabled = true;
+        window.transform.parent.parent.GetComponent<Animator>().Play("SkyAnimation");
+        
+        window.transform.Find("Decorations4Wall").gameObject.SetActive(true);
         Debug.Log("Cleanup after jumpscare completed.");
 
     }
@@ -322,21 +324,4 @@ public class GameUI : MonoBehaviour
         timer = 0;
     }
 
-    private void OnMidCutsceneFinished()
-    {
-        cutsceneManager.player.OnCutsceneFinished -= OnMidCutsceneFinished;
-        
-        if (Sciana4 != null && Decorations4 != null)
-        {
-            Sciana4.GetComponent<SpriteRenderer>().sprite = _starSprite;
-            Sciana4.GetComponent<Animator>().enabled = true;
-            Sciana4.GetComponent<Animator>().Play("SkyAnimation");
-            Decorations4.SetActive(true);
-            Debug.Log("Mid cutscene finished, scene transformation completed.");
-        }
-        else
-        {
-            Debug.LogError("Sciana4 or Decorations4 reference is missing!");
-        }
-    }
 }
