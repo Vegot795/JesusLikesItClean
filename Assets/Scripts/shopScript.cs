@@ -29,7 +29,7 @@ public class shopScript : MonoBehaviour
     private void Start()
     {
         playerEQ pEqLvl = GameObject.Find("SceneControl").GetComponent<playerEQ>();
-        pEqLvl.points = (int)pEqLvl.points*.1f;
+        pEqLvl.points = (int)pEqLvl.points*.3f;
 
         clothEffLvl = pEqLvl.clothLvlEf;
         clothSizeLvl = pEqLvl.clothLvlSi;
