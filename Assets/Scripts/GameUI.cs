@@ -188,15 +188,15 @@ public class GameUI : MonoBehaviour
 
             HandleCameraMovement();
 
-            Debug.Log($"CurrentWindow: {currentWindow != null}, GameRoot: {GameRoot != null}, SceneControl: {SceneControl != null}");
             if (currentWindow == Windows[3] && GameRoot.GetComponent<GameLoad>().loaded && SceneControl.GetComponent<playerEQ>().firstTry == true)
             {
                 if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
                 {
                     glass1.SetActive(true);
                     //currentWindow.JumpScare();
-                    cutsceneManager.PlayMid();
-                    currentWindow = Windows[0];
+                    //cutsceneManager.PlayMid();
+                    windowNumber = 0;
+                    currentWindow = Windows[windowNumber];
                     MainCam.transform.position = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y - 0.05f, MainCam.transform.position.z);
                     SceneControl.GetComponent<playerEQ>().firstTry = false;
                     tutorial.SetActive(true);
@@ -206,12 +206,17 @@ public class GameUI : MonoBehaviour
                 }
             }
 
+            // Move to next window when current is fully cleaned (but not during jumpscare on Windows[3])
             if (GameRoot.GetComponent<GameLoad>().loaded && currentWindow.clearingProgress == 1f)
             {
                 currentWindow.isCleaned = true;
+                // Don't call MoveToNextLvl if we're on Windows[3] during firstTry (jumpscare handles it)
+                if (!(currentWindow == Windows[3] && SceneControl.GetComponent<playerEQ>().firstTry))
+                {
+                    MoveToNextLvl();
+                }
             }
         }
-
 
     }
 
@@ -247,11 +252,10 @@ public class GameUI : MonoBehaviour
         if (windowNumber >= 3 && currentWindow.firstTry)
         {
             currentWindow.firstTry = false;
-            GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry = false;
             windowNumber = 0;
             Debug.Log($"First try, moving to next level. windowNumber: {windowNumber}");
         }
-        else if (windowNumber == 3 && !currentWindow.firstTry)
+        else if (windowNumber >= 3 && !currentWindow.firstTry)
         {
             Debug.Log("returning");
             return;
