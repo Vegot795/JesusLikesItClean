@@ -362,7 +362,7 @@ public class WindowScript : MonoBehaviour
         centerCell.cellY = centerY;
         coreCells.Add(centerCell);
 
-        float radius = 5f;
+        float radius = 10f;
         for (int i = 0; i < 2; i++)
         {
             float angle = Random.Range(0f, 2f * Mathf.PI);
