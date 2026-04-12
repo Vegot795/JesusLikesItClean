@@ -460,7 +460,7 @@ public class WindowScript : MonoBehaviour
     {
         if (totalCells <= 0)
         {
-            clearingProgress = (stainedCells.Count == 0) ? 1f : 0f;
+            clearingProgress = 0f;  // Uninitialized = 0%, not 100%
             return;
         }
 

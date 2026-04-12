@@ -206,8 +206,8 @@ public class GameUI : MonoBehaviour
                 }
             }
 
-            // Move to next window when current is fully cleaned (but not during jumpscare on Windows[3])
-            if (GameRoot.GetComponent<GameLoad>().loaded && currentWindow.clearingProgress == 1f)
+            // Move to next window when current is fully cleaned for the first time
+            if (GameRoot.GetComponent<GameLoad>().loaded && currentWindow.clearingProgress == 1f && !currentWindow.isCleaned)
             {
                 currentWindow.isCleaned = true;
                 // Don't call MoveToNextLvl if we're on Windows[3] during firstTry (jumpscare handles it)
