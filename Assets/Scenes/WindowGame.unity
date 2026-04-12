@@ -2851,11 +2851,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 855282039}
   - {fileID: 799517337}
   - {fileID: 243528771}
   - {fileID: 469312495}
   - {fileID: 576485677}
+  - {fileID: 855282039}
   m_Father: {fileID: 886115915}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3638,7 +3638,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430665614}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35e975b5a189a214a8b9890a9aa070ff, type: 3}
   m_Name: 
@@ -3646,6 +3646,7 @@ MonoBehaviour:
   cursorUI: {fileID: 855282039}
   CursorAnimator: {fileID: 855282040}
   holdThreshold: 0.5
+  defaultCursor: {fileID: 0}
 --- !u!1 &1568783737
 GameObject:
   m_ObjectHideFlags: 0
@@ -4334,7 +4335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1988720535920795443, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1988720535920795443, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -5085,11 +5086,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1988720535920795443, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.00055
       objectReference: {fileID: 0}
     - target: {fileID: 1988720535920795443, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.05
+      value: -0.00236
       objectReference: {fileID: 0}
     - target: {fileID: 1988720535920795443, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -5155,6 +5156,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 823816866859856203, guid: 240d2f05c60e6bc46bebd1deac119a56, type: 3}
+    - target: {fileID: 4229864600860984385, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4445484648647759388, guid: f2c6642556f1db54aa852199514ebab4, type: 3}
       propertyPath: m_Controller
       value: 
