@@ -14,6 +14,7 @@ public class shopScript : MonoBehaviour
 
     [SerializeField] private ShopData[] shopUPG;
 
+    private TextMeshProUGUI hajs;
     private TextMeshProUGUI costClothEF;
     private TextMeshProUGUI costClotchSI;
     private TextMeshProUGUI costSprinkleEF;
@@ -28,6 +29,7 @@ public class shopScript : MonoBehaviour
     private void Start()
     {
         playerEQ pEqLvl = GameObject.Find("SceneControl").GetComponent<playerEQ>();
+        pEqLvl.points = (int)pEqLvl.points;
 
         clothEffLvl = pEqLvl.clothLvlEf;
         clothSizeLvl = pEqLvl.clothLvlSi;
@@ -36,6 +38,7 @@ public class shopScript : MonoBehaviour
         shopCloth = GameObject.Find("cloth");
         shopSprinkle = GameObject.Find("sprinkle");
 
+        hajs = GameObject.Find("hajs").GetComponent<TextMeshProUGUI>();
         lvlClothEF = GameObject.Find("Text1").GetComponent<TextMeshProUGUI>();
         costClothEF = GameObject.Find("Text2").GetComponent<TextMeshProUGUI>();
         lvlClotchSI = GameObject.Find("Text3").GetComponent<TextMeshProUGUI>();
@@ -45,14 +48,15 @@ public class shopScript : MonoBehaviour
         lvlSprinkleSI = GameObject.Find("Text7").GetComponent<TextMeshProUGUI>();
         costSprinkleSI = GameObject.Find("Text8").GetComponent<TextMeshProUGUI>();
 
-        lvlClothEF.text = "Level: " + (clothEffLvl+1);
-        costClothEF.text = "Cost: " + (shopUPG[0].upgradeCost[clothEffLvl]);
-        lvlClotchSI.text = "Level: " + (clothSizeLvl+1);
-        costClotchSI.text = "Cost: " + (shopUPG[1].upgradeCost[clothSizeLvl]);
-        lvlSprinkleEF.text = "Level: " + (sprinkleEffLvl+1);
-        costSprinkleEF.text = "Cost: " + (shopUPG[2].upgradeCost[sprinkleEffLvl]);
-        lvlSprinkleSI.text = "Level: " + (sprinkleSizeLvl + 1);
-        costSprinkleSI.text = "Cost: " + (shopUPG[3].upgradeCost[sprinkleSizeLvl]);
+        hajs.text = "" + (int)pEqLvl.points;
+        lvlClothEF.text = "" + (clothEffLvl+1);
+        costClothEF.text = "" + (shopUPG[0].upgradeCost[clothEffLvl]);
+        lvlClotchSI.text = "" + (clothSizeLvl+1);
+        costClotchSI.text = "" + (shopUPG[1].upgradeCost[clothSizeLvl]);
+        lvlSprinkleEF.text = "" + (sprinkleEffLvl+1);
+        costSprinkleEF.text = "" + (shopUPG[2].upgradeCost[sprinkleEffLvl]);
+        lvlSprinkleSI.text = "" + (sprinkleSizeLvl + 1);
+        costSprinkleSI.text = "" + (shopUPG[3].upgradeCost[sprinkleSizeLvl]);
 
 
     }
@@ -89,8 +93,8 @@ public class shopScript : MonoBehaviour
                 pEqLvl.clothLvlEf++;
                 pEqLvl.clotchEfficience = (int)shopUPG[opcja].upgradeValue[pEqLvl.clothLvlEf];
                 clothEffLvl = pEqLvl.clothLvlEf;
-                lvlClothEF.text = "Level: " + (clothEffLvl + 1);
-                costClothEF.text = "Cost: " + (shopUPG[0].upgradeCost[clothEffLvl]);
+                lvlClothEF.text = "" + (clothEffLvl + 1);
+                costClothEF.text = "" + (shopUPG[0].upgradeCost[clothEffLvl]);
                 UpdateClothSpriteWithLvl(clothEffLvl);
             }
         }
@@ -102,8 +106,8 @@ public class shopScript : MonoBehaviour
                 pEqLvl.clothLvlSi++;
                 pEqLvl.clotchSize = (float)shopUPG[opcja].upgradeValue[pEqLvl.clothLvlSi];
                 clothSizeLvl = pEqLvl.clothLvlSi;
-                lvlClotchSI.text = "Level: " + (clothSizeLvl + 1);
-                costClotchSI.text = "Cost: " + (shopUPG[1].upgradeCost[clothSizeLvl]);
+                lvlClotchSI.text = "" + (clothSizeLvl + 1);
+                costClotchSI.text = "" + (shopUPG[1].upgradeCost[clothSizeLvl]);
             }
         }
         else if (opcja == 2)
@@ -114,8 +118,8 @@ public class shopScript : MonoBehaviour
                 pEqLvl.sprinkleLvlEf++;
                 pEqLvl.sprinkleEfficience = (float)shopUPG[opcja].upgradeValue[pEqLvl.sprinkleLvlEf];
                 sprinkleEffLvl = pEqLvl.sprinkleLvlEf;
-                lvlSprinkleEF.text = "Level: " + (sprinkleEffLvl + 1);
-                costSprinkleEF.text = "Cost: " + (shopUPG[2].upgradeCost[sprinkleEffLvl]);
+                lvlSprinkleEF.text = "" + (sprinkleEffLvl + 1);
+                costSprinkleEF.text = "" + (shopUPG[2].upgradeCost[sprinkleEffLvl]);
                 UpdateSprinkleSpriteWithLvl(sprinkleEffLvl);
             }
         }
@@ -127,10 +131,11 @@ public class shopScript : MonoBehaviour
                 pEqLvl.sprinkleLvlSi++;
                 pEqLvl.sprinkleSize = (float)shopUPG[opcja].upgradeValue[pEqLvl.sprinkleLvlSi];
                 sprinkleSizeLvl = pEqLvl.sprinkleLvlSi;
-                lvlSprinkleSI.text = "Level: " + (sprinkleSizeLvl + 1);
-                costSprinkleSI.text = "Cost: " + (shopUPG[3].upgradeCost[sprinkleSizeLvl]);
+                lvlSprinkleSI.text = "" + (sprinkleSizeLvl + 1);
+                costSprinkleSI.text = "" + (shopUPG[3].upgradeCost[sprinkleSizeLvl]);
             }
         }
+        hajs.text = "" + (int)pEqLvl.points;
     }
 
     private void UpdateClothSpriteWithLvl(int lvl)

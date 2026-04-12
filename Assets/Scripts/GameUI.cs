@@ -214,6 +214,7 @@ public class GameUI : MonoBehaviour
 
     public void LoadScene(int scena) // #0 menu startowe, #1 gra, #2 sklep
     {
+        //Cursor.visible = true;
         SceneManager.LoadScene(scena);
     }
 
