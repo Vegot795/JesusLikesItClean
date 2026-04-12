@@ -1682,7 +1682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8424642992146229833, guid: 5693843291e58414f9b0e2100550d267, type: 3}
       propertyPath: conversionLosePower
-      value: 0.025
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3837,7 +3837,7 @@ MonoBehaviour:
   sprinkleLvlSi: 0
   sprinkleSize: 2
   sprinkWater: {fileID: 2458082824443080465, guid: 592cf5fa8d9b0fb409e7dc9cae4bf418, type: 3}
-  firstTry: 0
+  firstTry: 1
   time: 0
   clothSprites:
   - {fileID: -5516319791273444030, guid: 695d039427b71894abe4907bdbddc343, type: 3}

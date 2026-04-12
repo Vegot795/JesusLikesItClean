@@ -170,7 +170,7 @@ public class GameUI : MonoBehaviour
                 GameObject.Find("SceneControl").GetComponent<playerEQ>().time = timer;
             }
 
-            if (GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == false && GameObject.Find("Game").GetComponent<GameLoad>().loaded && !tak && GameObject.Find("SceneControl").GetComponent<playerEQ>().time > 10)
+            if (GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry == false && GameObject.Find("Game").GetComponent<GameLoad>().loaded && !tak && GameObject.Find("SceneControl").GetComponent<playerEQ>().time > 2)
             {
                 holyBar.GetComponent<HolyPower>().ShowBar();
                 holyBar.GetComponent<HolyPower>().working = true;
