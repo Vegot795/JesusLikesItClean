@@ -1681,8 +1681,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8424642992146229833, guid: 5693843291e58414f9b0e2100550d267, type: 3}
+      propertyPath: holyPowerPoints
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424642992146229833, guid: 5693843291e58414f9b0e2100550d267, type: 3}
+      propertyPath: conversionPoints
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424642992146229833, guid: 5693843291e58414f9b0e2100550d267, type: 3}
       propertyPath: conversionLosePower
-      value: 0.1
+      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3828,17 +3836,17 @@ MonoBehaviour:
   points: 0
   cloth: {fileID: 2051028038}
   clothLvlEf: 0
-  clotchEfficience: 10
+  clotchEfficience: 50
   clothLvlSi: 0
-  clotchSize: 1
+  clotchSize: 1.8
   sprinkle: {fileID: 109317847}
   sprinkleLvlEf: 0
-  sprinkleEfficience: 0.15
+  sprinkleEfficience: 0.5
   sprinkleLvlSi: 0
-  sprinkleSize: 2
+  sprinkleSize: 5
   sprinkWater: {fileID: 2458082824443080465, guid: 592cf5fa8d9b0fb409e7dc9cae4bf418, type: 3}
-  firstTry: 0
-  time: 0
+  firstTry: 1
+  time: 213
   clothSprites:
   - {fileID: -5516319791273444030, guid: 695d039427b71894abe4907bdbddc343, type: 3}
   - {fileID: 8744786678906643963, guid: 6293c988914d46142bbfc7cecee58c07, type: 3}
@@ -5470,7 +5478,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 6921648737376624628, guid: 36b33e840569699419bbb93f870c4cf8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

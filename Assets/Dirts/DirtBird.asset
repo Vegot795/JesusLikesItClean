@@ -17,4 +17,4 @@ MonoBehaviour:
   maxAlpha: 1
   dirtPrefab: {fileID: 498710773794092272, guid: 8d9a6db6db38b6544888d875be4008d5, type: 3}
   durability: 50
-  points: 10
+  points: 30

@@ -52,6 +52,6 @@ public class HolyPower : MonoBehaviour
 
     public void AddHolyPower(float points)
     {
-        holyPowerPoints += points * (conversionPoints * lvl);
+        holyPowerPoints += points * (conversionPoints);
     }
 }
