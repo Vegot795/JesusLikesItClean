@@ -13,21 +13,35 @@ public class GameUI : MonoBehaviour
     public GameObject NextLvlBut;
     public WindowScript currentWindow;
     public Camera MainCam;
+
+    [Header("Tools")]
     public GameObject cloth;
     public GameObject sprinkle;
+
+    [Header("UI")]
     public GameObject clothSlot;
     public GameObject sprinkleSlot;
     public GameObject Tools;
     public GameObject Inventory;
-    public Sprite _wallSprite;
-    public Sprite _starSprite;
+
+    [Header("Scene Objects")]
     public CutsceneManager cutsceneManager;
-    public bool isCameraMoving = false;
     public GameObject GameRoot;
     public GameObject SceneControl;
     public GameObject Sciana4;
     public GameObject Decorations4;
     public GameObject tooltip;
+    public GameObject tutorial;
+    public GameObject loading;
+    public GameObject holyBar;
+
+    [Header("Assets")]
+    public Sprite _wallSprite;
+    public Sprite _starSprite;
+    public AudioClip _startAudio;
+    public AudioClip _midAudio;
+
+    public bool isCameraMoving = false;
 
     private int windowNumber = 3;
     private Vector3 CurrentCamPos;
@@ -40,14 +54,13 @@ public class GameUI : MonoBehaviour
 
     private GameObject glass1;
     public bool isShop = false;
-    public GameObject tutorial;
-    public GameObject loading;
-    public GameObject holyBar;
 
     private float timer = -1;
 
     private bool tak = true;
     private bool introPlayed = false;
+
+    private static AudioSource musicSource;
 
     void Start()
     {
@@ -140,11 +153,17 @@ public class GameUI : MonoBehaviour
                 MoveToNextLvl();
 
             }
-            tooltip.SetActive(true);
+            if (playerEQ.instance != null && playerEQ.instance.firstTry)
+            {
+                tooltip.SetActive(true);
+            }
+
+            // Inicjalizacja i odtwarzanie muzyki
+            StartCoroutine(DelayInitializeAndPlayMusic(1f));
 
             StartCoroutine(PlayIntroAfterLoad());
 
-            StartCoroutine(DelayCloseTooltip(5f));
+            
         }
     }
 
@@ -164,7 +183,8 @@ public class GameUI : MonoBehaviour
         if (!introPlayed && playerEq != null && playerEq.firstTry)
         {
             introPlayed = true;
-            //cutsceneManager.PlayIntro();
+            cutsceneManager.player.OnCutsceneFinished += OnIntroCutsceneFinished;
+            cutsceneManager.PlayIntro();
         }
     }
     public void Update()
@@ -204,11 +224,10 @@ public class GameUI : MonoBehaviour
                 if (currentWindow.clearingProgress >= 0.5f && currentWindow.firstTry)
                 {
                     glass1.SetActive(true);
-                    //currentWindow.JumpScare();
                     
                     // Subscribe to event before playing cutscene
-                    //cutsceneManager.player.OnCutsceneFinished += OnMidCutsceneFinished;
-                    //cutsceneManager.PlayMid();
+                    cutsceneManager.player.OnCutsceneFinished += OnMidCutsceneFinished;
+                    cutsceneManager.PlayMid();
                     
                     MoveToNextLvl();
                     tutorial.SetActive(true);
@@ -266,28 +285,27 @@ public class GameUI : MonoBehaviour
             currentWindow.firstTry = false;
             GameObject.Find("SceneControl").GetComponent<playerEQ>().firstTry = false;
             windowNumber = 0;
-            Debug.Log($"First try, moving to next level. windowNumber: {windowNumber}");
+            //Debug.Log($"First try, moving to next level. windowNumber: {windowNumber}");
         }
         else if (windowNumber == 3 && !currentWindow.firstTry)
         {
-            Debug.Log("returning");
+            //Debug.Log("returning");
 
             return; 
         }
         else
         {
             windowNumber++;
-            Debug.Log($"Moving to next level. windowNumber: {windowNumber}");
+            //Debug.Log($"Moving to next level. windowNumber: {windowNumber}");
         }
 
         currentWindow = Windows[windowNumber];
-        Debug.Log($"Current window: {currentWindow.gameObject.name}, current camera: {MainCam.name}, firstTry: {currentWindow.firstTry}");
-
+        //Debug.Log($"Current window: {currentWindow.gameObject.name}, current camera: {MainCam.name}, firstTry: {currentWindow.firstTry}");
         if (MainCam != null && currentWindow != null)
         {
             targetCamPos = new Vector3(currentWindow.transform.position.x, currentWindow.transform.position.y - 0.05f, MainCam.transform.position.z);
             isCameraMoving = true;
-            Debug.Log($"Moving camera to {currentWindow.gameObject.name} at position {targetCamPos}");
+            //Debug.Log($"Moving camera to {currentWindow.gameObject.name} at position {targetCamPos}");
         }
         else
         {
@@ -312,9 +330,6 @@ public class GameUI : MonoBehaviour
         window.SpawnBloodOnWindow();
         window.SpawnDirtOnWindows();
         GameObject.Find("Glass4").SetActive(false);
-
-        Debug.Log("Cleanup after jumpscare completed.");
-
     }
 
     private IEnumerator DelayCloseTooltip(float delay)
@@ -337,7 +352,7 @@ public class GameUI : MonoBehaviour
 
     private void OnMidCutsceneFinished()
     {
-        //cutsceneManager.player.OnCutsceneFinished -= OnMidCutsceneFinished;
+        cutsceneManager.player.OnCutsceneFinished -= OnMidCutsceneFinished;
         
         if (Sciana4 != null && Decorations4 != null)
         {
@@ -345,11 +360,51 @@ public class GameUI : MonoBehaviour
             Sciana4.GetComponent<Animator>().enabled = true;
             Sciana4.GetComponent<Animator>().Play("SkyAnimation");
             Decorations4.SetActive(true);
-            Debug.Log("Mid cutscene finished, scene transformation completed.");
+            InitializeAndPlayMusic();
         }
         else
         {
             Debug.LogError("Sciana4 or Decorations4 reference is missing!");
+        }
+    }
+
+    private void OnIntroCutsceneFinished()
+    {
+        cutsceneManager.player.OnCutsceneFinished -= OnIntroCutsceneFinished;
+
+        StartCoroutine(DelayCloseTooltip(5f));
+    }
+
+    private IEnumerator DelayInitializeAndPlayMusic(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        InitializeAndPlayMusic();
+    }
+
+    private void InitializeAndPlayMusic()
+    {
+        if (musicSource == null)
+        {
+            musicSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        if (playerEQ.instance != null && playerEQ.instance.firstTry && _startAudio != null)
+        {
+            musicSource.clip = _startAudio;
+            musicSource.loop = true;
+            musicSource.Play();
+            Debug.Log("Playing start audio.");
+        }
+        else if (!playerEQ.instance.firstTry && _midAudio != null)
+        {
+            musicSource.clip = _midAudio;
+            musicSource.loop = true;
+            musicSource.Play();
+            Debug.Log("Playing mid audio.");
+        }
+        else
+        {
+            Debug.LogError("Audio clip reference is missing or playerEQ instance is not initialized!");
         }
     }
 }
