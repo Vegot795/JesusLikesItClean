@@ -19,8 +19,8 @@ public class clothScript : MonoBehaviour
         gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         transform.position = GameObject.Find("clothSlot").transform.position;
         offset.z = -10f; 
-        efficience = playerEQ.clotchEfficience;
-        size = playerEQ.clotchSize;
+        efficience = playerEQ.clothEfficience;
+        size = playerEQ.clothSize;
         gameObject.GetComponent<SpriteRenderer>().sprite = playerEQ.clothSprites[playerEQ.clothLvlEf];
 
         originalScale = transform.localScale;

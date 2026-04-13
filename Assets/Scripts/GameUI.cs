@@ -156,7 +156,7 @@ public class GameUI : MonoBehaviour
         if (!introPlayed && playerEq != null && playerEq.firstTry)
         {
             introPlayed = true;
-            cutsceneManager.PlayIntro();
+            //cutsceneManager.PlayIntro();
         }
     }
     public void Update()
@@ -199,8 +199,8 @@ public class GameUI : MonoBehaviour
                     //currentWindow.JumpScare();
                     
                     // Subscribe to event before playing cutscene
-                    cutsceneManager.player.OnCutsceneFinished += OnMidCutsceneFinished;
-                    cutsceneManager.PlayMid();
+                    //cutsceneManager.player.OnCutsceneFinished += OnMidCutsceneFinished;
+                    //cutsceneManager.PlayMid();
                     
                     MoveToNextLvl();
                     tutorial.SetActive(true);
@@ -324,7 +324,7 @@ public class GameUI : MonoBehaviour
 
     private void OnMidCutsceneFinished()
     {
-        cutsceneManager.player.OnCutsceneFinished -= OnMidCutsceneFinished;
+        //cutsceneManager.player.OnCutsceneFinished -= OnMidCutsceneFinished;
         
         if (Sciana4 != null && Decorations4 != null)
         {

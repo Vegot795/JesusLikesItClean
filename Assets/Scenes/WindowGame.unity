@@ -3838,12 +3838,12 @@ MonoBehaviour:
   clothLvlEf: 0
   clotchEfficience: 50
   clothLvlSi: 0
-  clotchSize: 1.8
+  clotchSize: 1
   sprinkle: {fileID: 109317847}
   sprinkleLvlEf: 0
   sprinkleEfficience: 0.5
   sprinkleLvlSi: 0
-  sprinkleSize: 5
+  sprinkleSize: 2
   sprinkWater: {fileID: 2458082824443080465, guid: 592cf5fa8d9b0fb409e7dc9cae4bf418, type: 3}
   firstTry: 1
   time: 213
@@ -3855,6 +3855,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b46400ae6d08e494b907be932033f44f, type: 3}
   - {fileID: 6890317391655332655, guid: 50714e82ffd3c8c44a738ec2dd90e75b, type: 3}
   - {fileID: -930098413709132036, guid: 8afe30b7e61177e4f9e265c1fb6b12fd, type: 3}
+  shopUPG:
+  - {fileID: 11400000, guid: b44a35114dbbbdc44abe20c5bcbabb86, type: 2}
+  - {fileID: 11400000, guid: ab4d0ea80d5d4874690f6a9ffdcf843e, type: 2}
+  - {fileID: 11400000, guid: 888d343bd3804c34e90ce02f5d1b54f1, type: 2}
+  - {fileID: 11400000, guid: 37c8733d1ac8ab447ae999769b87e689, type: 2}
 --- !u!224 &1540155148 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8764177002088070375, guid: 765915277a066ac40999e68c89337e94, type: 3}

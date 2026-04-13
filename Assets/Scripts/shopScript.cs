@@ -12,7 +12,7 @@ public class shopScript : MonoBehaviour
     public GameObject shopSprinkle;
     public GameObject shopCloth;
 
-    [SerializeField] private ShopData[] shopUPG;
+
 
     private TextMeshProUGUI hajs;
     private TextMeshProUGUI costClothEF;
@@ -50,13 +50,13 @@ public class shopScript : MonoBehaviour
 
         hajs.text = "" + (int)pEqLvl.points;
         lvlClothEF.text = "" + (clothEffLvl+1);
-        costClothEF.text = "" + (shopUPG[0].upgradeCost[clothEffLvl]);
+        costClothEF.text = "" + (pEqLvl.shopUPG[0].upgradeCost[clothEffLvl]);
         lvlClotchSI.text = "" + (clothSizeLvl+1);
-        costClotchSI.text = "" + (shopUPG[1].upgradeCost[clothSizeLvl]);
+        costClotchSI.text = "" + (pEqLvl.shopUPG[1].upgradeCost[clothSizeLvl]);
         lvlSprinkleEF.text = "" + (sprinkleEffLvl+1);
-        costSprinkleEF.text = "" + (shopUPG[2].upgradeCost[sprinkleEffLvl]);
+        costSprinkleEF.text = "" + (pEqLvl.shopUPG[2].upgradeCost[sprinkleEffLvl]);
         lvlSprinkleSI.text = "" + (sprinkleSizeLvl + 1);
-        costSprinkleSI.text = "" + (shopUPG[3].upgradeCost[sprinkleSizeLvl]);
+        costSprinkleSI.text = "" + (pEqLvl.shopUPG[3].upgradeCost[sprinkleSizeLvl]);
 
 
     }
@@ -87,52 +87,52 @@ public class shopScript : MonoBehaviour
 
         if (opcja == 0)
         {
-            if (clothEffLvl + 1 < shopUPG[opcja].upgradeValue.Count && pEqLvl.points >= shopUPG[opcja].upgradeCost[(int)(clothEffLvl + 1)])
+            if (clothEffLvl + 1 < pEqLvl.shopUPG[opcja].upgradeValue.Count && pEqLvl.points >= pEqLvl.shopUPG[opcja].upgradeCost[(int)(clothEffLvl + 1)])
             {
-                pEqLvl.points -= shopUPG[opcja].upgradeCost[pEqLvl.clothLvlEf + 1];
+                pEqLvl.points -= pEqLvl.shopUPG[opcja].upgradeCost[pEqLvl.clothLvlEf + 1];
                 pEqLvl.clothLvlEf++;
-                pEqLvl.clotchEfficience = (int)shopUPG[opcja].upgradeValue[pEqLvl.clothLvlEf];
+                pEqLvl.clothEfficience = (int)pEqLvl.shopUPG[opcja].upgradeValue[pEqLvl.clothLvlEf];
                 clothEffLvl = pEqLvl.clothLvlEf;
                 lvlClothEF.text = "" + (clothEffLvl + 1);
-                costClothEF.text = "" + (shopUPG[0].upgradeCost[clothEffLvl]);
+                costClothEF.text = "" + (pEqLvl.shopUPG[0].upgradeCost[clothEffLvl]);
                 UpdateClothSpriteWithLvl(clothEffLvl);
             }
         }
         else if (opcja == 1)
         {
-            if (clothSizeLvl + 1 < shopUPG[opcja].upgradeValue.Count && pEqLvl.points >= shopUPG[opcja].upgradeCost[(int)(clothSizeLvl + 1)] )
+            if (clothSizeLvl + 1 < pEqLvl.shopUPG[opcja].upgradeValue.Count && pEqLvl.points >= pEqLvl.shopUPG[opcja].upgradeCost[(int)(clothSizeLvl + 1)] )
             {
-                pEqLvl.points -= shopUPG[opcja].upgradeCost[pEqLvl.clothLvlSi + 1];
+                pEqLvl.points -= pEqLvl.shopUPG[opcja].upgradeCost[pEqLvl.clothLvlSi + 1];
                 pEqLvl.clothLvlSi++;
-                pEqLvl.clotchSize = (float)shopUPG[opcja].upgradeValue[pEqLvl.clothLvlSi];
+                pEqLvl.clothSize = (float)pEqLvl.shopUPG[opcja].upgradeValue[pEqLvl.clothLvlSi];
                 clothSizeLvl = pEqLvl.clothLvlSi;
                 lvlClotchSI.text = "" + (clothSizeLvl + 1);
-                costClotchSI.text = "" + (shopUPG[1].upgradeCost[clothSizeLvl]);
+                costClotchSI.text = "" + (pEqLvl.shopUPG[1].upgradeCost[clothSizeLvl]);
             }
         }
         else if (opcja == 2)
         {
-            if (sprinkleEffLvl + 1 < shopUPG[opcja].upgradeValue.Count && pEqLvl.points >= shopUPG[opcja].upgradeCost[(int)(sprinkleEffLvl + 1)] )
+            if (sprinkleEffLvl + 1 < pEqLvl.shopUPG[opcja].upgradeValue.Count && pEqLvl.points >= pEqLvl.shopUPG[opcja].upgradeCost[(int)(sprinkleEffLvl + 1)] )
             {
-                pEqLvl.points -= shopUPG[opcja].upgradeCost[pEqLvl.sprinkleLvlEf + 1];
+                pEqLvl.points -= pEqLvl.shopUPG[opcja].upgradeCost[pEqLvl.sprinkleLvlEf + 1];
                 pEqLvl.sprinkleLvlEf++;
-                pEqLvl.sprinkleEfficience = (float)shopUPG[opcja].upgradeValue[pEqLvl.sprinkleLvlEf];
+                pEqLvl.sprinkleEfficience = (float)pEqLvl.shopUPG[opcja].upgradeValue[pEqLvl.sprinkleLvlEf];
                 sprinkleEffLvl = pEqLvl.sprinkleLvlEf;
                 lvlSprinkleEF.text = "" + (sprinkleEffLvl + 1);
-                costSprinkleEF.text = "" + (shopUPG[2].upgradeCost[sprinkleEffLvl]);
+                costSprinkleEF.text = "" + (pEqLvl.shopUPG[2].upgradeCost[sprinkleEffLvl]);
                 UpdateSprinkleSpriteWithLvl(sprinkleEffLvl);
             }
         }
         else if (opcja == 3)
         {
-            if ( sprinkleSizeLvl + 1 < shopUPG[opcja].upgradeValue.Count && pEqLvl.points >= shopUPG[opcja].upgradeCost[(int)(sprinkleSizeLvl + 1)] )
+            if ( sprinkleSizeLvl + 1 < pEqLvl.shopUPG[opcja].upgradeValue.Count && pEqLvl.points >= pEqLvl.shopUPG[opcja].upgradeCost[(int)(sprinkleSizeLvl + 1)] )
             {
-                pEqLvl.points -= shopUPG[opcja].upgradeCost[pEqLvl.sprinkleLvlSi + 1];
+                pEqLvl.points -= pEqLvl.shopUPG[opcja].upgradeCost[pEqLvl.sprinkleLvlSi + 1];
                 pEqLvl.sprinkleLvlSi++;
-                pEqLvl.sprinkleSize = (float)shopUPG[opcja].upgradeValue[pEqLvl.sprinkleLvlSi];
+                pEqLvl.sprinkleSize = (float)pEqLvl.shopUPG[opcja].upgradeValue[pEqLvl.sprinkleLvlSi];
                 sprinkleSizeLvl = pEqLvl.sprinkleLvlSi;
                 lvlSprinkleSI.text = "" + (sprinkleSizeLvl + 1);
-                costSprinkleSI.text = "" + (shopUPG[3].upgradeCost[sprinkleSizeLvl]);
+                costSprinkleSI.text = "" + (pEqLvl.shopUPG[3].upgradeCost[sprinkleSizeLvl]);
             }
         }
         hajs.text = "" + (int)pEqLvl.points;

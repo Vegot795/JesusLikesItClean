@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: SprinkleSize
   upgradeValue:
-  - 2
-  - 3
-  - 4
-  - 5
-  upgradeCost: d5000000a401000020030000e8030000
+  - 1.5
+  - 1.9
+  - 2.3
+  - 2.7
+  - 3.1
+  upgradeCost: 900100005802000020030000e8030000b0040000
