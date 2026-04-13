@@ -325,7 +325,6 @@ public class GameUI : MonoBehaviour
         WindowScript window = Windows[3];
 
         window.ResetGrid();
-        Destroy(window.Jessy);
         window.WindowLvl = 4;
         window.SpawnBloodOnWindow();
         window.SpawnDirtOnWindows();

@@ -33,9 +33,6 @@ public class WindowScript : MonoBehaviour
     public Sprite windowSprite;
     public DirtData[] dirtTypes;
     public List<GameObject> stainedCells = new List<GameObject>();
-    public GameObject JesusScare;
-    public Vector2 JesusScareOffset;
-    public GameObject Jessy;
 
     private int yes;
 
@@ -75,7 +72,6 @@ public class WindowScript : MonoBehaviour
         grid = new DirtCell[columns, rows];
 
         SpawnDirtOnWindows();
-        JesusScareOffset = new Vector2(JesusScare.GetComponent<SpriteRenderer>().bounds.size.x / 2, 0f);
     }
 
     private IEnumerator DelayStart()
@@ -439,21 +435,6 @@ public class WindowScript : MonoBehaviour
             }
         }
         return cells;
-    }
-
-    public void JumpScare()
-    {
-        Vector3 leftEdgeCenter = new Vector3(bounds.min.x, bounds.center.y, 0f);
-        Vector3 spawnPosition = leftEdgeCenter + new Vector3(JesusScareOffset.x, JesusScareOffset.y, 0f);
-        if (JesusScare != null)
-        {
-            JesusScare.transform.localScale = new Vector3(0.25f, 0.25f, 1f);
-            Jessy = Instantiate(JesusScare, spawnPosition, Quaternion.identity);
-        }
-        else
-        {
-            return;
-        }
     }
 
     public void CountProgress()
