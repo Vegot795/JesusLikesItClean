@@ -27,6 +27,7 @@ public class GameUI : MonoBehaviour
     public GameObject SceneControl;
     public GameObject Sciana4;
     public GameObject Decorations4;
+    public GameObject tooltip;
 
     private int windowNumber = 3;
     private Vector3 CurrentCamPos;
@@ -86,6 +87,10 @@ public class GameUI : MonoBehaviour
             {
                 SceneControl = GameObject.Find("SceneControl");
             }
+            if (GameObject.Find("Tooltip") != null)
+            {
+                tooltip = GameObject.Find("Tooltip");
+            }
             isCameraMoving = true;
 
             // Znajdź wszystkie obiekty WindowScript i posortuj je według numeru na końcu nazwy
@@ -135,8 +140,11 @@ public class GameUI : MonoBehaviour
                 MoveToNextLvl();
 
             }
+            tooltip.SetActive(true);
 
             StartCoroutine(PlayIntroAfterLoad());
+
+            StartCoroutine(DelayCloseTooltip(5f));
         }
     }
 
@@ -288,11 +296,6 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    private void CharacterDeath()
-    {
-
-    }
-
     private IEnumerator DelayedCleanupAfterJumpscare(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -312,6 +315,16 @@ public class GameUI : MonoBehaviour
 
         Debug.Log("Cleanup after jumpscare completed.");
 
+    }
+
+    private IEnumerator DelayCloseTooltip(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (tooltip != null)
+        {
+            tooltip.SetActive(false);
+        }
     }
 
     public void Hide(GameObject obj)
