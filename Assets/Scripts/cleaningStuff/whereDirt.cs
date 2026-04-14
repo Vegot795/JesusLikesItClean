@@ -1,55 +1,90 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class whereDirt : MonoBehaviour
 {
     private GameObject magicEye;
     private GameUI gameUI;
+    private playerEQ _playerEQ;
 
     public WindowScript[] windows;
 
-    public SpriteRenderer spriteRenderer;
+    public Image image;
+    public GameObject previewCellPrefab;
+    public List<GameObject> previewCells = new List<GameObject>();
+    public GameObject previewCell;
+
+    private float cellX;
+    private float cellY;
+
+    private bool isButtonHeld = false;
 
     void Start()
     {
+        image = gameObject.GetComponent<Image>();
+        _playerEQ = GameObject.Find("SceneControl").GetComponent<playerEQ>();
         gameUI = GameObject.Find("UI").GetComponent<GameUI>();
         magicEye = GameObject.Find("whereDirt");
-        spriteRenderer.enabled = false;
+        image.enabled = false;
     }
 
     void Update()
     {
         int lvl = GameObject.Find("Game").GetComponent<GameLoad>().licznik;
-        //Debug.Log(windows[lvl].clearingProgress);
-        if (windows[lvl].clearingProgress >= 0.9f)
+        if (_playerEQ.firstTry)
         {
-            spriteRenderer.enabled = true;
-            gameObject.GetComponent<CircleCollider2D>().enabled = true;
+            image.enabled = false;
         }
-        else if (windows[lvl].clearingProgress < 0.9f)
+        else
         {
-            spriteRenderer.enabled = false;
-            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            if (gameUI.currentWindow.clearingProgress >= 0.9f)
+            {
+                image.enabled = true;
+            }
+            else if (gameUI.currentWindow.clearingProgress < 0.9f)
+            {
+                image.enabled = false;
+            }
         }
-
     }
 
-    private void OnMouseDown()
+    public void SwitchDirtVision()
+    {
+        if (!isButtonHeld && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            isButtonHeld = true;
+            RevealDirt();
+        }
+        if (isButtonHeld && !Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            isButtonHeld = false;
+            HideDirt();
+        }
+    }
+
+    private void RevealDirt()
     { 
         foreach (GameObject cell in gameUI.currentWindow.stainedCells)
         {
-            SpriteRenderer sr = cell.GetComponent<SpriteRenderer>();
-            if (sr.color.a < .35f)
-                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
+            cellX = cell.transform.position.x;
+            cellY = cell.transform.position.y;
+
+            Vector3 spawnPosition = new Vector3(cellX, cellY, 0f);
+
+            previewCell = Instantiate(previewCellPrefab, spawnPosition, Quaternion.identity);
+            previewCell.transform.SetParent(gameObject.transform);
+            previewCells.Add(previewCell);
         }
     }
 
-    private void OnMouseUp()
+    private void HideDirt()
     {
-        foreach (GameObject cell in gameUI.currentWindow.stainedCells)
+        
+        foreach (GameObject cell in previewCells)
         {
-            SpriteRenderer sr = cell.GetComponent<SpriteRenderer>();
-            if (sr.color.a == 1f)
-                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.1f);
+            Destroy(cell);
         }
     }
 }
