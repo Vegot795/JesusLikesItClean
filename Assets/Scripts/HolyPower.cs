@@ -37,9 +37,10 @@ public class HolyPower : MonoBehaviour
             SceneManager.LoadScene(2);
             Debug.Log("przeglananananana");
         }
-        else if (holyPowerPoints >= 765)
+        else if (holyPowerPoints >= 765) // Zostaw tak ze wypierdala poza skale bo to takie smieszne 
         {
             Debug.Log("NIe zawiodles mnie Powstan Ponownie");
+            working = false;
         }
     }
 

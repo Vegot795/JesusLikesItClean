@@ -246,6 +246,7 @@ public class GameUI : MonoBehaviour
 
             if (Windows[3].isCleaned && currentWindow == Windows[3] && GameRoot.GetComponent<GameLoad>().loaded)
             {
+                GameObject.Find("HolyPower").GetComponent<HolyPower>().working = false;
                 cutsceneManager.PlayOutro();
             }
         }
